@@ -18,10 +18,10 @@
 import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
 import Icons from "views/Icons.js";
-import Typography from "views/Typography.js";
+import Login from "views/Login.js";
 import TableList from "views/TableList.js";
-import Maps from "views/Maps.js";
-import Upgrade from "views/Upgrade.js";
+import Signup from "views/Signup.js";
+// import Login from "views/Upgrade.js";
 import UserPage from "views/UserPage.js";
 
 var dashRoutes = [
@@ -37,13 +37,6 @@ var dashRoutes = [
     name: "Icons",
     icon: "design_image",
     component: Icons,
-    layout: "/admin",
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "location_map-big",
-    component: Maps,
     layout: "/admin",
   },
   {
@@ -68,19 +61,33 @@ var dashRoutes = [
     layout: "/admin",
   },
   {
-    path: "/typography",
-    name: "Typography",
-    icon: "design-2_ruler-pencil",
-    component: Typography,
+    path: "/signup",
+    name: "Signup",
+    icon: "location_map-big",
+    component: Signup,
     layout: "/admin",
   },
   {
-    pro: true,
-    path: "/upgrade",
-    name: "Upgrade to PRO",
-    icon: "objects_spaceship",
-    component: Upgrade,
+    path: "/login",
+    name: "Login",
+    icon: "design-2_ruler-pencil",
+    component: Login,
     layout: "/admin",
   },
+  // {
+  //   pro: true,
+  //   path: "/upgrade",
+  //   name: "Upgrade to PRO",
+  //   icon: "objects_spaceship",
+  //   component: Login,
+  //   layout: "/admin",
+  // },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   icon: "objects_spaceship",
+  //   component: Upgrade,
+  //   layout: "/admin"
+  // }
 ];
 export default dashRoutes;
