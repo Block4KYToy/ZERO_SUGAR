@@ -1,7 +1,7 @@
 
 import express from 'express'; 
 import cors from 'cors'
-import { getBlocks, getDifficultyLog } from './block.js';
+import { getBlocks, getDifficultyLog, getLatestBlock } from './block.js';
 import { connectToPeer, getPeers, broadcasting, mineBlock, autoMineBlock } from './p2pServer.js';
 import { getPublicKeyFromWallet } from './wallet.js';
 import nunjucks from 'nunjucks';
@@ -13,6 +13,9 @@ import {pool} from './db.js'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 let connectedIP;
+// const updateDB = (latestBlock) => {
+//     if (latestBlock)
+// }
 
 // 초기화 함수
 const initHttpServer = (myHttpPort) => {
@@ -36,7 +39,13 @@ const initHttpServer = (myHttpPort) => {
     })
 
     app.get('/blocks', async (req, res) => {
-        const [result] = await pool.query('SELECT * FROM signUp')
+        // const [result] = await pool.query('SELECT * FROM blocks')
+        // console.log(result)
+        res.send(getBlocks());
+        // res.send(getBlocks());
+    })
+    app.get('/getblocksfromdb', async (req, res) => {
+        const [result] = await pool.query('SELECT * FROM blocks')
         console.log(result)
         res.send(result);
         // res.send(getBlocks());
@@ -48,8 +57,12 @@ const initHttpServer = (myHttpPort) => {
     // })
 
 
-    app.post('/mineBlock', (req, res) => {
+    app.post('/mineBlock', async (req, res) => {
         mineBlock(req.body.data)
+        const newBlock = getLatestBlock()
+        const result = await pool.query(`INSERT INTO blocks VALUES (${newBlock.index},'${newBlock.data}',${newBlock.timestamp},'${newBlock.hash}','${newBlock.previousHash}',${newBlock.difficulty},${newBlock.nonce})`); //(`index`, data, timestamp, hash, previousHash, difficulty, nonce)
+        console.log('inserted to db : ', result)
+        
         res.redirect('/blocks');
     })
 

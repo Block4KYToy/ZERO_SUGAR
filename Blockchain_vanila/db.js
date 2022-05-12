@@ -9,19 +9,17 @@ const pool = mysql.createPool({
 
 // console.log(pool)
 
-async function select() {
-  try{
+// async function select() {
+//   try{
 
-    const sql = `SELECT * FROM blocks`
-    const result = await pool.query(`INSERT INTO blocks(index, data, timestamp, hash, previousHash, difficulty, nonce)VALUES('0','{fdssdf:fdsfd}','0','0','0','0','0')`)
+//     const sql = `SELECT * FROM blocks`
+//     const [result] = await pool.query(sql) // pool.query -> getConnection + query + release 전부다 가능함.(개사기)
+//     console.log(result)
+//   } catch(e) {
+//     console.log('에러?')
+//   }
+// }
 
-    // const [result] = await pool.query(sql) // pool.query -> getConnection + query + release 전부다 가능함.(개사기)
-    console.log(result)
-  } catch(e) {
-    console.log('에러?')
-  }
-}
-
-select()
+// select()
 
 export { pool }
