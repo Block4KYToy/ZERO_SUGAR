@@ -1,8 +1,8 @@
 
 import express from 'express'; 
 import cors from 'cors'
-import { getBlocks, createBlock, getDifficultyLog } from './block.js';
-import { connectToPeer, getPeers, broadcasting, mineBlock, autoMineBlock, endMining } from './p2pServer.js';
+import { getBlocks, getDifficultyLog } from './block.js';
+import { connectToPeer, getPeers, broadcasting, mineBlock, autoMineBlock } from './p2pServer.js';
 import { getPublicKeyFromWallet } from './wallet.js';
 import nunjucks from 'nunjucks';
 import path from 'path';
@@ -50,6 +50,7 @@ const initHttpServer = (myHttpPort) => {
     })
 
     app.post('/autoMineBlock', (req, res) => {
+        console.log(req.body)
         autoMineBlock(req.body.data, req.body.count)
         res.redirect('/blocks')
     })

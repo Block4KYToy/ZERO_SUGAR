@@ -4,7 +4,7 @@ import { getCoinbaseTransaction, getTransactionPool, updateTransactionPool } fro
 import { getPublicKeyFromWallet } from './wallet.js';
 
 let blocks;
-const BLOCK_GENERATION_INTERVAL = 5000;       // 블록 생성 주기 // 블록 생성 시간(second)
+const BLOCK_GENERATION_INTERVAL = 50000000;       // 블록 생성 주기 // 블록 생성 시간(second)
 const DIFFICULTY_ADJUSTMENT_INTERVAL = 5;  // 난이도 체크해서 변경 조절 주기 // 몇번째 블록이 생성되었나로 체크(generate block count)
 
 class Block {
