@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2p</title>
+</head>
+
+<body style="width: 70%; display: flex; justify-content: space-around;">
+
+    <!-- <div id="main">
+        <div style="width:500px; min-height: 100px; border: 1px solid black;">
+            <div id="received" style="width: 500px; min-height: 50px; background-color: lightblue;">
+                <span id="receivedIp">received ip : </span>
+                <span id="receivedMsg">message</span>
+            </div>
+            <div id="sender" style="text-align: right; width: 500px; min-height: 50px; background-color: lightgreen;">
+                <span id="senderIP">sender ip : </span>
+                <span id="senderMsg">message</span>
+            </div>
+        </div>
+        <div style="width: 500px; border: 1px solid black; display: flex; justify-content: flex-end;">
+            <form method="post" action="/sendMessage" onsubmit="handleSubmit">
+                <input id="inputValue" name='msg' style="width: 300px; height: 100px; text-align: center;" type="text" onclick="onClickHandler"
+                    placeholder="입력창">
+                <input id="enter" style="width: 100px; height: 100px;" type="submit" value="엔터">
+                <input name="type" type="hidden" value=1>
+            </form>
+        </div>
+    </div> -->
+
+    <form method="post" action="/addPeer" onsubmit="submitPeer">
+        <h2>peer 연결</h2>
+        <div style="display: flex;">
+            <div style="width: 150px;">
+                <input id="ipAddress" name="ipAddress" type="text" placeholder="ip address">
+                <input id="port" name="port" type="number" placeholder="port">
+            </div>
+            <input id="connect" type="submit" style="height:50px;" value="연결">
+        </div>
+    </form>
+
+    <form method="post" action="/autoMineBlock" onsubmit="submitMine">
+        <h2>automine</h2>
+        <div style="display: flex;">
+            <div style="width: 150px;">
+                <input id="data" name="data" type="text" placeholder="blockdata">
+                <input id="count" name="count" type="number" placeholder="block count">
+            </div>
+            <input id="mine" type="submit" style="height:50px;" value="채굴">
+        </div>
+    </form>
+
+</body>
+<script src="p2p.js"></script>
+
+</html>
