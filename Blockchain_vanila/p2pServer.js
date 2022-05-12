@@ -200,19 +200,19 @@ const broadcasting = (message) => {
 }
 
 // 내가 새로운 블록을 채굴했을 때 연결된 노드들에게 전파
-const mineBlock = (blockData) => {
-    const newBlock = createBlock(blockData);
-    if (addBlock(newBlock, getLatestBlock())) {
+const mineBlock = async (blockData) => {
+    const newBlock =  createBlock(blockData);
+    if (await addBlock(newBlock, getLatestBlock())) {
         broadcasting(responseAllMessage());
     }
 }
 
 let autoMining;
 
-const autoMineBlock = (blockData, count) => {
+const autoMineBlock = async (blockData, count) => {
     autoMining = 0
     while (autoMining < count) {
-        mineBlock(blockData);
+        await mineBlock(blockData);
         autoMining++;
     }
 }

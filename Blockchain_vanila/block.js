@@ -3,10 +3,10 @@ import random from 'random';
 import { getCoinbaseTransaction, getTransactionPool, updateTransactionPool } from './transaction.js';
 import { getPublicKeyFromWallet } from './wallet.js';
 import { pool } from './db.js'
-
-
+import { mineBlock } from './p2pServer.js';
+let blocks
 const BLOCK_GENERATION_INTERVAL = 50000000;       // 블록 생성 주기 // 블록 생성 시간(second)
-const DIFFICULTY_ADJUSTMENT_INTERVAL = 5;  // 난이도 체크해서 변경 조절 주기 // 몇번째 블록이 생성되었나로 체크(generate block count)
+const DIFFICULTY_ADJUSTMENT_INTERVAL = 10;  // 난이도 체크해서 변경 조절 주기 // 몇번째 블록이 생성되었나로 체크(generate block count)
 
 class Block {
     constructor(index, data, timestamp, hash, previousHash, difficulty, nonce) {
@@ -60,13 +60,26 @@ const createBlock = (blockData) => {
     return newBlock;
 }
 
-const addBlock = async (newBlock, previousBlock) => {
+const addBlock = async (newBlock, previousBlock , callback) => {
+    // await updateBlocks();
     if (isValidNewBlock(newBlock, previousBlock)) {
         blocks.push(newBlock);
         const blockdata = { blockdata: newBlock.data }
         console.log("block index: ", newBlock.index)
         console.log("current difficulty: ", getDifficulty())
         console.log('block added')
+        try {
+            const result = await pool.query(`INSERT INTO blocks
+            VALUES (${newBlock.index},'${newBlock.data}',${newBlock.timestamp},
+            '${newBlock.hash}','${newBlock.previousHash}',${newBlock.difficulty},${newBlock.nonce});`)
+            await updateBlocks();
+
+        } catch (e) {
+            // contiune
+            console.log(e)
+            return false;
+        }
+
         // console.log('query')
 
         // console.log(result)
@@ -104,6 +117,11 @@ const isValidBlockStructure = (newBlock) => {
 const isValidNewBlock = (newBlock, previousBlock) => {
     if (newBlock.index !== previousBlock.index + 1) {
         console.log(`new: ${newBlock.index}, prev +1: ${previousBlock.index + 1}`)
+        console.log('invalid index');
+        return false;
+
+    } else if (newBlock.index <= previousBlock.index) {
+        console.log(`new: ${newBlock.index}, prev: ${previousBlock.index}`)
         console.log('invalid index');
         return false;
     } else if (newBlock.previousHash !== previousBlock.hash) {
@@ -210,9 +228,9 @@ const isValidBlockchain = (receiveBlockchain) => {
     return true;
 }
 
-let blocks
 
-const updateBlocksFromDb = async () => {
+
+const updateBlocks = async () => {
     const [result] = await pool.query(`SELECT * FROM blocks`) // [data,field] 
     // console.log(result);
     blocks = result;
@@ -228,8 +246,8 @@ const updateBlocksFromDb = async () => {
                                         '${blocks[i].hash}','${blocks[i].previousHash}',${blocks[i].difficulty},${blocks[i].nonce});`)
 
         }
-        console.log('blocks updated from DB')
     }
+    console.log('blocks db updated')
 }
 
 // const updateDBFromBlocks = async (blocks) => {
@@ -241,7 +259,7 @@ const updateBlocksFromDb = async () => {
 //     })
 // }
 
-updateBlocksFromDb();
+updateBlocks();
 
 
 
@@ -312,4 +330,4 @@ const createNextBlock = () => {
 }
 
 
-export { getBlocks, createBlock, getLatestBlock, addBlock, replaceBlockchain, getDifficultyLog, updateBlocksFromDb }
+export { getBlocks, createBlock, getLatestBlock, addBlock, replaceBlockchain, getDifficultyLog, updateBlocks }
