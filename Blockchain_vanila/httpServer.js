@@ -7,6 +7,7 @@ import { getPublicKeyFromWallet } from './wallet.js';
 import nunjucks from 'nunjucks';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {pool} from './db.js'
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -34,8 +35,11 @@ const initHttpServer = (myHttpPort) => {
         res.render('p2pclient')
     })
 
-    app.get('/blocks', (req, res) => {
-        res.send(getBlocks());
+    app.get('/blocks', async (req, res) => {
+        const [result] = await pool.query('SELECT * FROM signUp')
+        console.log(result)
+        res.send(result);
+        // res.send(getBlocks());
     })
 
     // mineBlock 으로 대체됨

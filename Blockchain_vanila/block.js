@@ -2,6 +2,7 @@ import CryptoJS from 'crypto-js';
 import random from 'random';
 import { getCoinbaseTransaction, getTransactionPool, updateTransactionPool } from './transaction.js';
 import { getPublicKeyFromWallet } from './wallet.js';
+import {pool} from './db.js'
 
 let blocks;
 const BLOCK_GENERATION_INTERVAL = 50000000;       // 블록 생성 주기 // 블록 생성 시간(second)
@@ -59,12 +60,17 @@ const createBlock = (blockData) => {
     return newBlock;
 }
 
-const addBlock = (newBlock, previousBlock) => {
+const addBlock = async (newBlock, previousBlock) => {
     if (isValidNewBlock(newBlock, previousBlock)) {
         blocks.push(newBlock);
+        const blockdata = {blockdata : newBlock.data}
         console.log("block index: ", newBlock.index)
         console.log("current difficulty: ", getDifficulty())
         console.log('block added')
+        console.log('query')
+        
+        // console.log(result)
+        // const result = await pool.query(`INSERT INTO blocks(index, data, timestamp, hash, previousHash, difficulty, nonce)VALUES(${newBlock.index},${newBlock.data},${newBlock.timestamp}, '${newBlock.hash}','${newBlock.previousHash}',${newBlock.difficulty},${newBlock.nonce})`)
 
         // 사용되지 않은 txOuts 세팅
         // 트랜잭션 풀 업데이트
