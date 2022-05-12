@@ -219,7 +219,7 @@ const updateBlocksFromDb = async () => {
     if (blocks.length === 0) {
         console.log('genesis block created')
         blocks = [createGenesisBlock()];
-        // } else if (blocks.length > 0 && blocks[blocks.length-1].index !== result[result.length - 1]) { //수정중
+        // } else if (blocks.length > 0 && blocks[blocks.length-1].index !== result[result.length - 1].index) { //수정중
     }
     if (blocks.length > 0 && blocks.length !== result.length) {
         for (let i = 0; i < blocks.length; i++) {
