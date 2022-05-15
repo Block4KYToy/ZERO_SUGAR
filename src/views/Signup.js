@@ -27,7 +27,7 @@ import { Row, Col, Card, CardHeader, CardBody } from "reactstrap";
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function Signup() {
-  const [userInfo, setUserInfo] = useState({name: "", email: "", pw: "", pwconfirm: ""});
+  const [userInfo, setUserInfo] = useState({name: "", email: "", password: "", pwconfirm: ""});
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -36,47 +36,48 @@ function Signup() {
   }
 
   const isValidData = () => {
-    const { name, email, pw, pwconfirm } = userInfo;
+    const { name, email, password, pwconfirm } = userInfo;
     // 이름 유효성
-    // let engNameReg = /^[a-zA-Z ]+$/;
-    // let korNameReg = /^[가-힣]+$/;
-    // if (!engNameReg.test(name) && !korNameReg.test(name)) {
-    //   alert("이름을 올바르게 입력하세요.");
-    //   return false;
-    // }
+    let engNameReg = /^[a-zA-Z ]+$/;
+    let korNameReg = /^[가-힣]+$/;
+    if (!engNameReg.test(name) && !korNameReg.test(name)) {
+      alert("이름을 올바르게 입력하세요.");
+      return false;
+    }
     // 이메일 유효성
-    // let emailReg = /^[a-zA-Z]+([-_.]?[0-9a-zA-Z])*@[a-z]{4,}.[a-z]{2,3}$/i;
-    // if (!emailReg.test(email)) {
-    //   alert("이메일 형식이 잘못되었습니다.");
-    //   return false;
-    // }
+    let emailReg = /^[a-zA-Z]+([-_.]?[0-9a-zA-Z])*@[a-z]{4,}.[a-z]{2,3}$/i;
+    if (!emailReg.test(email)) {
+      alert("이메일 형식이 잘못되었습니다.");
+      return false;
+    }
     // 비밀번호 유효성(6자리 이상의 영문조합)
-    // let pwReg = /^(?=.*[a-z])(?=.*\d)[A-Za-z\d$@$!%*?&]{6,}/
-    // if (!pwReg.test(pw)) {
-    //   alert("비밀번호 6자리 이상의 영문조합으로 설정하세요.")
-    // }
+    let pwReg = /^(?=.*[a-z])(?=.*\d)[A-Za-z\d$@$!%*?&]{6,}/
+    if (!pwReg.test(password)) {
+      alert("비밀번호 6자리 이상의 영문조합으로 설정하세요.")
+    }
     // 비밀번호 일치
-    // if (pw !== pwconfirm) {
-    //   alert("비밀번호가 일치하지 않습니다.");
-    //   return false;
-    // }
-    console.log("성공!");
+    if (password !== pwconfirm) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return false;
+    }
+    // console.log("성공!");
     return true;
   }
 
   const handleSubmit = async() => {
     console.log("data: ", userInfo);
     // USERINFO INSERT INTO
-    // if (isValidData()) {
-    // await axios.post('http://localhost:4000/signup', {
-    //   data: userInfo,
-    // })
-    // .then((res) => {
-    //   console.log(res);
-    //  // 이메일이 유일한가
-    //  // db입력이 잘 되었는가
-    // })
-    // }
+    if (isValidData()) {
+    await axios.post('http://localhost:4000/signup',
+    {
+      data: userInfo,
+    })
+    .then((res) => {
+      console.log(res);
+     // 이메일이 유일한가
+     // db입력이 잘 되었는가
+    })
+    }
   }
 
   return (
@@ -97,7 +98,7 @@ function Signup() {
                 <div className="input-box">
                   <input name="name" type="text" placeholder="Name" onChange={handleChange} value={userInfo.name}/><br />
                   <input name="email" type="text" placeholder="Email" onChange={handleChange} value={userInfo.email}/><br />
-                  <input name="pw" type="password" placeholder="Password" onChange={handleChange} value={userInfo.pw}/><br />
+                  <input name="password" type="password" placeholder="Password" onChange={handleChange} value={userInfo.password}/><br />
                   <input name="pwconfirm" type="password" placeholder="Password Confirm" onChange={handleChange} value={userInfo.pwconfirm}/><br />
                 </div>
                 <button onClick= {handleSubmit} className="login-btn">Sign Up</button>

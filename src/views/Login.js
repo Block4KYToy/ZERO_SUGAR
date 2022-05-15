@@ -27,7 +27,7 @@ import '../assets/css/sign.css';
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function Login() {
-  const [user, setUser] = useState({email: "", pw: ""})
+  const [user, setUser] = useState({email: "", password: ""})
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -35,18 +35,16 @@ function Login() {
     setUser({...user, [name]: value});
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     console.log("data: ", user);
     // USER GET
-    // await axios.get('http://localhost:4000/login', {
-    //   params: {
-    //     data: user,
-    //   },
-    // })
-    // .then((res) => {
-    //   console.log(res);
-    //   // 입력정보가 db정보와 일치하는가
-    // })
+    await axios.post('http://localhost:4000/login', {
+        data: user,
+    })
+    .then((res) => {
+      console.log(res);
+      // 입력정보가 db정보와 일치하는가
+    })
   }
 
   return (
@@ -68,7 +66,7 @@ function Login() {
                 </div>
                 <div className="input-box">
                   <input name="email" type="text" placeholder="Email" value={user.email} onChange={handleChange}/><br />
-                  <input name="pw" type="text" placeholder="Password" value={user.pw} onChange={handleChange}/><br />
+                  <input name="password" type="text" placeholder="Password" value={user.password} onChange={handleChange}/><br />
                 </div>
                 <button onClick={handleSubmit} className="login-btn">Sign in</button>
               </CardBody>
