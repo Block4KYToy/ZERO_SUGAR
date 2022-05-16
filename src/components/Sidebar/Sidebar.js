@@ -70,7 +70,7 @@ function Sidebar(props) {
           {props.routes.map((prop, key) => {
             if (prop.redirect) return null;
             console.log(prop.name)
-            if ((prop.name === "Signup" || prop.name === "Login") && !prop.auth) return null;
+            if ((prop.name === "Signup" || prop.name === "Login") && prop.auth) return null;
             return (
               <li
                 className={
