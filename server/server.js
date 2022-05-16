@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const router = require('./routes')
+const router = require('./routes/Signup')
 const app = express()
 
 app.use(express.json())

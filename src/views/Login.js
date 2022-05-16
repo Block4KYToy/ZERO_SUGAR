@@ -17,6 +17,7 @@
 */
 import React, { useState } from "react";
 import axios from "axios";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
@@ -25,9 +26,12 @@ import '../assets/css/sign.css';
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
+import Dashboard from "./Dashboard";
 
-function Login() {
+function Login(props) {
+  const { setAuth } = props;
   const [user, setUser] = useState({email: "", password: ""})
+  console.log("login : ", props);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -42,8 +46,23 @@ function Login() {
         data: user,
     })
     .then((res) => {
-      console.log(res);
+      let result = res.data;
       // 입력정보가 db정보와 일치하는가
+      if (result === "성공") {
+        console.log("성공!");
+        setAuth(true);
+        localStorage.setItem(`${user.email}`, JSON.stringify({loginstatus: true}));
+        return <Dashboard />
+        // return (
+        //   <Switch>
+        //     <Route            
+        //       render = {(props) => 
+        //       <Dashboard {...props} />}
+        //     />
+        //   </Switch>
+        // );
+      }
+      else alert("로그인 정보가 일치하지 않습니다!")
     })
   }
 
