@@ -16,7 +16,9 @@
 
 */
 import React from "react";
-
+// image import
+import profilePic from '../assets/img/mike.jpg';
+import bg5 from '../assets/img/bg5.jpg';
 // reactstrap components
 import {
   Button,
@@ -161,7 +163,7 @@ function User() {
           <Col md="4">
             <Card className="card-user">
               <div className="image">
-                <img alt="..." src={require("assets/img/bg5.jpg").default} />
+                {/* <img alt="..." src={bg5} /> */}
               </div>
               <CardBody>
                 <div className="author">
@@ -169,7 +171,7 @@ function User() {
                     <img
                       alt="..."
                       className="avatar border-gray"
-                      src={require("assets/img/mike.jpg").default}
+                      src={profilePic}
                     />
                     <h5 className="title">Mike Andrew</h5>
                   </a>
