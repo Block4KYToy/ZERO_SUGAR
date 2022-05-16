@@ -46,7 +46,7 @@ router.post('/signup', async(req, res) => {
     if(emails[0].length === 0) {
         console.log('없는거누!')
         console.log('----------------------')
-        const [result] = await pool.query(`INSERT INTO signUp(name,email,password, publicKey, privateKey)VALUES('${name}','${email}','${password}','${publicKey}', '${privateKey}')`)
+        const [result] = await pool.query(`INSERT INTO signUp(name, email, password, publicKey, privateKey)VALUES('${name}','${email}','${password}','${publicKey}', '${privateKey}')`)
         res.send('성공')
         
     } else {
