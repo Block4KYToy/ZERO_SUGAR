@@ -27,6 +27,7 @@ import logo from "logo-white.svg";
 var ps;
 
 function Sidebar(props) {
+  // console.log(props);
   const sidebar = React.useRef();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
@@ -68,9 +69,10 @@ function Sidebar(props) {
       <div className="sidebar-wrapper" ref={sidebar}>
         <Nav>
           {props.routes.map((prop, key) => {
+            console.log(prop);
             if (prop.redirect) return null;
-            console.log(prop.name)
-            if ((prop.name === "Signup" || prop.name === "Login") && prop.auth) return null;
+            // console.log(prop.name)
+            if ((prop.name === "Signup" || prop.name === "Login") && props.auth) return null;
             return (
               <li
                 className={

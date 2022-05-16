@@ -24,10 +24,6 @@ const getPublicKeyFromWallet = () => {
     return publicKey.getPublic().encode('hex');
 }
 
-
-
-
-
 router.post('/signup', async(req, res) => {
     const privateKeys = createPrivateKey()
     const publicKeys = getPublicKeyFromWallet()
