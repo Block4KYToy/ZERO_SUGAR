@@ -56,18 +56,31 @@ import {
 } from "variables/charts.js";
 
 function Dashboard() {
-  const [blocks, setBlocks] = useState(null);
+  const [allData,setAllData] = useState([]);
+  const [filteredData,setFilteredData] = useState(allData);
+
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+        // console.log(value);
+        if (value!=="") {
+        result = allData.filter((data) => {
+            return data.index == Number(value);
+        });
+    }
+    setFilteredData(result);
+}
 
   useEffect(() => {
-    // GET ALL BLOCK DATAS
-    // await axios.get("http://localhost:4000/blocks")
-    // .then((res) => {
-    //   console.log(res);
-    //   let _blocks = res.data;
-    //   // RECENT 10 BLOCK INFOS
-    //   setBlocks(_blocks.slice(_blocks.length - 11))
-    // })
-  }, [])
+    axios.get('http://localhost:4000/admin/dashBoard')
+    .then((res) => {
+        // console.log(res.data)
+        setAllData(res.data)
+        setFilteredData(res.data)
+        // setAllData(res.data)
+
+    })
+  }, []);
   return (
     <>
       <PanelHeader
