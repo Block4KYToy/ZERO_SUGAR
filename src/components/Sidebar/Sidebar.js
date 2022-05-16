@@ -30,7 +30,7 @@ function Sidebar(props) {
   const sidebar = React.useRef();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "inactive";
   };
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -62,13 +62,15 @@ function Sidebar(props) {
           className="simple-text logo-normal"
           target="_blank"
         >
-          Creative Tim
+          Zero Sugar
         </a>
       </div>
       <div className="sidebar-wrapper" ref={sidebar}>
         <Nav>
           {props.routes.map((prop, key) => {
             if (prop.redirect) return null;
+            console.log(prop.name)
+            if ((prop.name === "Signup" || prop.name === "Login") && !prop.auth) return null;
             return (
               <li
                 className={
