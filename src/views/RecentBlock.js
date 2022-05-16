@@ -1,7 +1,8 @@
 import React from 'react';
 import { Card, CardHeader, CardBody, CardTitle, Row, Col, Table} from "reactstrap";
 
-const RecentBlock = () => {
+const RecentBlock = ({ allData, setAllData }) => {
+  console.log(allData);
   return (
         <Row>
           <Col xs={12} md={12}>
@@ -21,36 +22,18 @@ const RecentBlock = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-right">$36,738</td>
-                    </tr>
-                    <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                      <td className="text-right">$23,789</td>
-                    </tr>
-                    <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                      <td className="text-right">$56,142</td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-right">$63,542</td>
-                    </tr>
-                    <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-right">$78,615</td>
-                    </tr>
+                    {allData.length > 0 ? 
+                    allData[0].map((block) => block.index > allData[0].length - 6 ?
+                      <tr key={block.index}>
+                        <td>{block.index}</td>
+                        <td>{block.hash}</td>
+                        <td>{block.timestamp}</td>
+                        <td className="text-right">{block.difficulty}</td>
+                      </tr>
+                      : null
+                    )
+                  : null
+                  }
                   </tbody>
                 </Table>
               </CardBody>

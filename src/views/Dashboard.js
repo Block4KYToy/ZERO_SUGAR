@@ -74,11 +74,8 @@ function Dashboard() {
   useEffect(() => {
     axios.get('http://localhost:4000/admin/dashBoard')
     .then((res) => {
-        // console.log(res.data)
         setAllData(res.data)
         setFilteredData(res.data)
-        // setAllData(res.data)
-
     })
   }, []);
   return (
@@ -94,7 +91,7 @@ function Dashboard() {
       />
       <div className="content">
         <SearchBar />
-        <RecentBlock />
+        <RecentBlock allData={allData} setAllData={setAllData}/>
         <RecentTransaction />
       </div>
     </>
