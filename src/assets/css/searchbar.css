@@ -1,0 +1,43 @@
+.input-group.md-form.form-sm.form-1 input {
+    border: 1px solid #bdbdbd;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
+
+.text-white {
+    background-color: blueviolet;
+    width: 50px;
+}
+
+.search-box {
+    z-index: 3;
+    padding-left: 50px;
+    padding-bottom: 10px;
+    padding-right: 50px;
+    display: flex;
+    margin-bottom: 2.25rem;
+    background-color: rgb(255, 255, 255);
+    align-items: flex-end;
+    border-radius: 30px;
+}
+
+.search-input {
+    padding-left: 20px;
+    width: 50rem;
+    height: 3.4rem;
+    margin-right: 2px;
+    font-size: medium;
+}
+.icon-box {
+    background-color: #569ce7;
+    margin-bottom: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.search-icon {
+    width: 3rem;
+    height: 3rem;
+}
+.icon-box:hover {
+    transform:scale(1.1);
+}
