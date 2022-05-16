@@ -31,18 +31,15 @@ const getPublicKeyFromWallet = () => {
 router.post('/signup', async(req, res) => {
     const privateKeys = createPrivateKey()
     const publicKeys = getPublicKeyFromWallet()
+
     console.log(privateKeys);
     console.log(publicKeys);
-    // console.log(req.body)
+
     const {name, email, password} = req.body.data
-    // console.log(name)
-    // let name = req.body.data.name
-    // let email = req.body.data.email
-    // let password = req.body.password
     const publicKey = publicKeys;
     const privateKey = privateKeys;
     const emails = await pool.query(`SELECT * FROM signUp WHERE email = '${email}'`)
-    // console.log("emails: ", emails[0]);
+    
     if(emails[0].length === 0) {
         console.log('없는거누!')
         console.log('----------------------')
