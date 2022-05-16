@@ -29,6 +29,7 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
+import Login from "views/Login";
 
 var ps;
 
@@ -66,11 +67,20 @@ function Admin(props) {
         <div className="main-panel" ref={mainPanel}>
           <Switch>
             {routes.map((prop, key) => {
+              if (prop.name === "Login") {
+                return (
+                  <Route 
+                    path={prop.layout + prop.path}
+                    // component={prop.component}
+                    key={key} 
+                    render={(props) => <Login auth={auth} setAuth={setAuth} {...props} />} />
+                )
+              }
               return (
                 <Route
                   path={prop.layout + prop.path}
                   component={prop.component}
-                  key={key}
+                  key={key} 
                 />
               );
             })}
