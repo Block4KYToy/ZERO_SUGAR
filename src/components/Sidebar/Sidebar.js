@@ -50,18 +50,18 @@ function Sidebar(props) {
     <div className="sidebar" data-color={props.backgroundColor}>
       <div className="logo">
         <a
-          href="https://www.creative-tim.com?ref=nudr-sidebar"
+          href="http://localhost:3000/admin/dashboard"
           className="simple-text logo-mini"
-          target="_blank"
+          // target="_blank"
         >
           <div className="logo-img">
             <img src={logo} alt="react-logo" />
           </div>
         </a>
         <a
-          href="https://www.creative-tim.com?ref=nudr-sidebar"
+          href="http://localhost:3000/admin/dashboard"
           className="simple-text logo-normal"
-          target="_blank"
+          // target="_blank"
         >
           Zero Sugar
         </a>
