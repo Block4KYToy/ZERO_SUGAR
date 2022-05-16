@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router();
 const pool = require('../db')
 const ecdsa = require('elliptic');
-
 const ec = new ecdsa.ec('secp256k1');
 
 const createPrivateKey = () => {
@@ -25,28 +24,24 @@ const getPublicKeyFromWallet = () => {
     return publicKey.getPublic().encode('hex');
 }
 
-const privateKeys = createPrivateKey()
-const publicKeys = getPublicKeyFromWallet()
-
-console.log(privateKeys);
-console.log(publicKeys);
-
 router.post('/signup', async(req, res) => {
-    // console.log(req.body)
+    const privateKeys = createPrivateKey()
+    const publicKeys = getPublicKeyFromWallet()
+
+    console.log(privateKeys);
+    console.log(publicKeys);
+
     const {name, email, password} = req.body.data
-    // console.log(name)
-    // let name = req.body.data.name
-    // let email = req.body.data.email
-    // let password = req.body.password
-    const publickKey = publicKeys;
+    const publicKey = publicKeys;
     const privateKey = privateKeys;
     const emails = await pool.query(`SELECT * FROM signUp WHERE email = '${email}'`)
-    // console.log("emails: ", emails[0]);
+    
     if(emails[0].length === 0) {
         console.log('없는거누!')
         console.log('----------------------')
-        const [result] = await pool.query(`INSERT INTO signUp(name,email,password, publicKey, privateKey)VALUES('${name}','${email}','${password}','${publickKey}', '${privateKey}')`)
+        const [result] = await pool.query(`INSERT INTO signUp(name, email, password, publicKey, privateKey)VALUES('${name}','${email}','${password}','${publicKey}', '${privateKey}')`)
         res.send('성공')
+        
     } else {
         console.log('있누!!!!')
         console.log('----------------------')
