@@ -4,7 +4,8 @@ import { getCoinbaseTransaction, getTransactionPool, updateTransactionPool } fro
 import { getPublicKeyFromWallet } from './wallet.js';
 import { pool } from './db.js'
 import { mineBlock } from './p2pServer.js';
-let blocks
+
+let blocks;
 const BLOCK_GENERATION_INTERVAL = 50000000;       // 블록 생성 주기 // 블록 생성 시간(second)
 const DIFFICULTY_ADJUSTMENT_INTERVAL = 10;  // 난이도 체크해서 변경 조절 주기 // 몇번째 블록이 생성되었나로 체크(generate block count)
 
@@ -61,7 +62,6 @@ const createBlock = (blockData) => {
 }
 
 const addBlock = async (newBlock, previousBlock , callback) => {
-    // await updateBlocks();
     if (isValidNewBlock(newBlock, previousBlock)) {
         blocks.push(newBlock);
         const blockdata = { blockdata: newBlock.data }
