@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect, useState } from "react";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 
@@ -69,17 +69,17 @@ function Dashboard() {
           <Col xs={12} md={12}>
             <Card>
               <CardHeader>
-                <h5 className="card-category">All Persons List</h5>
-                <CardTitle tag="h4">Employees Stats</CardTitle>
+                <h5 className="card-category"></h5>
+                <CardTitle tag="h4">SugarFCoin Table</CardTitle>
               </CardHeader>
               <CardBody>
                 <Table responsive>
                   <thead className="text-primary">
                     <tr>
-                      <th>Name</th>
-                      <th>Country</th>
-                      <th>City</th>
-                      <th className="text-right">Salary</th>
+                      <th>Block number</th>
+                      <th>Timestamp</th>
+                      <th>Hash</th>
+                      <th className="text-right">Difficulty</th>
                     </tr>
                   </thead>
                   <tbody>
