@@ -15,9 +15,13 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect, useState } from "react";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
+import '../assets/css/dashboard.css';
+import axios from 'axios';
+import RecentBlock from "./RecentBlock";
+import RecentTransaction from "./RecentTransaction";
 
 // reactstrap components
 import {
@@ -42,6 +46,7 @@ import {
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
+import SearchBar from "./SearchBar";
 
 import {
   dashboardPanelChart,
@@ -51,6 +56,18 @@ import {
 } from "variables/charts.js";
 
 function Dashboard() {
+  const [blocks, setBlocks] = useState(null);
+
+  useEffect(() => {
+    // GET ALL BLOCK DATAS
+    // await axios.get("http://localhost:4000/blocks")
+    // .then((res) => {
+    //   console.log(res);
+    //   let _blocks = res.data;
+    //   // RECENT 10 BLOCK INFOS
+    //   setBlocks(_blocks.slice(_blocks.length - 11))
+    // })
+  }, [])
   return (
     <>
       <PanelHeader
@@ -63,62 +80,9 @@ function Dashboard() {
         }
       />
       <div className="content">
-
-        <Row>
-
-          <Col xs={12} md={12}>
-            <Card>
-              <CardHeader>
-                <h5 className="card-category">All Persons List</h5>
-                <CardTitle tag="h4">Employees Stats</CardTitle>
-              </CardHeader>
-              <CardBody>
-                <Table responsive>
-                  <thead className="text-primary">
-                    <tr>
-                      <th>Name</th>
-                      <th>Country</th>
-                      <th>City</th>
-                      <th className="text-right">Salary</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-right">$36,738</td>
-                    </tr>
-                    <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                      <td className="text-right">$23,789</td>
-                    </tr>
-                    <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                      <td className="text-right">$56,142</td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-right">$63,542</td>
-                    </tr>
-                    <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-right">$78,615</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <SearchBar />
+        <RecentBlock />
+        <RecentTransaction />
       </div>
     </>
   );

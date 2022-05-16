@@ -152,14 +152,14 @@ function DemoNavbar(props) {
             </InputGroup>
           </form>
           <Nav navbar>
-            <NavItem>
+            {/* <NavItem>
               <Link to="#pablo" className="nav-link">
                 <i className="now-ui-icons media-2_sound-wave" />
                 <p>
                   <span className="d-lg-none d-md-block">Stats</span>
                 </p>
               </Link>
-            </NavItem>
+            </NavItem> */}
             <Dropdown
               nav
               isOpen={dropdownOpen}
@@ -171,11 +171,6 @@ function DemoNavbar(props) {
                   <span className="d-lg-none d-md-block">Some Actions</span>
                 </p>
               </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem tag="a">Action</DropdownItem>
-                <DropdownItem tag="a">Another Action</DropdownItem>
-                <DropdownItem tag="a">Something else here</DropdownItem>
-              </DropdownMenu>
             </Dropdown>
             <NavItem>
               <Link to="#pablo" className="nav-link">
