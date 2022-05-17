@@ -10,6 +10,7 @@ export default function CreateWallet({setState}) {
 
     const onChange = (e) => {
         setInputs({account: e.target.value})
+        console.log(inputs.account)
     } 
 
     const onCreate = () => {

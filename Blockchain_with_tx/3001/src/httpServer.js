@@ -4,6 +4,7 @@ import {
     getBlockchain, getUnspentTxOuts, generateNextBlock, generatenextBlockWithTransaction, getAccountBalance,
     getAccountBalanceOfUser, sendTransaction, sendTransactionFromUser, userGenerateNextBlock
 } from './blockchain.js';
+import { getTransactionPool } from "./transactionPool.js"
 import { getSockets, connectToPeer } from './p2p.js';
 import { getPublicFromWallet } from './wallet.js';
 import path from 'path';
@@ -111,20 +112,23 @@ let initHttpServer = function (myHttpPort) {
         }
     });
     app.post('/sendTransaction', function (req, res) {
-        try {
+        // try {
             let fromAddress = req.body.fromAddress
+            let senderPrivateKey = req.body.senderPrivateKey
             let toAddress = req.body.toAddress;
             let amount = req.body.amount;
-            if (address === undefined || amount === undefined) {
+            
+            // console.log(amount)
+            if (fromAddress === undefined || toAddress === undefined || amount === undefined) {
                 throw Error('invalid address or amount');
             }
-            let resp = sendTransactionFromUser(fromAddress, toAddress, amount);
+            let resp = sendTransactionFromUser(fromAddress, senderPrivateKey, toAddress, Number(amount));
             res.send(resp);
-        }
-        catch (e) {
-            console.log(e.message);
-            res.status(400).send(e.message);
-        }
+        // }
+        // catch (e) {
+        //     console.log(e.message);
+        //     res.status(400).send(e.message);
+        // }
     });
     app.get('/transactionPool', function (req, res) {
         res.send(getTransactionPool());

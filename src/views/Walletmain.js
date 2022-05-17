@@ -42,7 +42,7 @@ export default function Walletmain() {
 
                 <div className="walmake">
                     <button onClick={onKuoSend} className="walmakebtn">전송</button>
-                    <button onClick={onWallet} className="walmakebtn">지갑 생성하기</button>
+                    {/* <button onClick={onWallet} className="walmakebtn">지갑 생성하기</button> */}
                 </div>
             </>
             : state === "wallet"

@@ -1,3 +1,5 @@
+// 사이드바
+
 /*!
 
 =========================================================
@@ -33,7 +35,7 @@ function Sidebar(props) {
   let history = useHistory();
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  // console.log("auth: ", auth);
+  console.log("auth: ", auth);
   const sidebar = React.useRef();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
