@@ -187,12 +187,12 @@ const Dashboard = (event) => {
     var indexTime = async() => {
 
         const response = await axios.get(`http://localhost:4000/indexTime`)
-        console.log("index : ", response.data[0][1].index)
+        // console.log("index : ", response.data[0][1].index)
 
         // 반복문을 통해서 timestamp 을 실제 시간으로 바꿔서 출력한다.
         for(let i = 0; i < 107; i++){
           Unix_timestamp(response.data[0][i].timestamp)
-          console.log(Unix_timestamp(response.data[0][i].timestamp))
+          // console.log(Unix_timestamp(response.data[0][i].timestamp))
         }
 
         // unix timestamp -> real time
@@ -214,7 +214,7 @@ const Dashboard = (event) => {
         let timestamp = [];
         let data = response.data[0];
         let unixT = [Unix_timestamp(data[1].timestamp)];
-        console.log("unixT : ", unixT)
+        // console.log("unixT : ", unixT)
 
         for(let i = 0; i < 107; i++) {
             // for(let j = 0; j < 25; j++){
@@ -274,21 +274,21 @@ const Dashboard = (event) => {
               setidLeng(idLeng => [...idLeng, timestamp[j].length]) 
             }
             
-        console.log(unixT)
-        console.log("timestamp[0] : ", timestamp[0][0])
-        console.log(timestamp[1])
-        console.log(timestamp[2])
-        console.log(timestamp[3])
-        console.log(timestamp[4])
-        console.log(timestamp[5])
-        console.log(timestamp[6])
-        console.log(timestamp[7])
-        console.log(timestamp[8])
-        console.log(timestamp[9])
-        console.log(timestamp[10])
-        console.log(timestamp[11])
+        // console.log(unixT)
+        // console.log("timestamp[0] : ", timestamp[0][0])
+        // console.log(timestamp[1])
+        // console.log(timestamp[2])
+        // console.log(timestamp[3])
+        // console.log(timestamp[4])
+        // console.log(timestamp[5])
+        // console.log(timestamp[6])
+        // console.log(timestamp[7])
+        // console.log(timestamp[8])
+        // console.log(timestamp[9])
+        // console.log(timestamp[10])
+        // console.log(timestamp[11])
         }
-        console.log(realTmArr[0])
+        // console.log(realTmArr[0])
         
         // console.log("realTmArr : ", realTmArr)
         

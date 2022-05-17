@@ -4,6 +4,7 @@ import cors from 'cors'
 import { getBlocks, getDifficultyLog, getLatestBlock } from './block.js';
 import { connectToPeer, getPeers, broadcasting, mineBlock, autoMineBlock } from './p2pServer.js';
 import { getPublicKeyFromWallet } from './wallet.js';
+
 import nunjucks from 'nunjucks';
 import path from 'path';
 import { fileURLToPath } from 'url';

@@ -62,17 +62,19 @@ let findUnspentTxOuts = function (ownerAddress, unspentTxOuts) {
 };
 
 let findTxOutsForAmount = function (amount, myUnspentTxOuts) {
+    // console.log("myUnspentTxOuts", myUnspentTxOuts)
     let currentAmount = 0;
     let includedUnspentTxOuts = [];
     for (let _i = 0, myUnspentTxOuts_1 = myUnspentTxOuts; _i < myUnspentTxOuts_1.length; _i++) {
         let myUnspentTxOut = myUnspentTxOuts_1[_i];
         includedUnspentTxOuts.push(myUnspentTxOut);
+        
         currentAmount = currentAmount + myUnspentTxOut.amount;
         if (currentAmount >= amount) {
-            console.log("findTxOutsForAmount currentAmount: ", currentAmount)
-            console.log("findTxOutsForAmount amount: ", amount)
+            // console.log("findTxOutsForAmount currentAmount: ", currentAmount)
+            // console.log("findTxOutsForAmount amount: ", amount)
             let leftOverAmount = currentAmount - amount;
-            console.log("findTxOutsForAmount leftOverAmount: ", leftOverAmount)
+            // console.log("findTxOutsForAmount leftOverAmount: ", leftOverAmount)
             return { includedUnspentTxOuts: includedUnspentTxOuts, leftOverAmount: leftOverAmount };
         }
     }
@@ -113,9 +115,10 @@ let filterTxPoolTxs = function (unspentTxOuts, transactionPool) {
     return _.without.apply(_, __spreadArray([unspentTxOuts], removable, false));
 };
 let createTransaction = function (receiverAddress, amount, privateKey, unspentTxOuts, txPool) {
-    console.log('txPool: %s', JSON.stringify(txPool));
+    // console.log('txPool: %s', JSON.stringify(txPool));
     let myAddress = getPublicKey(privateKey);
     let myUnspentTxOutsA = unspentTxOuts.filter(function (uTxO) { return uTxO.address === myAddress; });
+    
     let myUnspentTxOuts = filterTxPoolTxs(myUnspentTxOutsA, txPool);
     // filter from unspentOutputs such inputs that are referenced in pool
     let _a = findTxOutsForAmount(amount, myUnspentTxOuts), includedUnspentTxOuts = _a.includedUnspentTxOuts, leftOverAmount = _a.leftOverAmount;
@@ -136,11 +139,14 @@ let createTransaction = function (receiverAddress, amount, privateKey, unspentTx
     });
     return tx;
 };
-let createTransactionFromUser = function (receiverAddress, amount, senderAddress, unspentTxOuts, txPool) {
-    console.log('txPool: %s', JSON.stringify(txPool));
+let createTransactionFromUser = function (receiverAddress, amount, senderAddress, senderPrivateKey, unspentTxOuts, txPool) {
+    // console.log('txPool: %s', JSON.stringify(txPool));
+    // console.log("unspentTxOuts : ", unspentTxOuts)
     let myAddress = senderAddress;
     let myUnspentTxOutsA = unspentTxOuts.filter(function (uTxO) { return uTxO.address === myAddress; });
+    // console.log(myUnspentTxOutsA)
     let myUnspentTxOuts = filterTxPoolTxs(myUnspentTxOutsA, txPool);
+    // console.log(myUnspentTxOuts)
     // filter from unspentOutputs such inputs that are referenced in pool
     let _a = findTxOutsForAmount(amount, myUnspentTxOuts), includedUnspentTxOuts = _a.includedUnspentTxOuts, leftOverAmount = _a.leftOverAmount;
     let toUnsignedTxIn = function (unspentTxOut) {
@@ -155,7 +161,7 @@ let createTransactionFromUser = function (receiverAddress, amount, senderAddress
     tx.txOuts = createTxOuts(receiverAddress, myAddress, amount, leftOverAmount);
     tx.id = getTransactionId(tx);
     tx.txIns = tx.txIns.map(function (txIn, index) {
-        txIn.signature = signTxIn(tx, index, privateKey, unspentTxOuts);
+        txIn.signature = signTxIn(tx, index, senderPrivateKey, unspentTxOuts);
         return txIn;
     });
     return tx;

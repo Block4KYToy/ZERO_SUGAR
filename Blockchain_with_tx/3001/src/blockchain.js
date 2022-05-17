@@ -4,7 +4,7 @@ import { broadcastLatest, broadCastTransactionPool } from "./p2p.js";
 import { processTransactions, getCoinbaseTransaction, isValidAddress } from "./transaction.js";
 import { getTransactionPool, addToTransactionPool, updateTransactionPool } from "../../3001/src/transactionPool.js";
 import { hexToBinary } from "./util.js"
-import { findUnspentTxOuts, getPublicFromWallet, createTransaction, getPrivateFromWallet, getBalance } from "./wallet.js"
+import { findUnspentTxOuts, getPublicFromWallet, createTransaction, createTransactionFromUser, getPrivateFromWallet, getBalance } from "./wallet.js"
 import { pool } from "./db.js"
 
 
@@ -182,8 +182,8 @@ let sendTransaction = function (address, amount) {
     broadCastTransactionPool();
     return tx;
 };
-let sendTransactionFromUser = function (fromAddress, toAddress, amount) {
-    let tx = createTransaction(toAddress, amount, fromAddress, getUnspentTxOuts(), getTransactionPool());
+let sendTransactionFromUser = function (fromAddress, senderPrivateKey, toAddress, amount) {
+    let tx = createTransactionFromUser(toAddress, amount, fromAddress, senderPrivateKey, getUnspentTxOuts(), getTransactionPool());
     addToTransactionPool(tx, getUnspentTxOuts());
     broadCastTransactionPool();
     return tx;
