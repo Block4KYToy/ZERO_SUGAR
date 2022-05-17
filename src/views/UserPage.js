@@ -38,12 +38,52 @@ import {
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function User() {
-  // const getUserBalance = async () => {
-  //   const userBalance = await pool.query(`SELECT * FROM signUp WHERE email = '${sessionStorage.user}'`);
-  //   console.log(userBalance)
-  // }
-  // getUserBalance()
-  return (
+  const [user, setUser] = React.useState('');
+  const [balance, setBalance] = React.useState(0);
+  const [publicKey, setPublicKey] = React.useState('');
+
+  
+  const getUserBalance = async () => {
+    if(sessionStorage.user) {
+      setUser(sessionStorage.user)
+    }
+    try {
+      await axios.post('http://localhost:4000/userData', {
+        data: user 
+      }).then((res) => {
+        // console.log(res.data[0].balance)
+        setBalance(res.data[0].balance)
+      })
+       
+    } catch (e) {
+      console.log(e)
+      alert("/userData 백서버 오류")
+    }
+    // console.log(userBalance)
+  }
+
+  React.useEffect(()=> {
+    getUserBalance();
+  }, [user]) 
+
+  console.log("user balance : ", balance)
+
+  const mineBlock = async() => {
+    try {
+      await axios.post('http://localhost:4000/userData', {
+        data: user 
+      }).then((res) => {
+        setPublicKey(res.data[0].publicKey)
+      })
+       
+    } catch (e) {
+      console.log(e)
+      alert("/userData 백서버 오류")
+    }
+    console.log(publicKey)
+  
+  }
+  return (  
     <>
       <PanelHeader size="sm" />
       <div className="content">
@@ -55,13 +95,54 @@ function User() {
               </CardHeader>
               <CardBody>
                 <Form>
-                  <Row className="profile-row">
-                    <Col xs={6}>
+                  <Row>
+                    <Col className="px-1" md="3">
                       <FormGroup>
-                        <label className="profile-label">Email</label>
+                        <label>Username</label>
                         <Input
+                          defaultValue="michael23"
+                          placeholder="Username"
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col className="pl-1" md="4">
+                      <FormGroup>
+                        <label htmlFor="exampleInputEmail1">
+                          Email address
+                        </label>
+                        <Input placeholder="Email" type="email" />
+                      </FormGroup>
+                    </Col>
+                    <Col className="pr-1" md="5">
+                      <FormGroup>
+                        <label>Balance</label>
+                        <Input
+                          defaultValue="로딩중"
                           disabled
-                          defaultValue="Zero Sugar Company"
+                          placeholder="Balance"
+                          type="number"
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="pr-1" md="6">
+                      <FormGroup>
+                        <label>First Name</label>
+                        <Input
+                          defaultValue="Mike"
+                          placeholder="Company"
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col className="pl-1" md="6">
+                      <FormGroup>
+                        <label>Last Name</label>
+                        <Input
+                          defaultValue="Andrew"
+                          placeholder="Last Name"
                           type="text"
                         />
                       </FormGroup>
