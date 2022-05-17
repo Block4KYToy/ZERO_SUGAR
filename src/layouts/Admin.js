@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState } from "react";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
@@ -29,14 +29,17 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
+import Login from "views/Login";
 
 var ps;
 
 function Admin(props) {
-  console.log("props: ", props);
+  // console.log("props: ", props);
   const location = useLocation();
   const [backgroundColor, setBackgroundColor] = React.useState("blue");
   const mainPanel = React.useRef();
+  const [auth, setAuth] = useState(false);
+
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current);
@@ -54,28 +57,38 @@ function Admin(props) {
     document.scrollingElement.scrollTop = 0;
     mainPanel.current.scrollTop = 0;
   }, [location]);
-  const handleColorClick = (color) => {
-    setBackgroundColor(color);
-  };
+  // const handleColorClick = (color) => {
+  //   setBackgroundColor(color);
+  // };
   return (
     <div className="wrapper">
-      <Sidebar {...props} routes={routes} backgroundColor={backgroundColor} />
-      <div className="main-panel" ref={mainPanel}>
-        <DemoNavbar {...props} />
-        <Switch>
-          {routes.map((prop, key) => {
-            return (
-              <Route
-                path={prop.layout + prop.path}
-                component={prop.component}
-                key={key}
-              />
-            );
-          })}
-          <Redirect from="/admin" to="/admin/dashboard" />
-        </Switch>
-        <Footer fluid />
-      </div>
+      <div className="auth-header"></div>
+        <Sidebar {...props} routes={routes} backgroundColor={backgroundColor} auth={auth} setAuth={setAuth}/>
+        <div className="main-panel" ref={mainPanel}>
+          <Switch>
+            {routes.map((prop, key) => {
+              if (prop.name === "Login") {
+                return (
+                  <Route 
+                    path={prop.layout + prop.path}
+                    // component={prop.component}
+                    key={key} 
+                    render={(props) => <Login auth={auth} setAuth={setAuth} {...props} />} />
+                )
+              }
+              return (
+                <Route
+                  path={prop.layout + prop.path}
+                  component={prop.component}
+                  key={key} 
+                />
+              );
+            })}
+            <Redirect from="/admin" to="/admin/dashboard" />
+          </Switch>
+          <Footer fluid />
+        </div>
+        {/* <DemoNavbar {...props} /> */}
       {/* <FixedPlugin
         bgColor={backgroundColor}
         handleColorClick={handleColorClick}

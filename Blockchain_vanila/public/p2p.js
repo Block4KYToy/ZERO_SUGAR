@@ -4,12 +4,18 @@ let msg;
 let sentDiv;
 let receivedDiv;
 
-function handleSubmit(e) {
+function submitPeer(e) {
     
     ipAddress = document.getElementById("ipAddress").value;
     port = document.getElementById("port").value;
     let fullAddress = "ws://" + ipAddress + ":" + port;
     alert(fullAddress)
+    e.preventDefault()
+
+}
+function submitMine(e) {
+    
+
     e.preventDefault()
 
 }

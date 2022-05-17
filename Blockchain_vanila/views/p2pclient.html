@@ -30,7 +30,9 @@
             </form>
         </div>
     </div> -->
-    <form method="post" action="/addPeer" onsubmit="handleSubmit">
+
+    <form method="post" action="/addPeer" onsubmit="submitPeer">
+        <h2>peer 연결</h2>
         <div style="display: flex;">
             <div style="width: 150px;">
                 <input id="ipAddress" name="ipAddress" type="text" placeholder="ip address">
@@ -39,6 +41,18 @@
             <input id="connect" type="submit" style="height:50px;" value="연결">
         </div>
     </form>
+
+    <form method="post" action="/autoMineBlock" onsubmit="submitMine">
+        <h2>automine</h2>
+        <div style="display: flex;">
+            <div style="width: 150px;">
+                <input id="data" name="data" type="text" placeholder="blockdata">
+                <input id="count" name="count" type="number" placeholder="block count">
+            </div>
+            <input id="mine" type="submit" style="height:50px;" value="채굴">
+        </div>
+    </form>
+
 </body>
 <script src="p2p.js"></script>
 

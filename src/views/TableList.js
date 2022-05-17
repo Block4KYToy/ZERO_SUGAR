@@ -15,8 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 // reactstrap components
 import {
   Card,
@@ -26,103 +26,134 @@ import {
   Table,
   Row,
   Col,
+  Container
 } from "reactstrap";
+
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 import { thead, tbody } from "variables/general";
+import { useParams } from "react-router-dom";  
 
 function RegularTables() {
+  const { index } = useParams();
+  const [block, setBlock] = useState([]);
+  
+  useEffect(async () => {
+    await axios.get('http://localhost:4000/admin/dashBoard')
+    .then((res) => {
+      let result = res.data[0].filter(data => data.index == index);
+      console.log("result: ", result);
+      setBlock(result);
+    })
+  },[])
   return (
     <>
       <PanelHeader size="sm" />
       <div className="content">
-        <Row>
-          <Col xs={12}>
-            <Card>
-              <CardHeader>
-                <CardTitle tag="h4">Simple Table</CardTitle>
-              </CardHeader>
-              <CardBody>
-                <Table responsive>
-                  <thead className="text-primary">
-                    <tr>
-                      {thead.map((prop, key) => {
-                        if (key === thead.length - 1)
-                          return (
-                            <th key={key} className="text-right">
-                              {prop}
-                            </th>
-                          );
-                        return <th key={key}>{prop}</th>;
+        <Container>
+          <Row>
+            <Col xs={12}>
+              <Card>
+                <CardHeader>
+                  <CardTitle tag="h4" className="block-table-header">Block Infos</CardTitle>
+                </CardHeader>
+                <CardBody>
+                  {/* <Table responsive className="block-table"> */}
+                  <Container className="block-table">
+                    {block.length > 0
+                    ?
+                    <>
+                      <Col lg={4}>
+                        {Object.keys(block[0]).map(data => <div className="block-content-header">{data}</div>)}
+                      </Col>
+                      <Col lg={8}>
+                        {Object.values(block[0]).map(data => <div className="block-content">{data}</div>)}
+                      </Col>
+                    </>
+                    : null
+                    }
+                    
+                    {/* <thead className="text-primary">
+                      <tr>
+                        {thead.map((prop, key) => {
+                          if (key === thead.length - 1)
+                            return (
+                              <th key={key} className="text-right">
+                                {prop}
+                              </th>
+                            );
+                          return <th key={key}>{prop}</th>;
+                        })}
+                      </tr>
+                    </thead> */}
+                    {/* <tbody>
+                      {tbody.map((prop, key) => {
+                        return (
+                          <tr key={key}>
+                            {prop.data.map((prop, key) => {
+                              if (key === thead.length - 1)
+                                return (
+                                  <td key={key} className="text-right">
+                                    {prop}
+                                  </td>
+                                );
+                              return <td key={key}>{prop}</td>;
+                            })}
+                          </tr>
+                        );
                       })}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tbody.map((prop, key) => {
-                      return (
-                        <tr key={key}>
-                          {prop.data.map((prop, key) => {
-                            if (key === thead.length - 1)
-                              return (
-                                <td key={key} className="text-right">
-                                  {prop}
-                                </td>
-                              );
-                            return <td key={key}>{prop}</td>;
-                          })}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs={12}>
-            <Card className="card-plain">
-              <CardHeader>
-                <CardTitle tag="h4">Table on Plain Background</CardTitle>
-                <p className="category"> Here is a subtitle for this table</p>
-              </CardHeader>
-              <CardBody>
-                <Table responsive>
-                  <thead className="text-primary">
-                    <tr>
-                      {thead.map((prop, key) => {
-                        if (key === thead.length - 1)
-                          return (
-                            <th key={key} className="text-right">
-                              {prop}
-                            </th>
-                          );
-                        return <th key={key}>{prop}</th>;
+                    </tbody> */}
+                  {/* </Table> */}
+                  </Container>
+                </CardBody>
+              </Card>
+            </Col>
+            <Col xs={12}>
+              <Card className="card-plain">
+                <CardHeader>
+                  <CardTitle tag="h4">Table on Plain Background</CardTitle>
+                  <p className="category"> Here is a subtitle for this table</p>
+                </CardHeader>
+                <CardBody>
+                  <Table responsive>
+                    <thead className="text-primary">
+                      <tr>
+                        {thead.map((prop, key) => {
+                          if (key === thead.length - 1)
+                            return (
+                              <th key={key} className="text-right">
+                                {prop}
+                              </th>
+                            );
+                          return <th key={key}>{prop}</th>;
+                        })}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tbody.map((prop, key) => {
+                        return (
+                          <tr key={key}>
+                            {prop.data.map((prop, key) => {
+                              if (key === thead.length - 1)
+                                return (
+                                  <td key={key} className="text-right">
+                                    {prop}
+                                  </td>
+                                );
+                              return <td key={key}>{prop}</td>;
+                            })}
+                          </tr>
+                        );
                       })}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tbody.map((prop, key) => {
-                      return (
-                        <tr key={key}>
-                          {prop.data.map((prop, key) => {
-                            if (key === thead.length - 1)
-                              return (
-                                <td key={key} className="text-right">
-                                  {prop}
-                                </td>
-                              );
-                            return <td key={key}>{prop}</td>;
-                          })}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       </div>
     </>
   );

@@ -20,6 +20,10 @@ import axios from "axios";
 // react plugin used to create charts
 import styled from 'styled-components';
 import { Line, Bar } from "react-chartjs-2";
+import '../assets/css/dashboard.css';
+import axios from 'axios';
+import RecentBlock from "./RecentBlock";
+import RecentTransaction from "./RecentTransaction";
 
 
 const Search = styled.div`
@@ -165,6 +169,7 @@ import {
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
+import SearchBar from "./SearchBar";
 
 import {
   dashboardPanelChart,
@@ -435,6 +440,29 @@ useEffect(() => {
     })
     }, []);
 
+function Dashboard() {
+  const [allData, setAllData] = useState([]);
+//   const [filteredData, setFilteredData] = useState(allData);
+
+//   const handleSearch = (event) => {
+//     let value = event.target.value.toLowerCase();
+//     let result = [];
+//         // console.log(value);
+//         if (value!=="") {
+//         result = allData.filter((data) => {
+//             return data.index == Number(value);
+//         });
+//     }
+//     setFilteredData(result);
+// }
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/admin/dashBoard')
+    .then((res) => {
+        setAllData(res.data)
+    })
+  }, []);
+
   return (
     <>
       <PanelHeader
@@ -560,9 +588,12 @@ useEffect(() => {
             </Card>
           </Col>
         </Row> */}
+        <SearchBar allData={allData} />
+        <RecentBlock allData={allData} setAllData={setAllData}/>
+        <RecentTransaction />
       </div>
     </>
   );
 }
-
+}
 export default Dashboard;

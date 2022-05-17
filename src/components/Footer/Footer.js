@@ -26,18 +26,17 @@ function Footer(props) {
     <footer className={"footer" + (props.default ? " footer-default" : "")}>
       <Container fluid={props.fluid ? true : false}>
         <nav>
-          <ul>
+          <ul className="footer-text">
             <li>
               <a
-                href="https://www.creative-tim.com?ref=nudr-footer"
-                target="_blank"
+                href="/"
               >
-                Creative Tim
+                ZERO SUGAR COMPANY
               </a>
             </li>
             <li>
               <a
-                href="https://presentation.creative-tim.com?ref=nudr-footer"
+                href="https://github.com/Block4KYToy/ZERO_SUGAR"
                 target="_blank"
               >
                 About Us
@@ -45,7 +44,7 @@ function Footer(props) {
             </li>
             <li>
               <a
-                href="https://blog.creative-tim.com?ref=nudr-footer"
+                href="https://www.notion.so/d1d897559ce446d8ade0bdcd2a580be1?v=d0e83f0f3d2644c3b5c19f74d91ddf76"
                 target="_blank"
               >
                 Blog
@@ -55,20 +54,14 @@ function Footer(props) {
         </nav>
         <div className="copyright">
           &copy; {1900 + new Date().getYear()}, Designed by{" "}
-          <a
-            href="https://www.invisionapp.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
             Invision
-          </a>
           . Coded by{" "}
           <a
-            href="https://www.creative-tim.com?ref=nudr-footer"
+            href="https://github.com/Block4KYToy/ZERO_SUGAR"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Creative Tim
+            Zero Sugar Company
           </a>
           .
         </div>

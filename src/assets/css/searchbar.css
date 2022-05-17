@@ -1,0 +1,117 @@
+.input-group.md-form.form-sm.form-1 input {
+    border: 1px solid #bdbdbd;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
+
+.text-white {
+    background-color: blueviolet;
+    width: 50px;
+}
+
+.search-box {
+    z-index: 3;
+    padding-left: 50px;
+    padding-bottom: 10px;
+    padding-right: 50px;
+    display: flex;
+    /* margin-bottom: 2.25rem; */
+    background-color: rgb(255, 255, 255);
+    align-items: flex-end;
+    border-radius: 30px;
+}
+
+.search-input {
+    padding-left: 20px;
+    width: 50rem;
+    height: 3.4rem;
+    margin-right: 2px;
+    font-size: medium;
+}
+.icon-box {
+    background-color: #569ce7;
+    margin-bottom: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.search-icon {
+    width: 3rem;
+    height: 3rem;
+}
+.icon-box:hover {
+    transform:scale(1.1);
+}
+.suggestion-box {
+    position: relative;
+    left: -1.5%;
+    /* border: 1px solid black; */
+    /* background-color: lightgray; */
+    margin-bottom: 2.25rem;
+    padding: 0.8rem;
+    width: 50%;
+}
+.suggestion-inner {
+    /* display: flex; */
+    /* flex-direction: row; */
+}
+.sug-row {
+    /* background-color: aqua; */
+    /* align-items: center; */
+    font-size: 20px;
+}
+.sug-col {
+    font-size: 1.125rem;
+    text-align: center;
+    font-weight: 500;
+    background-color: lightgray;
+    border: 1px solid black;
+    height: 30px;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+}
+
+.sug-col-header {
+    font-size: 1.125rem;
+    text-align: center;
+    font-weight: 500;
+    background-color: lightgray;
+    border: 1px solid black;
+    height: 30px;
+    border-left: none;
+    border-right: none;
+}
+
+.search-td {
+    cursor: pointer;
+}
+.search-td:hover {
+    transform: scale(1.07);
+}
+.block-table {
+    display: flex;
+}
+.block-table-header {
+    text-decoration: underline;
+    font-size: 1.875rem;
+    font-weight: bolder;
+}
+
+.block-content {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+    font-size: 1rem;
+    /* color: #0092ff; */
+    margin-bottom: .1875rem;
+}
+
+.block-content-header {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0092ff;
+    margin-bottom: .1875rem;
+}

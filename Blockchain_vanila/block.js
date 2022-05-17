@@ -2,10 +2,10 @@ import CryptoJS from 'crypto-js';
 import random from 'random';
 import { getCoinbaseTransaction, getTransactionPool, updateTransactionPool } from './transaction.js';
 import { getPublicKeyFromWallet } from './wallet.js';
-import {pool} from './db.js'
+import { pool } from './db.js'
 
-let blocks;
-const BLOCK_GENERATION_INTERVAL = 5000;       // 블록 생성 주기 // 블록 생성 시간(second)
+
+const BLOCK_GENERATION_INTERVAL = 50000000;       // 블록 생성 주기 // 블록 생성 시간(second)
 const DIFFICULTY_ADJUSTMENT_INTERVAL = 5;  // 난이도 체크해서 변경 조절 주기 // 몇번째 블록이 생성되었나로 체크(generate block count)
 
 class Block {
@@ -63,12 +63,12 @@ const createBlock = (blockData) => {
 const addBlock = async (newBlock, previousBlock) => {
     if (isValidNewBlock(newBlock, previousBlock)) {
         blocks.push(newBlock);
-        const blockdata = {blockdata : newBlock.data}
+        const blockdata = { blockdata: newBlock.data }
         console.log("block index: ", newBlock.index)
         console.log("current difficulty: ", getDifficulty())
         console.log('block added')
-        console.log('query')
-        
+        // console.log('query')
+
         // console.log(result)
         // const result = await pool.query(`INSERT INTO blocks(index, data, timestamp, hash, previousHash, difficulty, nonce)VALUES(${newBlock.index},${newBlock.data},${newBlock.timestamp}, '${newBlock.hash}','${newBlock.previousHash}',${newBlock.difficulty},${newBlock.nonce})`)
 
@@ -210,10 +210,40 @@ const isValidBlockchain = (receiveBlockchain) => {
     return true;
 }
 
+let blocks
 
-if (!blocks) {
-    blocks = [createGenesisBlock()];
+const updateBlocksFromDb = async () => {
+    const [result] = await pool.query(`SELECT * FROM blocks`) // [data,field] 
+    // console.log(result);
+    blocks = result;
+    if (blocks.length === 0) {
+        console.log('genesis block created')
+        blocks = [createGenesisBlock()];
+        // } else if (blocks.length > 0 && blocks[blocks.length-1].index !== result[result.length - 1].index) { //수정중
+    }
+    if (blocks.length > 0 && blocks.length !== result.length) {
+        for (let i = 0; i < blocks.length; i++) {
+            await pool.query(`INSERT INTO blocks
+                                        VALUES (${blocks[i].index},'${blocks[i].data}',${blocks[i].timestamp},
+                                        '${blocks[i].hash}','${blocks[i].previousHash}',${blocks[i].difficulty},${blocks[i].nonce});`)
+
+        }
+        console.log('blocks updated from DB')
+    }
 }
+
+// const updateDBFromBlocks = async (blocks) => {
+//     const [result] = await pool.query(`SELECT * FROM blocks`)
+
+//     const [result] = blocks.map(async (block) => {
+//         await pool.query(`INSERT INTO blocks
+//                                         VALUES ('0','dasdasd','0','0','0','0','0');`)
+//     })
+// }
+
+updateBlocksFromDb();
+
+
 
 const difficultyChangeLog = [];
 
@@ -282,4 +312,4 @@ const createNextBlock = () => {
 }
 
 
-export { getBlocks, createBlock, getLatestBlock, addBlock, replaceBlockchain, getDifficultyLog }
+export { getBlocks, createBlock, getLatestBlock, addBlock, replaceBlockchain, getDifficultyLog, updateBlocksFromDb }
