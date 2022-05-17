@@ -49,7 +49,7 @@ const SuggestionBar = ({searchData}) => {
                             onClick={routeBlock}
                         >
                             <Col lg={2} className="sug-col">{data.index}</Col>
-                            <Col lg={10} className="sug-col">{data.hash}</Col>
+                            <Col lg={10} className="sug-col">{data.hash.slice(0,20) + '.....' + data.hash.slice(data.hash.length-20)}</Col>
                         </Row>                                        
                     )}
                 </div>

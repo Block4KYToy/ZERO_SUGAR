@@ -1,13 +1,15 @@
 .modal {
-    display: none;
+    /* display: none; */
+    /* position: fixed; */
     position: fixed;
-    top: -20%;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    top: 10%;
+    left: 81%;
     z-index: 99;
     background: rgba(0, 0, 0, 0.6);
-    height: 800px;
+    height: auto;
+    width: 360px;
+    margin-right: 0;
+    
 }
 .modal button {
     outline: none;
@@ -39,7 +41,7 @@
     font-size: 21px;
     font-weight: 700;
     text-align: center;
-    color: #ff5478;
+    color: #0e0d0d;
     background-color: transparent;
 }
 .modal > section > main {
@@ -53,11 +55,13 @@
     text-align: right;
 }
 .modal > section > footer button {
+    margin-bottom: 5px;
     padding: 6px 12px;
-    color: #fff;
-    background-color: #ff5478;
+    color: black;
+    background-color: #ff9054;
     border-radius: 5px;
     font-size: 13px;
+    border: 1px solid black;
 }
 .modal.openModal {
     display: flex;
@@ -67,22 +71,32 @@
 }
 
 .modal > section > main > .walmaintxt {
+    font-weight: 600;
     font-size: 20px;
     margin-bottom: 5px;
+    background: rgba(22, 99, 171, 0.6);
+    width: 140px;
+    padding-left: 10px;
+    border-radius: 10px;
 }
 
 .modal > section > main > .waltxt {
+    font-weight: 600;
     margin-top: 10px;
     margin-bottom: 10px;
     color: #392f31;
 }
 .modal > section > main > .walinput {
+    width: 200px;
+    /* margin: auto; */
     margin-top: 30px;
-    margin-bottom: 20px;
+    /* margin-bottom: 0px; */
+    margin-left: 40px;
     border: none;
     outline: none;
     color: #392f31;
     border-bottom: 2px solid #392f31;
+    padding-left: 10px;
 }
 
 .modal > section > main > .walmakebtn {
@@ -96,12 +110,13 @@
     width:80%;
     height:40px;
     border-radius: 40px;
-    background: linear-gradient(125deg,#ff5478,#ffb0b9,#ffe5e7);
+    background: linear-gradient(125deg,#ff9054,#ffffb0,#f59ca3);
     background-position: left;
     background-size: 200%;
     color:#392f31;
-    font-weight: bold;
-    border:none;
+    font-size: 1.1rem;
+    font-weight: 900;
+    /* border:0.1px solid black; */
     cursor:pointer;
     transition: 0.4s;
     display:inline;
@@ -128,11 +143,67 @@
 }
 
 .wal_container {
+    /* display: flex; */
     margin-top: 5%;
+    text-align: center;
+    /* justify-content: center; */
+    /* flex-direction: column; */
     
 }
 .wal_select {
     size: 10px;
+}
+.coin-logo {
+    border-radius: 100%;
+    width: 12.5rem;
+    height: 11.25rem;
+    /* text-align: center; */
+    /* display: flex; */
+    /* justify-content: center; */
+}
+
+.logo-container {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.walmake {
+    text-align: center;
+}
+.wal-header {
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: underline;
+}
+
+.wal-public {
+    cursor: pointer;
+}
+.wal-private {
+    cursor: pointer;
+}
+.wal-balance {
+    font-size: 1.5rem
+}
+.wal-send-input {
+    margin-left: 15%;
+    margin-top: 5px;
+    height: 38px;
+    width: 70%;
+    /* justify-content: center; */
+}
+.wal-send-input-box {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.wal-send-header {
+    /* margin-left: 30px; */
+    margin-top: 15px;
+    font-size: 17px;
+    font-weight: bold;
+    /* text-decoration: underline; */
 }
 
 @keyframes modal-show {

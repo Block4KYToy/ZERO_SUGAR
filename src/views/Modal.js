@@ -52,7 +52,6 @@ export default function Modal() {
             (
             <section>
                 <header>
-                    hi
                     <button className="close">
                     &times;
                     </button>
@@ -61,7 +60,7 @@ export default function Modal() {
                 <main>
                     {!modalAuth ? (
                         <>
-                            <h5 className="waltxt">KUOS가 잠긴 상태입니다</h5>
+                            <h5 className="waltxt">ZUGAR가 잠긴 상태입니다</h5>
                             <input
                             className="walinput"
                             placeholder="아이디"

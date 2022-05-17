@@ -12,6 +12,7 @@
 .search-box {
     z-index: 3;
     padding-left: 50px;
+    padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 50px;
     display: flex;
@@ -21,7 +22,12 @@
     border-radius: 30px;
 }
 
+.blockinfo-table {
+    display: flex;
+}
+
 .search-input {
+    /* position: fixed; */
     padding-left: 20px;
     width: 50rem;
     height: 3.4rem;
@@ -97,7 +103,7 @@
     cursor: pointer;
 }
 .search-td:hover {
-    transform: scale(1.07);
+    transform: scale(1.03);
 }
 .block-table {
     display: flex;
@@ -112,7 +118,7 @@
     border: 1px solid black;
     border-left: none;
     border-right: none;
-    font-size: 1rem;
+    font-size: 1.06rem;
     /* font-weight: bold; */
     /* color: #0092ff; */
     margin-bottom: .1875rem;
@@ -122,7 +128,7 @@
     border: 1px solid black;
     border-left: none;
     border-right: none;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #0092ff;
     margin-bottom: .1875rem;
@@ -145,7 +151,8 @@
 
 .profile-btn {
     position: absolute;
-    left: 40.5%;
+    margin-top: 20px;
+    right: 39%;
 }
 
 .main-icon {
@@ -159,4 +166,25 @@
 
 .main-icon:hover {
     transform: scale(1.08);
+}
+
+.search-td-hash {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.search-td-hash:hover {
+    transform: scale(1.03);
+}
+
+.transaction-table {
+    display: flex;
+}
+.mining-btn {
+    position: absolute;
+    left: 20%;
+    top: 1%;
+    width: 1000px;
+    height: 100px;
+    font-size: 40px;
 }
