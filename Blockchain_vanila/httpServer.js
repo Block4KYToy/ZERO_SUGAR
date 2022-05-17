@@ -58,11 +58,18 @@ const initHttpServer = (myHttpPort) => {
 
 
     app.post('/mineBlock', async (req, res) => {
-        mineBlock(req.body.data)
-        const newBlock = getLatestBlock()
-        const result = await pool.query(`INSERT INTO blocks VALUES (${newBlock.index},'${newBlock.data}',${newBlock.timestamp},'${newBlock.hash}','${newBlock.previousHash}',${newBlock.difficulty},${newBlock.nonce})`); //(`index`, data, timestamp, hash, previousHash, difficulty, nonce)
-        console.log('inserted to db : ', result)
+        while (true) {
+            if (mineBlock(req.body.data)) {
+                break
+            } else {
+                console.log('failed mining, ')
+            }
+            // mineBlock(req.body.data)
+        }
         
+        // const newBlock = getLatestBlock()
+        // const result = await pool.query(`INSERT INTO blocks VALUES (${newBlock.index},'${newBlock.data}',${newBlock.timestamp},'${newBlock.hash}','${newBlock.previousHash}',${newBlock.difficulty},${newBlock.nonce})`); //(`index`, data, timestamp, hash, previousHash, difficulty, nonce)
+        // console.log('inserted to db : ', result)
         res.redirect('/blocks');
     })
 
