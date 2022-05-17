@@ -273,14 +273,6 @@ const Dashboard = (event) => {
               setrealTmArr(realTmArr => [...realTmArr, timestamp[j][0]])
               setidLeng(idLeng => [...idLeng, timestamp[j].length]) 
             }
-              //   console.log([Unix_timestamp(data[0].timestamp)] + [Unix_timestamp(data[i].timestamp)]);
-              // timestamp.push([Unix_timestamp(data[0][0].timestamp)] + [Unix_timestamp(data[i].timestamp)]);
-              // let times = timestamp[timestamp.length - 1]
-              // console.log(times)
-              // let timestampFilter = [...new Set(timestamp)];
-              // console.log(timestampFilter)
-              // // let timestampFilter = timestamp.filter((element) => element !== '35:36')
-              // setTmArr(TmArr => [...TmArr, (response.data[0][0].timestamp)])
             
         console.log(unixT)
         console.log("timestamp[0] : ", timestamp[0][0])
@@ -439,20 +431,7 @@ useEffect(() => {
     })
     }, []);
 
-  
-//   const [filteredData, setFilteredData] = useState(allData);
 
-//   const handleSearch = (event) => {
-//     let value = event.target.value.toLowerCase();
-//     let result = [];
-//         // console.log(value);
-//         if (value!=="") {
-//         result = allData.filter((data) => {
-//             return data.index == Number(value);
-//         });
-//     }
-//     setFilteredData(result);
-// }
 
   useEffect(() => {
     axios.get('http://localhost:4000/admin/dashBoard')
