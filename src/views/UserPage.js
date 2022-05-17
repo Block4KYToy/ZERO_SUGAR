@@ -248,14 +248,12 @@ function User() {
                       className="avatar border-gray"
                       src="https://www.sprite.com/content/dam/nagbrands/us/sprite/en/products/thirst-for-yours/products/sprite-zero/desktop/sprite_zero_featurecan.jpg"
                     />
-                    <h5 className="title">Mike Andrew</h5>
+                    <h5 className="title">Zero Sugar</h5>
                   </a>
-                  <p className="description">michael24</p>
+                  <p className="description">Sugar Restricted.</p>
                 </div>
                 <p className="description text-center">
-                  "Lamborghini Mercy <br />
-                  Your chick she so thirsty <br />
-                  I'm in that two seat Lambo"
+                  Excessive sugar intake can lead to diabetes. <br />
                 </p>
               </CardBody>
               <hr />
