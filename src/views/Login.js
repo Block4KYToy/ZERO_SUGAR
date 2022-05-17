@@ -84,8 +84,8 @@ function Login(props) {
                   <img className="zero-sugar" src={Zeros} alt="Zero Sugar"/>
                 </div>
                 <div className="input-box">
-                  <input name="email" type="text" placeholder="Email" value={user.email} onChange={handleChange}/><br />
-                  <input name="password" type="password" placeholder="Password" value={user.password} onChange={handleChange}/><br />
+                  <input className="sign-input" name="email" type="text" placeholder="Email" value={user.email} onChange={handleChange}/><br />
+                  <input className="sign-input" name="password" type="password" placeholder="Password" value={user.password} onChange={handleChange}/><br />
                 </div>
                 <button onClick={handleSubmit} className="login-btn">Sign in</button>
               </CardBody>

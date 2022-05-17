@@ -407,6 +407,19 @@ const Dashboard = (event) => {
     },[]);
   
   const [filteredData, setFilteredData] = useState(allData);
+  const [addressArr, setAddressArr] = useState([]);
+
+  const getAllTxAddresses = (blockData) => {
+    console.log(blockData);
+    if (blockData.length === 0) return;
+    let addressArr = [];
+    blockData.forEach((block) => {
+      let address = JSON.parse(block.data)[0].txOuts[0].address;
+      if (!addressArr.includes(address)) addressArr.push(address);
+    });
+    console.log('addressArr:', addressArr)
+    return addressArr;
+  }
 
   const handleSearch = (event) => {
     let value = event.target.value.toLowerCase();
@@ -420,10 +433,12 @@ const Dashboard = (event) => {
     setFilteredData(result);
 }
 
-  useEffect(() => {
-    axios.get('http://localhost:4000/admin/dashBoard')
+  useEffect(async () => {
+    await axios.get('http://localhost:4000/admin/dashBoard')
     .then((res) => {
-        setAllData(res.data)
+        let data = getAllTxAddresses(res.data[0]);
+        setAllData(res.data);
+        setAddressArr(data);
     })
   }, []);
 
@@ -438,11 +453,10 @@ const Dashboard = (event) => {
           />
         }
       />
-      <div className="content">
-                    
+      <div className="content">                    
         <SearchBar allData={allData} />
         <RecentBlock allData={allData} setAllData={setAllData}/>
-        <RecentTransaction allData={allData}/>
+        <RecentTransaction allData={allData} addressArr={addressArr}/>
       </div>
     </>
   );

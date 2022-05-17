@@ -70,5 +70,16 @@ router.post('/login', async (req, res) => {
 
 //res.data
 
+router.post('/updateUser', async (req, res) => {
+    // console.log(req.body);
+    const { email, name, password, about } = req.body;
+    const [result] = await pool.query(`UPDATE signUp SET name="${name}", password="${password}" WHERE email="${email}"`);
+    // console.log(result);
+    if (result.length === 0) {
+        res.send("실패")
+    }
+    else res.send("성공")
+})
+
 
 module.exports = router

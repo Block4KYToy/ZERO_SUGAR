@@ -1,36 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardBody, CardTitle, Row, Col, Table} from "reactstrap";
 import { useHistory } from 'react-router-dom';
 
-const RecentTransaction = ({ allData }) => {
-  // 수정되면 고칠것
-  // const getAllTxAddresses = (blockData) => {
-  //   console.log(blockData);
-  //   if (blockData.length === 0) return;
-  //   let addressArr = [];
-  //   blockData.forEach((block) => {
-  //     let address = JSON.parse(block.data)[0].txOuts[0].address;
-  //     if (!addressArr.includes(address)) addressArr.push(address);
-  //   });
-  //   return addressArr;
-  // }
-  // const addressArr = getAllTxAddresses(allData[0]);
-  // console.log("address : ", addressArr);
-
-  //const routePath = (index) => {
-  // history.push(`/admin/block/${index});
-  // }
+const RecentTransaction = ({ allData, addressArr }) => {
+  console.log(allData, addressArr);
   let history = useHistory();
-  const routePath = (e) => {
-    // console.log(e.target.innerHTML);
-    let searchParams = e.target.innerHTML;
-    let routeIndex = allData[0].filter((data) =>
-      data.index == searchParams || data.hash == searchParams
-    )[0].index;
-    // console.log(routeIndex);
-    history.push(`/admin/block/${routeIndex}`);
+
+  const routePath = (index) => {
+    // console.log(index);
+    history.push(`/admin/block/${index}`);
   }
-  
+
     return (
           <Row>
             <Col xs={12} md={12}>
@@ -50,7 +30,7 @@ const RecentTransaction = ({ allData }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* {allData.length > 0 ? 
+                      {allData.length > 0 && addressArr.length > 0? 
                         allData[0].map((block) => {
                           if (block.index > allData[0].length - 6) {
                             let hour = parseInt((Date.now() - new Date(block.timestamp * 1000)) / 3600000);
@@ -59,57 +39,32 @@ const RecentTransaction = ({ allData }) => {
                             let text = new Date(block.timestamp*1000).toString();
                             text = text.slice(0, text.length - 9);
 
+                            // let data = JSON.stringify(JSON.parse(block.data)[0].id);
                             let data = JSON.parse(block.data)[0];
                             let txHash = data.id;
-                            // let txTo = data.txOuts[0].address;
-                            // let random = Math.floor(Math.random()*addressArr.length);
-                            // let txFrom = addressArr[random] == txTo ? random == 0 ? addressArr[random+1] : addressArr[random-1] : addressArr[random];
-
+                            let txTo = JSON.stringify(data.txOuts[0].address);
+                            let random = Math.floor(Math.random()*addressArr.length);
+                            let txFrom = (addressArr[random] == txTo) ? 
+                                    random == 0 ? JSON.stringify(addressArr[random+1]) 
+                                    : JSON.stringify(addressArr[random-1]) 
+                                    : JSON.stringify(addressArr[random]);
                             return (
                               <>
                                 <tr 
                                   key={block.index + 1000}
                                 >
-                                  <td className="search-td" onClick={routePath(block.index)}>{block.hash}</td>
-                                  <td className="search-td" >{txFrom}</td>
-                                  <td>{trTo}</td>
-                                  <td className="text-right">{text} &nbsp;&nbsp;&nbsp;({hour}시간 {min}분 {sec}초 전)</td>
+                                  <td className="search-td-hash" onClick={() => routePath(block.index)}>{txHash}</td>
+                                  <td >{txFrom.slice(1, 11) + '......' + txFrom.slice(txFrom.length-11, txFrom.length-1)}</td>
+                                  <td>{txTo.slice(1, 11) + '......' + txTo.slice(txTo.length-11, txTo.length-1)}</td>
+                                  <td className="text-right">{hour}시간 {min}분 {sec}초 전</td>
                                 </tr>
                               </>
                             )
                           }
                           return null
-                      })
-                    : null
-                    } */}
-                                        {allData.length > 0 ? 
-                    allData[0].map((block) => {
-                      if (block.index > allData[0].length - 6) {
-                        let hour = parseInt((Date.now() - new Date(block.timestamp * 1000)) / 3600000);
-                        let min = parseInt((Date.now() - new Date(block.timestamp * 1000)) % 3600 / 60);
-                        let sec = parseInt((Date.now() - new Date(block.timestamp / 1000) % 3600) % 60);
-                        let text = new Date(block.timestamp*1000).toString();
-                        text = text.slice(0, text.length - 9);
-
-                        let data = block.data;
-                        // let txHash = data.id;
-                        return (
-                          <>
-                            <tr 
-                              key={block.index + 1000}
-                            >
-                              <td className="search-td" onClick={routePath}>{block.index}</td>
-                              <td className="search-td" onClick={routePath}>{block.hash}</td>
-                              <td>{text} &nbsp;&nbsp;&nbsp;({hour}시간 {min}분 {sec}초 전)</td>
-                              <td className="text-right">{data}</td>
-                            </tr>
-                          </>
-                        )
-                      }
-                      return null
-                    })
-                  : null
-                  }
+                        })
+                      : null
+                    }
                     </tbody>
                   </Table>
                 </CardBody>
