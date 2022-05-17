@@ -73,6 +73,15 @@
     cursor: pointer;
 }
 
+.num:hover+.hash{
+
+}
+
+.sug-row:hover .sug-col{
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
 .sug-col-header {
     font-size: 1.125rem;
     text-align: center;
@@ -104,6 +113,7 @@
     border-left: none;
     border-right: none;
     font-size: 1rem;
+    /* font-weight: bold; */
     /* color: #0092ff; */
     margin-bottom: .1875rem;
 }
@@ -116,4 +126,37 @@
     font-weight: bold;
     color: #0092ff;
     margin-bottom: .1875rem;
+}
+
+.profile-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.profile-description {
+    text-align: center;
+}
+
+.profile-label {
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+.profile-btn {
+    position: absolute;
+    left: 40.5%;
+}
+
+.main-icon {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    width: 80px;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.main-icon:hover {
+    transform: scale(1.08);
 }

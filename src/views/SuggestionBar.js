@@ -5,13 +5,19 @@ import { useHistory } from 'react-router-dom';
 const SuggestionBar = ({searchData}) => {
     let history = useHistory();
     const changeStyle = (e) => {
+        let eventTarget = e.target.nextElementSibling != null ? e.target.nextElementSibling : e.target.previousElementSibling;
         e.target.style.fontWeight = "600";
         e.target.style.fontSize = "1.25rem";
+        eventTarget.style.fontWeight = "600";
+        eventTarget.style.fontSize = "1.25rem";
     }
 
     const rewindStyle = (e) => {
+        let eventTarget = e.target.nextElementSibling != null ? e.target.nextElementSibling : e.target.previousElementSibling;
         e.target.style.fontWeight = "500";
         e.target.style.fontSize = "1.125rem";
+        eventTarget.style.fontWeight = "500";
+        eventTarget.style.fontSize = "1.125rem";
     }
 
     const routeBlock = (e) => {
@@ -38,8 +44,8 @@ const SuggestionBar = ({searchData}) => {
                     { searchData.map((data) => 
                         <Row 
                             className="sug-row" 
-                            onMouseOver={changeStyle} 
-                            onMouseOut={rewindStyle}
+                            // onMouseOver={changeStyle} 
+                            // onMouseOut={rewindStyle}
                             onClick={routeBlock}
                         >
                             <Col lg={2} className="sug-col">{data.index}</Col>
