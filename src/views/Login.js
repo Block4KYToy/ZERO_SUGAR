@@ -32,7 +32,7 @@ function Login(props) {
   let history = useHistory();
   const { setAuth } = props;
   const [user, setUser] = useState({email: "", password: ""})
-  console.log("login : ", props);
+  // console.log("login : ", props);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -51,8 +51,8 @@ function Login(props) {
       // 입력정보가 db정보와 일치하는가
       if (result === "성공") {
         console.log("성공!");
+        sessionStorage.setItem(`${user.email}`, JSON.stringify({loginstatus: true}));
         setAuth(true);
-        localStorage.setItem(`${user.email}`, JSON.stringify({loginstatus: true}));
         history.push('/admin');
       }
       else alert("로그인 정보가 일치하지 않습니다!")

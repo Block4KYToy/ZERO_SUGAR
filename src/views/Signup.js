@@ -19,6 +19,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import '../assets/css/sign.css';
 import Zeros from '../assets/img/zero.png';
+import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import { Row, Col, Card, CardHeader, CardBody } from "reactstrap";
@@ -27,6 +28,7 @@ import { Row, Col, Card, CardHeader, CardBody } from "reactstrap";
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function Signup() {
+  let history = useHistory();
   const [userInfo, setUserInfo] = useState({name: "", email: "", password: "", pwconfirm: ""});
 
   const handleChange = (e) => {
@@ -46,6 +48,10 @@ function Signup() {
     }
     // 이메일 유효성
     let emailReg = /^[a-zA-Z]+([-_.]?[0-9a-zA-Z])*@[a-z]{4,}.[a-z]{2,3}$/i;
+    // if (!emailReg.test(email)) {
+    //   alert("이메일 형식이 잘못되었습니다.");
+    //   return false;
+    // }
     if (!emailReg.test(email)) {
       alert("이메일 형식이 잘못되었습니다.");
       return false;
@@ -76,6 +82,15 @@ function Signup() {
       console.log(res);
      // 이메일이 유일한가
      // db입력이 잘 되었는가
+      let result = res.data;
+      if (result === "성공") {
+        alert("회원가입이 완료되었습니다!");
+        history.push('/admin/login');
+      }
+      
+      else {
+        alert("중복된 이메일입니다!");
+      }
     })
     }
   }
