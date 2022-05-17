@@ -208,14 +208,14 @@ const Dashboard = (event) => {
         // data: [24, 27, 12, 8, 6, 7, 8, 3, 3, 5, 1, 3],
         let timestamp = [];
         let data = response.data[0];
-        let unixT = [Unix_timestamp(data[0].timestamp)];
+        let unixT = [Unix_timestamp(data[1].timestamp)];
         console.log("unixT : ", unixT)
 
         for(let i = 0; i < 107; i++) {
             // for(let j = 0; j < 25; j++){
               // let unixT = [Unix_timestamp(data[0].timestamp)];
               // 1번째 배열 24
-              if (i <= 24 && i > 0) { unixT.push(Unix_timestamp(data[i].timestamp))}
+              if (i <= 24 && i > 1) { unixT.push(Unix_timestamp(data[i].timestamp))}
               if (i == 24) { timestamp.push(unixT);
                 unixT = [Unix_timestamp(data[25].timestamp)]}  
               // 2번째 배열 27
@@ -255,17 +255,18 @@ const Dashboard = (event) => {
               if (i == 103) { timestamp.push(unixT);
                 unixT = [Unix_timestamp(data[104].timestamp)]}
               // 11번째 배열 1
-              if (i <= 104 && i > 103) { unixT.push(Unix_timestamp(data[i].timestamp));}
-              if (i == 104) { timestamp.push(unixT);
-                unixT = [Unix_timestamp(data[105].timestamp)]}
+              if (i <= 105 && i > 103) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 105) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[106].timestamp)]}
               // 12번째 배열 3
-              if (i <= 106 && i > 104) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i <= 106 && i > 105) { unixT.push(Unix_timestamp(data[i].timestamp));}
               if (i == 106) { timestamp.push(unixT);
                 unixT = [Unix_timestamp(data[0].timestamp)]}
             }
             for(let j = 0; j < 12; j++)
             {
-              setrealTmArr(realTmArr => [...realTmArr, timestamp[0][j]])
+              setrealTmArr(realTmArr => [...realTmArr, timestamp[j][0]])
+              setidLeng(idLeng => [...idLeng, timestamp[j].length]) 
             }
               //   console.log([Unix_timestamp(data[0].timestamp)] + [Unix_timestamp(data[i].timestamp)]);
               // timestamp.push([Unix_timestamp(data[0][0].timestamp)] + [Unix_timestamp(data[i].timestamp)]);
@@ -275,7 +276,6 @@ const Dashboard = (event) => {
               // console.log(timestampFilter)
               // // let timestampFilter = timestamp.filter((element) => element !== '35:36')
               // setTmArr(TmArr => [...TmArr, (response.data[0][0].timestamp)])
-              // setidLeng(idLeng => [...idLeng, response.data[0][i].index]) 
             
         console.log(unixT)
         console.log("timestamp[0] : ", timestamp[0][0])
@@ -292,6 +292,9 @@ const Dashboard = (event) => {
         console.log(timestamp[11])
         }
         console.log(realTmArr[0])
+        
+        // console.log("realTmArr : ", realTmArr)
+        
     const dashboardPanelChart = {
 
   
@@ -312,13 +315,13 @@ const Dashboard = (event) => {
             `${realTmArr[2]}`,
             `${realTmArr[3]}`,
             `${realTmArr[4]}`,
-            `${realTmArr[99]}`,
-            `${realTmArr[99]}`,
-            `${realTmArr[99]}`,
-            `${realTmArr[99]}`,
-            `${realTmArr[99]}`,
-            `${realTmArr[99]}`,
-            `${realTmArr[99]}`,
+            `${realTmArr[5]}`,
+            `${realTmArr[6]}`,
+            `${realTmArr[7]}`,
+            `${realTmArr[8]}`,
+            `${realTmArr[9]}`,
+            `${realTmArr[10]}`,
+            `${realTmArr[11]}`,
           ],
           datasets: [
             {
@@ -336,7 +339,10 @@ const Dashboard = (event) => {
               backgroundColor: gradientFill,
               borderWidth: 2,
               tension: 0.38,
-              data: [24, 27, 12, 8, 6, 7, 8, 3, 3, 5, 1, 3],
+              data: [0,`${idLeng[0]}`, `${idLeng[1]}`, `${idLeng[2]}`, `${idLeng[3]}`, `${idLeng[4]}`
+              , `${idLeng[5]}`, `${idLeng[6]}`, `${idLeng[7]}`, `${idLeng[8]}`, `${idLeng[9]}`,
+              `${idLeng[10]}` 
+            ],
             },
           ],
         };
