@@ -20,14 +20,14 @@ const SuggestionBar = ({searchData}) => {
         eventTarget.style.fontSize = "1.125rem";
     }
 
-    const routeBlock = (e) => {
+    const routeBlock = (index) => {
         // console.log(e.target.innerHTML);
-        let userRoute = e.target.innerHTML
-        let routeBlockIndex = searchData.filter((data) => 
-            data.index == userRoute || data.hash == userRoute
-        )[0].index;
+        // let userRoute = e.target.innerHTML
+        // let routeBlockIndex = searchData.filter((data) => 
+            // data.index == userRoute || data.hash == userRoute
+        // )[0].index;
         // console.log(routeBlockIndex);
-        history.push(`/admin/block/${routeBlockIndex}`);
+        history.push(`/admin/block/${index}`);
     }
 
     return (
@@ -46,7 +46,7 @@ const SuggestionBar = ({searchData}) => {
                             className="sug-row" 
                             // onMouseOver={changeStyle} 
                             // onMouseOut={rewindStyle}
-                            onClick={routeBlock}
+                            onClick={() => routeBlock(data.index)}
                         >
                             <Col lg={2} className="sug-col">{data.index}</Col>
                             <Col lg={10} className="sug-col">{data.hash.slice(0,20) + '.....' + data.hash.slice(data.hash.length-20)}</Col>
