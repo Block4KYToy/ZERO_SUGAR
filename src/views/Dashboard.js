@@ -406,7 +406,7 @@ const Dashboard = (event) => {
       }, 30);
     },[]);
   
-  const [filteredData,setFilteredData] = useState(allData);
+  const [filteredData, setFilteredData] = useState(allData);
 
   const handleSearch = (event) => {
     let value = event.target.value.toLowerCase();
@@ -419,19 +419,6 @@ const Dashboard = (event) => {
     }
     setFilteredData(result);
 }
-
-useEffect(() => {
-    axios.get('http://localhost:4000/admin/dashBoard')
-    .then((res) => {
-        // console.log(res.data)
-        setAllData(res.data)
-        setFilteredData(res.data)
-        // setAllData(res.data)
-
-    })
-    }, []);
-
-
 
   useEffect(() => {
     axios.get('http://localhost:4000/admin/dashBoard')
@@ -455,7 +442,7 @@ useEffect(() => {
                     
         <SearchBar allData={allData} />
         <RecentBlock allData={allData} setAllData={setAllData}/>
-        <RecentTransaction />
+        <RecentTransaction allData={allData}/>
       </div>
     </>
   );
