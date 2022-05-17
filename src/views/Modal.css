@@ -153,3 +153,9 @@
         opacity: 1;
     }
 }
+
+/* .outer-modal {
+    z-index: 3;
+    position: absolute;
+    right: 0;
+} */

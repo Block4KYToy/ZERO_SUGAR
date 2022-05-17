@@ -32,12 +32,14 @@ import routes from "routes.js";
 import Login from "views/Login";
 
 import { useDispatch, useSelector } from "react-redux";
+import Modal from "views/Modal";
 
 var ps;
 
 function Admin(props) {
   // console.log("props: ", props);
   const auth = useSelector((state) => state.auth);
+  const modalState = useSelector((state) => state.modalState);
   const dispatch = useDispatch();
   const location = useLocation();
   const [backgroundColor, setBackgroundColor] = React.useState("blue");
@@ -69,6 +71,7 @@ function Admin(props) {
       <div className="auth-header"></div>
         <Sidebar {...props} routes={routes} backgroundColor={backgroundColor} />
         <div className="main-panel" ref={mainPanel}>
+          {auth && modalState && <Modal />}
           <Switch>
             {routes.map((prop, key) => {
               if (prop.name === "Login") {
