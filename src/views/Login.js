@@ -34,6 +34,7 @@ function Login(props) {
   let history = useHistory();
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { setAuth } = props;
   const [user, setUser] = useState({email: "", password: ""})
   // console.log("login : ", props);
 
@@ -56,7 +57,7 @@ function Login(props) {
         console.log("성공!");
         sessionStorage.setItem('user', `${user.email}`);
         sessionStorage.setItem('loginstatus', true);
-        setAuth(true);
+        dispatch({type: "USER_LOGIN"});
         history.push('/admin');
       }
       else alert("로그인 정보가 일치하지 않습니다!")
