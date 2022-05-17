@@ -1,0 +1,155 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: -20%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.6);
+    height: 800px;
+}
+.modal button {
+    outline: none;
+    cursor: pointer;
+    border: 0;
+}
+.modal > section {
+    width: 90%;
+    max-width: 450px;
+    margin: 0 auto;
+    border-radius: 0.3rem;
+    background-color: #fff;
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-show 0.3s;
+    height: auto;
+    overflow: hidden;
+}
+.modal > section > header {
+    position: relative;
+    padding: 16px 64px 16px 16px;
+    background-color: #fff;
+    font-weight: 700;
+}
+.modal > section > header button {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    width: 20px;
+    font-size: 21px;
+    font-weight: 700;
+    text-align: center;
+    color: #ff5478;
+    background-color: transparent;
+}
+.modal > section > main {
+    height: auto;
+    padding: 16px;
+    border-bottom: 1px solid #dee2e6;
+    border-top: 1px solid #dee2e6;
+}
+.modal > section > footer {
+    padding: 12px 16px;
+    text-align: right;
+}
+.modal > section > footer button {
+    padding: 6px 12px;
+    color: #fff;
+    background-color: #ff5478;
+    border-radius: 5px;
+    font-size: 13px;
+}
+.modal.openModal {
+    display: flex;
+    align-items: center;
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-bg-show 0.3s;
+}
+
+.modal > section > main > .walmaintxt {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.modal > section > main > .waltxt {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #392f31;
+}
+.modal > section > main > .walinput {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
+    color: #392f31;
+    border-bottom: 2px solid #392f31;
+}
+
+.modal > section > main > .walmakebtn {
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+.modal > section > main > .walmake >.walmakebtn{
+    position:relative;
+    left:40%;
+    transform: translateX(-50%);
+    width:80%;
+    height:40px;
+    border-radius: 40px;
+    background: linear-gradient(125deg,#ff5478,#ffb0b9,#ffe5e7);
+    background-position: left;
+    background-size: 200%;
+    color:#392f31;
+    font-weight: bold;
+    border:none;
+    cursor:pointer;
+    transition: 0.4s;
+    display:inline;
+    margin-top: 50px;
+}
+
+.modal > section > main > .walmake >.walmakebtn:hover {
+    background-position: right;
+}
+
+.wal_info {
+    display: flex;
+    flex-direction: row;
+}
+
+.wal_id {
+    width: 50%;
+    border: solid 1px;
+}
+
+.wal_balance {
+    width: 50%;
+    border: solid 1px;
+}
+
+.wal_container {
+    margin-top: 5%;
+    
+}
+.wal_select {
+    size: 10px;
+}
+
+@keyframes modal-show {
+    from {
+        opacity: 0;
+        margin-top: -50px;
+    }
+    to {
+        opacity: 1;
+        margin-top: 0;
+    }
+}
+@keyframes modal-bg-show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
