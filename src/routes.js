@@ -76,10 +76,6 @@ var dashRoutes = [
     layout: "/admin",
   },
   {
-    path: "/signup",
-    name: "Signup",
-    icon: "location_map-big",
-    component: Signup,
     path: "/login",
     name: "Login",
     icon: "design-2_ruler-pencil",
@@ -95,13 +91,6 @@ var dashRoutes = [
   //   component: Login,
   //   layout: "/admin",
   // },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "design-2_ruler-pencil",
-    component: Login,
-    layout: "/admin",
-  },
   // {
   //   pro: true,
   //   path: "/upgrade",
