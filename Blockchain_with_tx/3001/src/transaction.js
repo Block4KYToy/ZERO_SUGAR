@@ -177,6 +177,8 @@ let signTxIn = function (transaction, txInIndex, privateKey, aUnspentTxOuts) {
     }
     let referencedAddress = referencedUnspentTxOut.address;
     if (getPublicKey(privateKey) !== referencedAddress) {
+        console.log(getPublicKey(privateKey))
+        console.log(referencedAddress)
         console.log('trying to sign an input with private' +
             ' key that does not match the address that is referenced in txIn');
         throw Error();
@@ -305,5 +307,5 @@ let isValidAddress = function (address) {
 
 export {
     UnspentTxOut, TxIn, TxOut, Transaction, getTransactionId, validateTransaction, hasDuplicates,
-    getCoinbaseTransaction, signTxIn, processTransactions, getPublicKey, isValidAddress
+    getCoinbaseTransaction, signTxIn, processTransactions, getPublicKey, isValidAddress,
 }

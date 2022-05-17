@@ -156,11 +156,11 @@ const filterTxPoolTxs = (myUnspentTxOuts) => {
         .flatten()
         .value();
 
-    console.log("transactionPool : ");
-    console.log(transactionPool);
+    // console.log("transactionPool : ");
+    // console.log(transactionPool);
 
-    console.log("\ntxIns : ");
-    console.log(txIns);
+    // console.log("\ntxIns : ");
+    // console.log(txIns);
     const removable = [];
     for (const unspentTxOut of myUnspentTxOuts) {
         const findTXIn = _.find(txIns, (txIn) => {

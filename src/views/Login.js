@@ -54,9 +54,11 @@ function Login(props) {
       let result = res.data;
       // 입력정보가 db정보와 일치하는가
       if (result === "성공") {
-        console.log("성공!");
+        // console.log("성공!");
         sessionStorage.setItem('user', `${user.email}`);
+        sessionStorage.setItem('password', `${user.password}`);
         sessionStorage.setItem('loginstatus', true);
+        // setAuth(true);
         dispatch({type: "USER_LOGIN"});
         history.push('/admin');
       }

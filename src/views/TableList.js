@@ -44,7 +44,7 @@ function RegularTables() {
     await axios.get('http://localhost:4000/admin/dashBoard')
     .then((res) => {
       let result = res.data[0].filter(data => data.index == index);
-      console.log("result: ", result);
+      // console.log("result: ", result);
       setBlock(result);
     })
   },[])
