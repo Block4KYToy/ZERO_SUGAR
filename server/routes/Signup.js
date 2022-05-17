@@ -68,5 +68,7 @@ router.post('/login', async(req, res) => {
     // res.redirect('/admin')
 })
 
+//res.data
+
 
 module.exports = router
