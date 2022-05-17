@@ -56,28 +56,28 @@ import {
 } from "variables/charts.js";
 
 function Dashboard() {
-  const [allData,setAllData] = useState([]);
-  const [filteredData,setFilteredData] = useState(allData);
+  const [allData, setAllData] = useState([]);
+//   const [filteredData, setFilteredData] = useState(allData);
 
-  const handleSearch = (event) => {
-    let value = event.target.value.toLowerCase();
-    let result = [];
-        // console.log(value);
-        if (value!=="") {
-        result = allData.filter((data) => {
-            return data.index == Number(value);
-        });
-    }
-    setFilteredData(result);
-}
+//   const handleSearch = (event) => {
+//     let value = event.target.value.toLowerCase();
+//     let result = [];
+//         // console.log(value);
+//         if (value!=="") {
+//         result = allData.filter((data) => {
+//             return data.index == Number(value);
+//         });
+//     }
+//     setFilteredData(result);
+// }
 
   useEffect(() => {
     axios.get('http://localhost:4000/admin/dashBoard')
     .then((res) => {
         setAllData(res.data)
-        setFilteredData(res.data)
     })
   }, []);
+
   return (
     <>
       <PanelHeader
@@ -90,7 +90,7 @@ function Dashboard() {
         }
       />
       <div className="content">
-        <SearchBar />
+        <SearchBar allData={allData} />
         <RecentBlock allData={allData} setAllData={setAllData}/>
         <RecentTransaction />
       </div>

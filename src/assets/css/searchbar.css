@@ -15,7 +15,7 @@
     padding-bottom: 10px;
     padding-right: 50px;
     display: flex;
-    margin-bottom: 2.25rem;
+    /* margin-bottom: 2.25rem; */
     background-color: rgb(255, 255, 255);
     align-items: flex-end;
     border-radius: 30px;
@@ -40,4 +40,51 @@
 }
 .icon-box:hover {
     transform:scale(1.1);
+}
+.suggestion-box {
+    position: relative;
+    left: -1.5%;
+    /* border: 1px solid black; */
+    /* background-color: lightgray; */
+    margin-bottom: 2.25rem;
+    padding: 0.8rem;
+    width: 50%;
+}
+.suggestion-inner {
+    /* display: flex; */
+    /* flex-direction: row; */
+}
+.sug-row {
+    /* background-color: aqua; */
+    /* align-items: center; */
+    font-size: 20px;
+}
+.sug-col {
+    font-size: 1.125rem;
+    text-align: center;
+    font-weight: 500;
+    background-color: lightgray;
+    border: 1px solid black;
+    height: 30px;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+}
+
+.sug-col-header {
+    font-size: 1.125rem;
+    text-align: center;
+    font-weight: 500;
+    background-color: lightgray;
+    border: 1px solid black;
+    height: 30px;
+    border-left: none;
+    border-right: none;
+}
+
+.search-td {
+    cursor: pointer;
+}
+.search-td:hover {
+    transform: scale(1.07);
 }

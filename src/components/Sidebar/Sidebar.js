@@ -24,16 +24,25 @@ import PerfectScrollbar from "perfect-scrollbar";
 
 import logo from "logo-white.svg";
 import Login from "views/Login";
+import { useHistory } from "react-router-dom";
 
 var ps;
 
 function Sidebar(props) {
-  console.log("sidebar: ", props.auth);
+  let history = useHistory();
+  const { auth, setAuth } = props;
   const sidebar = React.useRef();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "inactive";
   };
+
+  const logoutHandler = () => {
+      // console.log('hi');
+      sessionStorage.clear();
+      setAuth(false);
+      // history.push('/admin');
+  }
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(sidebar.current, {
@@ -70,10 +79,37 @@ function Sidebar(props) {
       <div className="sidebar-wrapper" ref={sidebar}>
         <Nav>
           {props.routes.map((prop, key) => {
-            // console.log(prop);
+            let authPage = ["Signup", "Login"]
             if (prop.redirect) return null;
             // console.log(prop.name)
-            if ((prop.name === "Signup" || prop.name === "Login") && props.auth) return null;
+            if ((authPage.includes(prop.name) && props.auth) 
+              || (!props.auth && prop.name==="Logout")
+              || (!props.auth && prop.name==="User Profile")) {
+              return null;
+            }
+
+            if (prop.name === "Logout") {
+              return (
+                <li
+                  className={
+                    activeRoute(prop.layout + prop.path) +
+                    (prop.pro ? " active active-pro" : "")
+                  }
+                  onClick={() => {logoutHandler()}}
+                  key={key}
+                >
+                  <NavLink
+                    to={prop.layout + prop.path}
+                    className="nav-link"
+                    activeClassName="active"
+                    props={props}
+                  >
+                    <i className={"now-ui-icons " + prop.icon} />
+                    <p>{prop.name}</p>
+                  </NavLink>
+                </li>
+              );
+            }
             return (
               <li
                 className={

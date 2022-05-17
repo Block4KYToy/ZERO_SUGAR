@@ -25,11 +25,13 @@ import "assets/css/demo.css";
 import "assets/css/auth.css";
 
 import AdminLayout from "layouts/Admin.js";
+import BlockDetail from "views/BlockDetail";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+      {/* <Route path='/block/:index' element={<BlockDetail />} /> */}
       <Redirect to="/admin/dashboard" />
     </Switch>
   </BrowserRouter>,

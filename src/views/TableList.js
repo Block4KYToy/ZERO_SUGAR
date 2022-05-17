@@ -32,8 +32,11 @@ import {
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 import { thead, tbody } from "variables/general";
+import { useParams } from "react-router-dom";  
 
 function RegularTables() {
+  const { index } = useParams();
+  console.log(index);
   return (
     <>
       <PanelHeader size="sm" />
@@ -42,7 +45,7 @@ function RegularTables() {
           <Col xs={12}>
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Simple Table</CardTitle>
+                <CardTitle tag="h4">Block</CardTitle>
               </CardHeader>
               <CardBody>
                 <Table responsive>
