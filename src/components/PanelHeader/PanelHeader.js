@@ -21,7 +21,7 @@ import { useSelector } from "react-redux";
 
 function PanelHeader(props) {
   const auth = useSelector((state) => state.auth);
-  console.log("auth: ", auth);
+  // console.log("auth: ", auth);
   // console.log('panel: ', props);
   return (
     <div

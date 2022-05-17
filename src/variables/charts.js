@@ -151,12 +151,12 @@ const dashboardPanelChart = {
     
       var indexTime = async() => {
           const response = await axios.get(`http://localhost:4000/indexTime`)
-          console.log("index : ", response.data[0][1].index)
+          // console.log("index : ", response.data[0][1].index)
   
           // 반복문을 통해서 timestamp 을 실제 시간으로 바꿔서 출력한다.
           for(let i = 0; i < 107; i++){
             Unix_timestamp(response.data[0][i].timestamp)
-            console.log(Unix_timestamp(response.data[0][i].timestamp))
+            // console.log(Unix_timestamp(response.data[0][i].timestamp))
           }
   
           // unix timestamp -> real time

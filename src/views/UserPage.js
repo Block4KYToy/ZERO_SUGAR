@@ -38,33 +38,69 @@ import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function User() {
   const [user, setUser] = React.useState('');
+  const [userdata, setUserData] = React.useState([]);
   const [balance, setBalance] = React.useState(0);
 
-  
-  const getUserBalance = async () => {
-    if(sessionStorage.user) {
-      setUser(sessionStorage.user)
-    }
+
+
+  const getUser = async () => {
     try {
       await axios.post('http://localhost:4000/userData', {
-        data: user 
+        data: user
       }).then((res) => {
-        // console.log(res.data[0].balance)
-        setBalance(res.data[0].balance)
+        // console.log(res.data[0])
+        setUserData(res.data[0])
       })
-       
+
     } catch (e) {
       console.log(e)
-      alert("/userData 백서버 오류")
+      console.log("/userData 백서버 오류")
     }
     // console.log(userBalance)
   }
+  // console.log(userdata);
+  const mineBlock = async () => {
+    if (userdata.publicKey) {
+      try {
+        await axios.post('http://localhost:3001/userMineBlock', {
+          address: userdata.publicKey
+        }).then((res) => {
+          alert("채굴성공")
+          console.log(res.data)
+        })
+      } catch (e) {
+        console.log(e)
+        console.log("/userData 백서버 오류")
+      }
+    }
+  }
+  const updateBalance = async () => {
+    if (userdata.publicKey) {
+      try {
+        await axios.post('http://localhost:3001/balanceUser', {
+          address: userdata.publicKey
+        }).then((res) => {
+          // alert("채굴성공")
+          // console.log(res.data)
+          setBalance(res.data.balance)
+        })
+      } catch (e) {
+        console.log(e)
+        console.log("/userData 백서버 오류")
+      }
+    }
+  }
 
-  React.useEffect(()=> {
-    getUserBalance();
-  }, [user]) 
 
-  console.log("user balance : ", balance)
+  React.useEffect(() => {
+    if (sessionStorage.user) {
+      setUser(sessionStorage.user)
+    }
+    getUser()
+    updateBalance()
+
+  })
+
   return (
     <>
       <PanelHeader size="sm" />
@@ -93,7 +129,7 @@ function User() {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Input placeholder="Email" type="email" />
+                        <Input placeholder={userdata? userdata.email : "email"} type="email"/>
                       </FormGroup>
                     </Col>
                     <Col className="pr-1" md="6">
@@ -102,7 +138,7 @@ function User() {
                         <Input
                           defaultValue="로딩중"
                           disabled
-                          placeholder="Balance"
+                          placeholder={balance}
                           type="number"
                         />
                       </FormGroup>
@@ -114,7 +150,8 @@ function User() {
                         <label>Public Key</label>
                         <Input
                           defaultValue=""
-                          placeholder="publickey"
+                          disabled
+                          placeholder={userdata? userdata.publicKey : "publicKey"}
                           type="text"
                         />
                       </FormGroup>
@@ -124,7 +161,8 @@ function User() {
                         <label>Private Key</label>
                         <Input
                           defaultValue=""
-                          placeholder="privatekey"
+                          disabled
+                          placeholder={userdata? userdata.privateKey : "privatekey"}
                           type="text"
                         />
                       </FormGroup>
@@ -136,8 +174,8 @@ function User() {
                         <label className="profile-label">Password</label>
                         <Input
                           defaultValue=""
-                          placeholder="Password"
-                          type="text"
+                          placeholder={userdata? userdata.password : "Password"}
+                          type="password"
                         />
                       </FormGroup>
                     </Col>
@@ -148,7 +186,7 @@ function User() {
                         <label className="profile-label">Name</label>
                         <Input
                           defaultValue="Your Name"
-                          placeholder="Name"
+                          placeholder={userdata? userdata.name : "Name"}
                           type="text"
                         />
                       </FormGroup>
@@ -228,6 +266,7 @@ function User() {
           <Button className="profile-btn">저장하기</Button>
         </Row>
       </div>
+      <button onClick={mineBlock}>mine block</button>
     </>
   );
 }

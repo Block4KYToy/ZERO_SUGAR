@@ -18,10 +18,7 @@ let connectedIP;
 let initHttpServer = function (myHttpPort) {
     let app = express();
     app.use(express.json());
-    app.use(cors({
-        origin: true,
-        credentials: true,
-    }))
+    app.use(cors())
     app.use(function (err, req, res, next) {
         if (err) {
             res.status(400).send(err.message);
@@ -78,6 +75,7 @@ let initHttpServer = function (myHttpPort) {
         }
     });
     app.post('/userMineBlock', function (req, res) {
+        console.log('post')
         let myAddress = req.body.address
         let newBlock = userGenerateNextBlock(myAddress);
         if (newBlock === null) {
@@ -92,7 +90,7 @@ let initHttpServer = function (myHttpPort) {
         res.send({ 'balance': balance });
     });
     app.post('/balanceUser', function (req, res) {
-        console.log('balanceUser')
+        // console.log('balanceUser')
         let balance = getAccountBalanceOfUser(req.body.address);
         res.send({ 'address': req.body.address, 'balance': balance });
     });

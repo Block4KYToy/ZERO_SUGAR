@@ -10,7 +10,7 @@ router.get(`/indexTime`, async(req, res) => {
 router.get('/admin/dashBoard', async(req, res) => {
     const blocks = await pool.query(`SELECT * FROM blocks`)
     res.json(blocks);
-    console.log(blocks[0]);
+    // console.log(blocks[0]);
 })
 
 // router.get('/block', async (req, res) => {

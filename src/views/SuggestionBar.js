@@ -21,7 +21,7 @@ const SuggestionBar = ({searchData}) => {
     }
 
     const routeBlock = (e) => {
-        console.log(e.target.innerHTML);
+        // console.log(e.target.innerHTML);
         let userRoute = e.target.innerHTML
         let routeBlockIndex = searchData.filter((data) => 
             data.index == userRoute || data.hash == userRoute
