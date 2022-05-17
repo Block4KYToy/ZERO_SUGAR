@@ -16,7 +16,6 @@
 
 */
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 // react plugin used to create charts
 import styled from 'styled-components';
 import { Line, Bar } from "react-chartjs-2";
@@ -183,6 +182,7 @@ const Dashboard = (event) => {
     const [TmArr, setTmArr] = useState([]); // unixtimestamp array
     const [realTmArr, setrealTmArr] = useState([]); // realtime array
     const [idLeng, setidLeng] = useState([]); // index num array
+    const [allData, setAllData] = useState([]);
   
     var indexTime = async() => {
 
@@ -414,7 +414,6 @@ const Dashboard = (event) => {
       }, 30);
     },[]);
   
-  const [allData,setAllData] = useState([]);
   const [filteredData,setFilteredData] = useState(allData);
 
   const handleSearch = (event) => {
@@ -440,8 +439,7 @@ useEffect(() => {
     })
     }, []);
 
-function Dashboard() {
-  const [allData, setAllData] = useState([]);
+  
 //   const [filteredData, setFilteredData] = useState(allData);
 
 //   const handleSearch = (event) => {
@@ -475,119 +473,7 @@ function Dashboard() {
         }
       />
       <div className="content">
-                    <div className='fix-bar'>
-                        <div className='searchbar'>
-                            <input type="text" onChange={(event) => handleSearch(event)} placeholder="INPUT THE HEIGHT NUMBER OF BLOCK !" />
-                        </div>
-                    </div>
-                    <div>{ filteredData.length > 0 ?
-                    filteredData[0].map((value,index)=>{
-                    return(
-                            <div key={value.index} >
-                                <div className='Big_container' >
-                                    <div className='middle_container'>
-                                        <div className='wrap_middle'>
-                                            <div className='left-box'>
-                                            </div>
-                                            <div className='empty-box'> </div>
-                                            <div className='right-box'>
-                                                <div className='block-line'>
-                                                    <span className='kindofblock'>index :</span>
-                                                    <span className='valueofblock'>{value.index}</span>
-                                                </div>
-                                                <div className='block-line'>
-                                                    <span className='kindofblock'>data :</span>
-                                                    <span className='valueofblock'>v{value.data}</span>
-                                                </div>
-                                                <div className='block-line'>
-                                                    <span className='kindofblock'>timestamp :</span>
-                                                    <span className='valueofblock'>{value.timestamp}</span>
-                                                </div>
-                                                <div className='block-line'>
-                                                    <span className='kindofblock'>hash :</span>
-                                                    <span className='valueofblock'>{value.hash}</span>
-                                                </div>
-                                                <div className='block-line'>
-                                                    <span className='kindofblock'>previousHash :</span>
-                                                    <span className='valueofblock'>{value.previousHash}</span>
-                                                </div>
-                                                <div className='block-line'>
-                                                    <span className='kindofblock'>difficulty :</span>
-                                                    <span className='valueofblock'>{value.difficulty}</span>
-                                                </div>
-                                            </div>
-                                            <div className='empty-box'> </div>
-
-                                        </div >
-                                    </div>
-                                </div>
-
-                                <div className="empty-space"></div>
-
-                            </div>
-                        
-                    )
                     
-                  })
-                  : null
-                }
-                </div>
-        {/* <Row>
-
-          <Col xs={12} md={12}>
-            <Card>
-              <CardHeader>
-                <h5 className="card-category"></h5>
-                <CardTitle tag="h4">SugarFCoin Table</CardTitle>
-              </CardHeader>
-              <CardBody>
-                
-                <Table responsive>
-                  <thead className="text-primary">
-                    <tr>
-                      <th>Block number</th>
-                      <th>Timestamp</th>
-                      <th>Hash</th>
-                      <th className="text-right">Difficulty</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-right">$36,738</td>
-                    </tr>
-                    <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                      <td className="text-right">$23,789</td>
-                    </tr>
-                    <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                      <td className="text-right">$56,142</td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-right">$63,542</td>
-                    </tr>
-                    <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-right">$78,615</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row> */}
         <SearchBar allData={allData} />
         <RecentBlock allData={allData} setAllData={setAllData}/>
         <RecentTransaction />
@@ -595,5 +481,5 @@ function Dashboard() {
     </>
   );
 }
-}
+
 export default Dashboard;
