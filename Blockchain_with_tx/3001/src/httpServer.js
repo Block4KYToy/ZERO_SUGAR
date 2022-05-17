@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import {
     getBlockchain, getUnspentTxOuts, generateNextBlock, generatenextBlockWithTransaction, getAccountBalance,
-    getAccountBalanceOfUser, sendTransaction, sendTransactionFromUser, userGenerateNextBlock
+    getAccountBalanceOfUser, sendTransaction, sendTransactionFromUser, userGenerateNextBlock, userAutoMineBlock
 } from './blockchain.js';
 import { getTransactionPool } from "./transactionPool.js"
 import { getSockets, connectToPeer } from './p2p.js';
@@ -155,9 +155,9 @@ let initHttpServer = function (myHttpPort) {
         process.exit();
     });
     app.post('/autoMineBlock', (req, res) => {
-        console.log(req.body)
-        autoMineBlock(req.body.data, req.body.count)
-        res.redirect('/blocks')
+        // console.log(req.body)
+        userAutoMineBlock(req.body.address, req.body.count)
+        res.send('mining complete')
     })
     app.listen(myHttpPort, function () {
         console.log('Listening http on port: ' + myHttpPort);

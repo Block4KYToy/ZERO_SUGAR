@@ -146,6 +146,20 @@ let userGenerateNextBlock = function (address) {
     return generateRawNextBlock(blockData);
 };
 
+let userAutoMineBlock = function (address, count) {
+    let mineCount = 0;
+    while (mineCount < count) {
+        let coinbaseTx = getCoinbaseTransaction(address, getLatestBlock().index + 1);
+        let blockData = [coinbaseTx].concat(getTransactionPool());
+        if (generateRawNextBlock(blockData)) {
+            mineCount++;
+        }
+        console.log(`${mineCount} of ${count} completed`)
+        console.log(blockData)
+    }
+    // return generateRawNextBlock(blockData);
+};
+
 let generatenextBlockWithTransaction = function (receiverAddress, amount) {
     if (!isValidAddress(receiverAddress)) {
         throw Error('invalid address');
@@ -340,5 +354,5 @@ export {
     Block, updateBlocks, getBlockchain, getUnspentTxOuts, getLatestBlock, generateRawNextBlock,
     getMyUnspentTransactionOutputs, generateNextBlock, generatenextBlockWithTransaction, getAccountBalance,
     sendTransaction, isValidBlockStructure, addBlockToChain, replaceChain, handleReceivedTransaction, sendTransactionFromUser,
-    getAccountBalanceOfUser, userGenerateNextBlock
+    getAccountBalanceOfUser, userGenerateNextBlock, userAutoMineBlock
 }

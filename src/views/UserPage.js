@@ -40,7 +40,12 @@ function User() {
   const [user, setUser] = React.useState('');
   const [userdata, setUserData] = React.useState([]);
   const [balance, setBalance] = React.useState(0);
+  const [count, setCount] = React.useState(0)
 
+  const onChange = (e) => {
+    setCount(e.target.value)
+    // console.log(count)
+  }
 
 
   const getUser = async () => {
@@ -74,6 +79,23 @@ function User() {
       }
     }
   }
+  const autoMine = async () => {
+    if (userdata.publicKey) {
+      try {
+        await axios.post('http://localhost:3001/autoMineBlock', {
+          address: userdata.publicKey,
+          count: count
+        }).then((res) => {
+          // alert("채굴성공")
+          console.log(res.data)
+        })
+      } catch (e) {
+        console.log(e)
+        console.log("/userData 백서버 오류")
+      }
+    }
+  }
+
   const updateBalance = async () => {
     if (userdata.publicKey) {
       try {
@@ -129,7 +151,7 @@ function User() {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Input placeholder={userdata? userdata.email : "email"} type="email"/>
+                        <Input placeholder={userdata ? userdata.email : "email"} type="email" />
                       </FormGroup>
                     </Col>
                     <Col className="pr-1" md="6">
@@ -151,7 +173,7 @@ function User() {
                         <Input
                           defaultValue=""
                           disabled
-                          placeholder={userdata? userdata.publicKey : "publicKey"}
+                          placeholder={userdata ? userdata.publicKey : "publicKey"}
                           type="text"
                         />
                       </FormGroup>
@@ -162,7 +184,7 @@ function User() {
                         <Input
                           defaultValue=""
                           disabled
-                          placeholder={userdata? userdata.privateKey : "privatekey"}
+                          placeholder={userdata ? userdata.privateKey : "privatekey"}
                           type="text"
                         />
                       </FormGroup>
@@ -174,7 +196,7 @@ function User() {
                         <label className="profile-label">Password</label>
                         <Input
                           defaultValue=""
-                          placeholder={userdata? userdata.password : "Password"}
+                          placeholder={userdata ? userdata.password : "Password"}
                           type="password"
                         />
                       </FormGroup>
@@ -186,7 +208,7 @@ function User() {
                         <label className="profile-label">Name</label>
                         <Input
                           defaultValue="Your Name"
-                          placeholder={userdata? userdata.name : "Name"}
+                          placeholder={userdata ? userdata.name : "Name"}
                           type="text"
                         />
                       </FormGroup>
@@ -265,6 +287,10 @@ function User() {
         </Row>
       </div>
       <button onClick={mineBlock}>mine block</button>
+      <br></br>
+      <input name="count" type="number" onChange={onChange} />
+      <button type="button" onClick={autoMine}>auto mine block</button>
+
     </>
   );
 }
