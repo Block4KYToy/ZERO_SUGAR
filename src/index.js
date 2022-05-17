@@ -19,6 +19,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route, Switch, Redirect } from "react-router-dom";
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 import "bootstrap/dist/css/bootstrap.css";
 import "assets/scss/now-ui-dashboard.scss?v1.5.0";
 import "assets/css/demo.css";
@@ -28,12 +31,14 @@ import AdminLayout from "layouts/Admin.js";
 import BlockDetail from "views/BlockDetail";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      {/* <Route path='/block/:index' element={<BlockDetail />} /> */}
-      <Redirect to="/admin/dashboard" />
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+        {/* <Route path='/block/:index' element={<BlockDetail />} /> */}
+        <Redirect to="/admin/dashboard" />
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

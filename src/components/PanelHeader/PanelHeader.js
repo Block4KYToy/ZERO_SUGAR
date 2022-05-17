@@ -16,8 +16,13 @@
 
 */
 import React from "react";
+import WalletIcon from "../../views/WalletIcon";
+import { useSelector } from "react-redux";
 
 function PanelHeader(props) {
+  const auth = useSelector((state) => state.auth);
+  console.log("auth: ", auth);
+  // console.log('panel: ', props);
   return (
     <div
       className={
@@ -26,6 +31,10 @@ function PanelHeader(props) {
       }
     >
       {props.content}
+      {auth  
+      ? <WalletIcon />
+      : null
+      }
     </div>
   );
 }
