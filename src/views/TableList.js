@@ -39,13 +39,47 @@ import { useParams } from "react-router-dom";
 function RegularTables() {
   const { index } = useParams();
   const [block, setBlock] = useState([]);
+  // const [tx, setTx] = useState({});
   
   useEffect(async () => {
     await axios.get('http://localhost:4000/admin/dashBoard')
     .then((res) => {
+      // let addressArr = [];
       let result = res.data[0].filter(data => data.index == index);
       // console.log("result: ", result);
+      // const getAllTxAddresses = (blockData) => {
+      //   console.log(blockData);
+      //   if (blockData.length === 0) return;
+      //   let addressArr = [];
+      //   blockData.forEach((block) => {
+      //     let address = JSON.parse(block.data)[0].txOuts[0].address;
+      //     if (!addressArr.includes(address)) addressArr.push(address);
+      //   });
+      //   return addressArr;
+      // }
+      // addressArr = getAllTxAddresses(res.data[0]);
+
+      // let dummy = JSON.parse(result[0].data);
+      // let txHash = dummy[0].id;
+      // let txTo = dummy[0].txOuts[0].address;
+      // let random = Math.floor(Math.random()*addressArr.length);
+      // let txFrom = addressArr[random] == txTo ? random == 0 ? addressArr[random+1] : addressArr[random-1] : addressArr[random];
+      // let amount = dummy[0].txOuts[0].amount;
+      // let timestamp = result[0].timestamp - Math.floor(Math.random() * 3000) + 1000;
+      // let hour = parseInt((Date.now() - new Date(timestamp * 1000)) / 3600000);
+      // let min = parseInt((Date.now() - new Date(timestamp * 1000)) % 3600 / 60);
+      // let sec = parseInt((Date.now() - new Date(timestamp / 1000) % 3600) % 60);
+      // let text = new Date(timestamp*1000).toString();
+      
       setBlock(result);
+      // setTx({
+      //   txHash: txHash,
+      //   txFro: txFrom,
+      //   txTo: txTo,
+      //   amount: amount,
+      //   text: text,
+      //   time: [hour, min, sec],
+      // })
     })
   },[])
   return (
@@ -66,7 +100,7 @@ function RegularTables() {
                     ?
                     <>
                       <Col lg={4}>
-                        {Object.keys(block[0]).map(data => data!== "data" ? <div className="block-content-header">{data}</div> : null )}
+                        {Object.keys(block[0]).map(data => data!== "data" ? <div className="block-content-header">{data[0].toUpperCase() + data.slice(1).toLowerCase()}</div> : null )}
                       </Col>
                       <Col lg={8}>
                         {Object.values(block[0]).map((data, index) => index!==1 ? <div className="block-content">{data}</div> : null)}
@@ -74,38 +108,6 @@ function RegularTables() {
                     </>
                     : null
                     }
-                    
-                    {/* <thead className="text-primary">
-                      <tr>
-                        {thead.map((prop, key) => {
-                          if (key === thead.length - 1)
-                            return (
-                              <th key={key} className="text-right">
-                                {prop}
-                              </th>
-                            );
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead> */}
-                    {/* <tbody>
-                      {tbody.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.data.map((prop, key) => {
-                              if (key === thead.length - 1)
-                                return (
-                                  <td key={key} className="text-right">
-                                    {prop}
-                                  </td>
-                                );
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody> */}
-                  {/* </Table> */}
                   </Container>
                 </CardBody>
               </Card>
@@ -113,24 +115,33 @@ function RegularTables() {
             <Col xs={12}>
               <Card className="card-plain">
                 <CardHeader>
-                  <CardTitle tag="h4">Table on Plain Background</CardTitle>
-                  <p className="category"> Here is a subtitle for this table</p>
+                  <CardTitle tag="h4" className="block-table-header">Transaction(s)</CardTitle>
+                  <p className="category"> Invest In ZUGAR COIN! </p>
                 </CardHeader>
                 <CardBody>
-                  <Table responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        {thead.map((prop, key) => {
-                          if (key === thead.length - 1)
-                            return (
-                              <th key={key} className="text-right">
-                                {prop}
-                              </th>
-                            );
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
+                  <Container className="transaction-table">
+                    {block.length > 0
+                      ?
+                      <>
+                        <Col lg={4}>
+                          <div className="block-content-header">Transaction Hash</div>
+                          <div className="block-content-header">From</div>
+                          <div className="block-content-header">To</div>
+                          <div className="block-content-header">Timestamp</div>
+                          <div className="block-content-header">Amount</div>
+                        </Col>
+                        <Col lg={8}>
+                          {/* <div className="block-content">{tx.txHash}</div>
+                          <div className="block-content">{tx.txFrom}</div>
+                          <div className="block-content">{tx.txTo}</div>
+                          <div className="block-content">{tx.text + ` (${tx.time[0]}시간 ${tx.time[1]}분 ${tx.time[2]}초 전)`}</div>
+                          <div className="block-content">{tx.amount}</div> */}
+                        </Col>
+                      </>
+                      : null
+                    }
+                  </Container>
+                  {/* <Table responsive>
                     <tbody>
                       {tbody.map((prop, key) => {
                         return (
@@ -148,7 +159,7 @@ function RegularTables() {
                         );
                       })}
                     </tbody>
-                  </Table>
+                  </Table> */}
                 </CardBody>
               </Card>
             </Col>
