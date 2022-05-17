@@ -78,7 +78,7 @@ function User() {
               <CardBody>
                 <Form>
                   <Row>
-                    <Col className="px-1" md="3">
+                    {/* <Col className="px-1" md="3">
                       <FormGroup>
                         <label>Username</label>
                         <Input
@@ -87,8 +87,8 @@ function User() {
                           type="text"
                         />
                       </FormGroup>
-                    </Col>
-                    <Col className="pl-1" md="4">
+                    </Col> */}
+                    <Col className="pl-1" md="6">
                       <FormGroup>
                         <label htmlFor="exampleInputEmail1">
                           Email address
@@ -96,7 +96,7 @@ function User() {
                         <Input placeholder="Email" type="email" />
                       </FormGroup>
                     </Col>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="6">
                       <FormGroup>
                         <label>Balance</label>
                         <Input
@@ -111,20 +111,20 @@ function User() {
                   <Row>
                     <Col className="pr-1" md="6">
                       <FormGroup>
-                        <label>First Name</label>
+                        <label>Public Key</label>
                         <Input
-                          defaultValue="Mike"
-                          placeholder="Company"
+                          defaultValue=""
+                          placeholder="publickey"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                     <Col className="pl-1" md="6">
                       <FormGroup>
-                        <label>Last Name</label>
+                        <label>Private Key</label>
                         <Input
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
+                          defaultValue=""
+                          placeholder="privatekey"
                           type="text"
                         />
                       </FormGroup>
@@ -135,7 +135,7 @@ function User() {
                       <FormGroup>
                         <label className="profile-label">Password</label>
                         <Input
-                          defaultValue="*******"
+                          defaultValue=""
                           placeholder="Password"
                           type="text"
                         />
