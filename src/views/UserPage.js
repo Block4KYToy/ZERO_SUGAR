@@ -53,108 +53,75 @@ function User() {
               </CardHeader>
               <CardBody>
                 <Form>
-                  <Row>
-                    <Col className="px-1" md="3">
+                  <Row className="profile-row">
+                    <Col xs={6}>
                       <FormGroup>
-                        <label>Name</label>
+                        <label className="profile-label">Email</label>
                         <Input
-                          defaultValue="계정 이름"
-                          placeholder=""
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <FormGroup>
-                        <label htmlFor="exampleInputEmail1">
-                          Email address
-                        </label>
-                        <Input defaultValue="계정 메일" placeholder="" type="email" />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pr-1" md="5">
-                      <FormGroup>
-                        <label>Balance</label>
-                        <Input
-                          defaultValue="로딩중"
                           disabled
-                          placeholder="Balance"
-                          type="number"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-1" md="6">
-                      <FormGroup>
-                        <label>First Name</label>
-                        <Input
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-1" md="6">
-                      <FormGroup>
-                        <label>Last Name</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
+                          defaultValue="Zero Sugar Company"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md="12">
+                  <Row className="profile-row">
+                    <Col xs={6}>
                       <FormGroup>
-                        <label>Address</label>
+                        <label className="profile-label">Password</label>
                         <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
+                          defaultValue="*******"
+                          placeholder="Password"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col className="pr-1" md="4">
+                  <Row className="profile-row">
+                    <Col xs={6}>
                       <FormGroup>
-                        <label>City</label>
+                        <label className="profile-label">Name</label>
                         <Input
-                          defaultValue="Mike"
+                          defaultValue="Your Name"
+                          placeholder="Name"
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row className="profile-row">
+                    <Col xs={6}>
+                      <FormGroup>
+                        <label className="profile-label">City</label>
+                        <Input
+                          defaultValue="Seoul"
                           placeholder="City"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
-                    <Col className="px-1" md="4">
+                  </Row>
+                  <Row className="profile-row">
+                    <Col xs={6}>
                       <FormGroup>
-                        <label>Country</label>
+                        <label className="profile-label">Country</label>
                         <Input
-                          defaultValue="Andrew"
+                          defaultValue="South Korea"
                           placeholder="Country"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
-                    <Col className="pl-1" md="4">
-                      <FormGroup>
-                        <label>Postal Code</label>
-                        <Input placeholder="ZIP Code" type="number" />
-                      </FormGroup>
-                    </Col>
                   </Row>
-                  <Row>
+                  <Row className="profile-row">
                     <Col md="12">
                       <FormGroup>
-                        <label>About Me</label>
+                        <label className="profile-label">About Me</label>
                         <Input
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
-                          placeholder="Here can be your description"
+                          className="profile-description"
+                          cols="40"
+                          defaultValue="안녕하세요 제로컴퍼니입니다."
+                          placeholder="Your description"
                           rows="4"
                           type="textarea"
                         />
@@ -176,7 +143,7 @@ function User() {
                     <img
                       alt="..."
                       className="avatar border-gray"
-                      src={profilePic}
+                      src="https://www.sprite.com/content/dam/nagbrands/us/sprite/en/products/thirst-for-yours/products/sprite-zero/desktop/sprite_zero_featurecan.jpg"
                     />
                     <h5 className="title">Mike Andrew</h5>
                   </a>
@@ -189,37 +156,11 @@ function User() {
                 </p>
               </CardBody>
               <hr />
-              <div className="button-container">
-                <Button
-                  className="btn-neutral btn-icon btn-round"
-                  color="default"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  size="lg"
-                >
-                  <i className="fab fa-facebook-f" />
-                </Button>
-                <Button
-                  className="btn-neutral btn-icon btn-round"
-                  color="default"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  size="lg"
-                >
-                  <i className="fab fa-twitter" />
-                </Button>
-                <Button
-                  className="btn-neutral btn-icon btn-round"
-                  color="default"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  size="lg"
-                >
-                  <i className="fab fa-google-plus-g" />
-                </Button>
-              </div>
             </Card>
           </Col>
+        </Row>
+        <Row>
+          <Button className="profile-btn">저장하기</Button>
         </Row>
       </div>
     </>

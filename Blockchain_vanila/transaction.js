@@ -177,18 +177,18 @@ const filterTxPoolTxs = (myUnspentTxOuts) => {
 
 const findTxOutsForAmount = (amount, filteredUnspentTxOuts) => {
     let currentAmount = 0;
-    const includeTxOuts = [];
+    const includedUnspentTxOuts  = [];
     for (const unspentTxOut of filteredUnspentTxOuts) {
 
-        includeTxOuts.push(unspentTxOut);
+        includedUnspentTxOuts .push(unspentTxOut);
 
         currentAmount += unspentTxOut.amount;
         if (currentAmount >= amount) {
             const leftoverAmount = currentAmount - amount;
-            return { includeTxOuts, leftoverAmount };
+            return { includedUnspentTxOuts , leftoverAmount };
         }
     }
-    throw Error('not enough unspentTxOut amount');
+    throw Error('not enough balance to send transaction');
 }
 
 const createUnsignedTxIn = (unspentTxOut) => {
@@ -199,13 +199,14 @@ const createUnsignedTxIn = (unspentTxOut) => {
     return txIn;
 }
 
-const createTxOuts = (address, amount, leftoverAmount) => {
-    const txOut = new TxOuts(address, amount);
-    if (leftoverAmount > 0) {
-        const leftoverTxOut = new TxOuts(getPublicKeyFromWallet(), leftoverAmount);
-        return [leftoverAmount, txOut];
-    } else {
+const createTxOuts = (receiverAddress, senderAddress, amount, leftoverAmount) => {
+    const txOut = new TxOuts(receiverAddress, amount);
+    if (leftoverAmount === 0) {
         return [txOut];
+    } else {
+        const leftoverTxOut = new TxOuts(senderAddress, leftoverAmount);
+        return [txOut, leftoverAmount];
+        
     }
 }
 

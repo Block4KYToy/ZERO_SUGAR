@@ -25,12 +25,15 @@ import PerfectScrollbar from "perfect-scrollbar";
 import logo from "logo-white.svg";
 import Login from "views/Login";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 var ps;
 
 function Sidebar(props) {
   let history = useHistory();
-  const { auth, setAuth } = props;
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  console.log("auth: ", auth);
   const sidebar = React.useRef();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
@@ -40,8 +43,9 @@ function Sidebar(props) {
   const logoutHandler = () => {
       // console.log('hi');
       sessionStorage.clear();
-      setAuth(false);
-      // history.push('/admin');
+      dispatch({type: "USER_LOGOUT"});
+      // setAuth(false);
+      history.push('/admin');
   }
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -82,9 +86,9 @@ function Sidebar(props) {
             let authPage = ["Signup", "Login"]
             if (prop.redirect || prop.name === "Table List") return null;
             // console.log(prop.name)
-            if ((authPage.includes(prop.name) && props.auth) 
-              || (!props.auth && prop.name==="Logout")
-              || (!props.auth && prop.name==="User Profile")) {
+            if ((authPage.includes(prop.name) && auth) 
+              || (!auth && prop.name==="Logout")
+              || (!auth && prop.name==="User Profile")) {
               return null;
             }
 
