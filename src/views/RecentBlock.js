@@ -1,7 +1,19 @@
 import React from 'react';
 import { Card, CardHeader, CardBody, CardTitle, Row, Col, Table} from "reactstrap";
+import { useHistory } from 'react-router-dom';
 
-const RecentBlock = () => {
+const RecentBlock = ({ allData, setAllData }) => {
+  let history = useHistory();
+  const routePath = (e) => {
+    // console.log(e.target.innerHTML);
+    let searchParams = e.target.innerHTML;
+    let routeIndex = allData[0].filter((data) =>
+      data.index == searchParams || data.hash == searchParams
+    )[0].index;
+    // console.log(routeIndex);
+    history.push(`/admin/block/${routeIndex}`);
+  }
+
   return (
         <Row>
           <Col xs={12} md={12}>
@@ -21,36 +33,31 @@ const RecentBlock = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-right">$36,738</td>
-                    </tr>
-                    <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                      <td className="text-right">$23,789</td>
-                    </tr>
-                    <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                      <td className="text-right">$56,142</td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-right">$63,542</td>
-                    </tr>
-                    <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-right">$78,615</td>
-                    </tr>
+                    {allData.length > 0 ? 
+                    allData[0].map((block) => {
+                      if (block.index > allData[0].length - 6) {
+                        let hour = parseInt((Date.now() - new Date(block.timestamp * 1000)) / 3600000);
+                        let min = parseInt((Date.now() - new Date(block.timestamp * 1000)) % 3600 / 60);
+                        let sec = parseInt((Date.now() - new Date(block.timestamp / 1000) % 3600) % 60);
+                        let text = new Date(block.timestamp*1000).toString();
+                        text = text.slice(0, text.length - 9);
+                        return (
+                          <>
+                            <tr 
+                              key={block.index}
+                            >
+                              <td className="search-td" onClick={routePath}>{block.index}</td>
+                              <td className="search-td" onClick={routePath}>{block.hash}</td>
+                              <td>{text} &nbsp;&nbsp;&nbsp;({hour}시간 {min}분 {sec}초 전)</td>
+                              <td className="text-right">{block.difficulty}</td>
+                            </tr>
+                          </>
+                        )
+                      }
+                      return null
+                    })
+                  : null
+                  }
                   </tbody>
                 </Table>
               </CardBody>

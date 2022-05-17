@@ -17,6 +17,7 @@
 */
 import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
@@ -25,9 +26,16 @@ import '../assets/css/sign.css';
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
+import Dashboard from "./Dashboard";
 
-function Login() {
-  const [user, setUser] = useState({email: "", pw: ""})
+import { useDispatch, useSelector } from "react-redux";
+
+function Login(props) {
+  let history = useHistory();
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const [user, setUser] = useState({email: "", password: ""})
+  // console.log("login : ", props);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -35,18 +43,24 @@ function Login() {
     setUser({...user, [name]: value});
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     console.log("data: ", user);
     // USER GET
-    // await axios.get('http://localhost:4000/login', {
-    //   params: {
-    //     data: user,
-    //   },
-    // })
-    // .then((res) => {
-    //   console.log(res);
-    //   // 입력정보가 db정보와 일치하는가
-    // })
+    await axios.post('http://localhost:4000/login', {
+        data: user,
+    })
+    .then((res) => {
+      let result = res.data;
+      // 입력정보가 db정보와 일치하는가
+      if (result === "성공") {
+        console.log("성공!");
+        sessionStorage.setItem('user', `${user.email}`);
+        sessionStorage.setItem('loginstatus', true);
+        setAuth(true);
+        history.push('/admin');
+      }
+      else alert("로그인 정보가 일치하지 않습니다!")
+    })
   }
 
   return (
@@ -68,7 +82,7 @@ function Login() {
                 </div>
                 <div className="input-box">
                   <input name="email" type="text" placeholder="Email" value={user.email} onChange={handleChange}/><br />
-                  <input name="pw" type="text" placeholder="Password" value={user.pw} onChange={handleChange}/><br />
+                  <input name="password" type="password" placeholder="Password" value={user.password} onChange={handleChange}/><br />
                 </div>
                 <button onClick={handleSubmit} className="login-btn">Sign in</button>
               </CardBody>

@@ -1,27 +1,3 @@
-/*
-암호화
-
-탈중앙화
-분산원장관리
-
-무결성 : 정보는 일반적으로 수정이 가능한데, 이는 권한 있는 사용자에게만 허가
-기밀성 : 정보를 저장하고 전송하면서 부적절한 노출을 방지, 정보 보안의 주된 목적
-가용성 : 활용 되어야할 정보에 접근 할 수 없다면, 기밀성과 무결성이 훼손된 것만큼이나 무의미하다.
-
-지갑
-private key
-public key
-
-타원 곡선 디지털 서명 알고리즘 (ECDSA)
-
-영지식 증명 (zero knowledge proof)
-
-증명하는 사람(A), 증명을 원하는 사람(B)
-A 와 B 는 증명된 내용에 합의
-그외의 사람들은 동의하지 않습니다.
-
-*/
-
 import ecdsa from 'elliptic';
 import fs from 'fs';
 
@@ -70,5 +46,13 @@ const getPublicKeyFromWallet = () => {
     return publicKey.getPublic().encode('hex');
 }
 
+const getBalance = (address, unspentTxOuts) => { //string , number
+    return _(unspentTxOuts)
+        .filter((uTxO) => uTxO.address === address)
+        .map((uTxO) => uTxO.amount)
+        .sum();
+};
 
-export { initWallet, getPublicKeyFromWallet, getPrivateKeyFromWallet };
+
+
+export { initWallet, getPublicKeyFromWallet, getPrivateKeyFromWallet, getBalance };

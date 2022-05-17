@@ -9,24 +9,30 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
     "axios": "^0.27.2",
-    "bootstrap": "4.6.0",
+    "bootstrap": "^4.6.0",
     "chart.js": "3.2.1",
+    "concurrently": "^7.2.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.9",
     "mdbreact": "^5.2.0",
     "node-sass": "6.0.0",
+    "nodemon": "^2.0.16",
     "perfect-scrollbar": "1.5.1",
     "react": "17.0.2",
+    "react-bootstrap": "^2.4.0",
     "react-chartjs-2": "3.0.3",
     "react-dom": "17.0.2",
     "react-notification-alert": "0.0.13",
+    "react-redux": "^8.0.1",
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "^5.0.1",
-    "reactstrap": "8.9.0"
+    "reactstrap": "8.9.0",
+    "redux": "^4.2.0",
+    "styled-components": "^5.3.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"react-scripts start\" \"nodemon server/server.js\"",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -51,5 +57,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "![version](https://img.shields.io/badge/version-1.5.0-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/now-ui-dashboard-react.svg?maxAge=2592000)]() [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/now-ui-dashboard-react.svg?maxAge=2592000)]() [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Block4KYToy/ZERO_SUGAR.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Block4KYToy/ZERO_SUGAR/issues"
   }
 }

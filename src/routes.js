@@ -23,6 +23,7 @@ import TableList from "views/TableList.js";
 import Signup from "views/Signup.js";
 // import Login from "views/Upgrade.js";
 import UserPage from "views/UserPage.js";
+import BlockDetail from "views/BlockDetail";
 
 var dashRoutes = [
   {
@@ -54,17 +55,17 @@ var dashRoutes = [
   //   layout: "/admin",
   // },
   {
+    path: "/block/:index",
+    name: "Table List",
+    icon: "files_paper",
+    component: TableList,
+    layout: "/admin",
+  },
+  {
     path: "/user-page",
     name: "User Profile",
     icon: "users_single-02",
     component: UserPage,
-    layout: "/admin",
-  },
-  {
-    path: "/extended-tables",
-    name: "Table List",
-    icon: "files_paper",
-    component: TableList,
     layout: "/admin",
   },
   {
@@ -81,6 +82,15 @@ var dashRoutes = [
     component: Login,
     layout: "/admin",
   },
+
+  // {
+  //   pro: true,
+  //   path: "/upgrade",
+  //   name: "Upgrade to PRO",
+  //   icon: "objects_spaceship",
+  //   component: Login,
+  //   layout: "/admin",
+  // },
   // {
   //   pro: true,
   //   path: "/upgrade",
@@ -96,5 +106,12 @@ var dashRoutes = [
   //   component: Upgrade,
   //   layout: "/admin"
   // }
+  {
+    path: "/logout",
+    name: "Logout",
+    icon: "objects_spaceship",
+    component: Dashboard,
+    layout: "/admin"
+  }
 ];
 export default dashRoutes;

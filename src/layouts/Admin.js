@@ -29,15 +29,20 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
+import Login from "views/Login";
+
+import { useDispatch, useSelector } from "react-redux";
 
 var ps;
 
 function Admin(props) {
   // console.log("props: ", props);
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const location = useLocation();
   const [backgroundColor, setBackgroundColor] = React.useState("blue");
   const mainPanel = React.useRef();
-  const [auth, setAuth] = useState(false);
+  // const [auth, setAuth] = useState(false);
 
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -62,15 +67,26 @@ function Admin(props) {
   return (
     <div className="wrapper">
       <div className="auth-header"></div>
-        <Sidebar {...props} routes={routes} backgroundColor={backgroundColor} auth={auth} setAuth={setAuth}/>
+        <Sidebar {...props} routes={routes} backgroundColor={backgroundColor} />
         <div className="main-panel" ref={mainPanel}>
           <Switch>
             {routes.map((prop, key) => {
+              if (prop.name === "Login") {
+                return (
+                  <Route 
+                    path={prop.layout + prop.path}
+                    // component={prop.component}
+                    key={key} 
+                    render={(props) => <Login {...props} />} />
+                )
+              }
               return (
                 <Route
                   path={prop.layout + prop.path}
                   component={prop.component}
-                  key={key}
+                  // auth={auth} 
+                  // setAuth={setAuth}
+                  key={key} 
                 />
               );
             })}

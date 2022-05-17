@@ -152,14 +152,14 @@ function DemoNavbar(props) {
             </InputGroup>
           </form>
           <Nav navbar>
-            <NavItem>
+            {/* <NavItem>
               <Link to="#pablo" className="nav-link">
                 <i className="now-ui-icons media-2_sound-wave" />
                 <p>
                   <span className="d-lg-none d-md-block">Stats</span>
                 </p>
               </Link>
-            </NavItem>
+            </NavItem> */}
             <Dropdown
               nav
               isOpen={dropdownOpen}
