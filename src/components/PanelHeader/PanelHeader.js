@@ -15,14 +15,22 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState } from "react";
 import WalletIcon from "../../views/WalletIcon";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import Modal from "views/Modal";
 
 function PanelHeader(props) {
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  console.log("auth: ", auth);
-  // console.log('panel: ', props);
+  const modalState = useSelector((state) => state.modalState);
+
+  const modalOpen = () => {
+    if (modalState) dispatch({type: "MODAL_CLOSE"});
+    else dispatch({type: "MODAL_OPEN"})
+    // console.log(modalstate);
+  }
+
   return (
     <div
       className={
@@ -31,8 +39,10 @@ function PanelHeader(props) {
       }
     >
       {props.content}
-      {auth  
-      ? <WalletIcon />
+      {auth ? 
+      <>
+          <WalletIcon modalOpen={modalOpen} />
+      </>      
       : null
       }
     </div>
