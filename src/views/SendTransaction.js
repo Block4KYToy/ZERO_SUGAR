@@ -65,22 +65,28 @@ export default function SendTransaction({ setState }) {
     return (
         <>
             <h1 className='walmaintxt'>ZUGAR 전송</h1>
-            <input
-                placeholder='보내는 지갑 주소'
-                name='wal_addr'
-                value={inputs.wal_addr}
-                onChange={onChange}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") onSend()
-                }} />
-            <input
-                placeholder='금액'
-                name='amount'
-                value={inputs.amount}
-                onChange={onChange}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") onSend()
-                }} />
+            <div className="wal-send-input-box">
+                <span className='wal-send-header'>보내는 지갑 주소</span>
+                <input
+                    className='wal-send-input'
+                    placeholder='보내는 지갑 주소'
+                    name='wal_addr'
+                    value={inputs.wal_addr}
+                    onChange={onChange}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") onSend()
+                    }} />
+                <span className='wal-send-header'>금액</span>
+                <input
+                    className='wal-send-input'
+                    placeholder='금액'
+                    name='amount'
+                    value={inputs.amount}
+                    onChange={onChange}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") onSend()
+                    }} />
+            </div>
             <div className="walmake">
                 <button onClick={onSend} className="walmakebtn">전송하기</button>
                 <button onClick={gotoMain} className="walmakebtn">뒤로가기</button>

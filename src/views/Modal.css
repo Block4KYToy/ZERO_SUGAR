@@ -75,7 +75,7 @@
     font-size: 20px;
     margin-bottom: 5px;
     background: rgba(22, 99, 171, 0.6);
-    width: 130px;
+    width: 140px;
     padding-left: 10px;
     border-radius: 10px;
 }
@@ -184,6 +184,26 @@
 }
 .wal-balance {
     font-size: 1.5rem
+}
+.wal-send-input {
+    margin-left: 15%;
+    margin-top: 5px;
+    height: 38px;
+    width: 70%;
+    /* justify-content: center; */
+}
+.wal-send-input-box {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.wal-send-header {
+    /* margin-left: 30px; */
+    margin-top: 15px;
+    font-size: 17px;
+    font-weight: bold;
+    /* text-decoration: underline; */
 }
 
 @keyframes modal-show {

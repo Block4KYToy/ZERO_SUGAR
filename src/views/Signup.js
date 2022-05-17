@@ -111,10 +111,10 @@ function Signup() {
                   <img className="zero-sugar" src={Zeros} alt="Zero Sugar"/>
                 </div>
                 <div className="input-box">
-                  <input name="name" type="text" placeholder="Name" onChange={handleChange} value={userInfo.name}/><br />
-                  <input name="email" type="text" placeholder="Email" onChange={handleChange} value={userInfo.email}/><br />
-                  <input name="password" type="password" placeholder="Password" onChange={handleChange} value={userInfo.password}/><br />
-                  <input name="pwconfirm" type="password" placeholder="Password Confirm" onChange={handleChange} value={userInfo.pwconfirm}/><br />
+                  <input className="sign-input" name="name" type="text" placeholder="Name" onChange={handleChange} value={userInfo.name}/><br />
+                  <input className="sign-input" name="email" type="text" placeholder="Email" onChange={handleChange} value={userInfo.email}/><br />
+                  <input className="sign-input" name="password" type="password" placeholder="Password" onChange={handleChange} value={userInfo.password}/><br />
+                  <input className="sign-input" name="pwconfirm" type="password" placeholder="Password Confirm" onChange={handleChange} value={userInfo.pwconfirm}/><br />
                 </div>
                 <button onClick= {handleSubmit} className="login-btn">Sign Up</button>
               </CardBody>
