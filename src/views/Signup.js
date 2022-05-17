@@ -46,10 +46,10 @@ function Signup() {
     }
     // 이메일 유효성
     let emailReg = /^[a-zA-Z]+([-_.]?[0-9a-zA-Z])*@[a-z]{4,}.[a-z]{2,3}$/i;
-    if (!emailReg.test(email)) {
-      alert("이메일 형식이 잘못되었습니다.");
-      return false;
-    }
+    // if (!emailReg.test(email)) {
+    //   alert("이메일 형식이 잘못되었습니다.");
+    //   return false;
+    // }
     // 비밀번호 유효성(6자리 이상의 영문조합)
     let pwReg = /^(?=.*[a-z])(?=.*\d)[A-Za-z\d$@$!%*?&]{6,}/
     if (!pwReg.test(password)) {
