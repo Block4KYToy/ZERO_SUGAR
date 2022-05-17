@@ -66,10 +66,10 @@ function RegularTables() {
                     ?
                     <>
                       <Col lg={4}>
-                        {Object.keys(block[0]).map(data => <div className="block-content-header">{data}</div>)}
+                        {Object.keys(block[0]).map(data => data!== "data" ? <div className="block-content-header">{data}</div> : null )}
                       </Col>
                       <Col lg={8}>
-                        {Object.values(block[0]).map(data => <div className="block-content">{data}</div>)}
+                        {Object.values(block[0]).map((data, index) => index!==1 ? <div className="block-content">{data}</div> : null)}
                       </Col>
                     </>
                     : null

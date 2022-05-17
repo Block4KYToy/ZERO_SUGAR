@@ -28,9 +28,12 @@ import '../assets/css/sign.css';
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 import Dashboard from "./Dashboard";
 
+import { useDispatch, useSelector } from "react-redux";
+
 function Login(props) {
   let history = useHistory();
-  const { setAuth } = props;
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [user, setUser] = useState({email: "", password: ""})
   // console.log("login : ", props);
 
@@ -52,7 +55,7 @@ function Login(props) {
       if (result === "성공") {
         console.log("성공!");
         sessionStorage.setItem(`${user.email}`, JSON.stringify({loginstatus: true}));
-        setAuth(true);
+        dispatch({type: "USER_LOGIN"});
         history.push('/admin');
       }
       else alert("로그인 정보가 일치하지 않습니다!")
@@ -79,7 +82,7 @@ function Login(props) {
                 </div>
                 <div className="input-box">
                   <input name="email" type="text" placeholder="Email" value={user.email} onChange={handleChange}/><br />
-                  <input name="password" type="text" placeholder="Password" value={user.password} onChange={handleChange}/><br />
+                  <input name="password" type="password" placeholder="Password" value={user.password} onChange={handleChange}/><br />
                 </div>
                 <button onClick={handleSubmit} className="login-btn">Sign in</button>
               </CardBody>

@@ -38,29 +38,11 @@ import {
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function User() {
-//   let history = useHistory();
-//   const { setAuth } = props;
-//   const [user, setUser] = useState({balance})
-//   // console.log("login : ", props);
-
-//   const handleSubmit = async() => {
-//     // USER GET
-//     const result = await axios.post('http://localhost:4000/login', {
-//         data: user,
-//     })
-//     .then((res) => {
-//       let result = res.data;
-//       // 입력정보가 db정보와 일치하는가
-//       if (result === "성공") {
-//         console.log("성공!");
-//         sessionStorage.setItem(`${user.email}`, JSON.stringify({loginstatus: true}));
-//         setAuth(true);
-//         history.push('/admin');
-//       }
-//       else alert("로그인 정보가 일치하지 않습니다!")
-//     })
-//     console.log("data: ", user);
-//   }
+  // const getUserBalance = async () => {
+  //   const userBalance = await pool.query(`SELECT * FROM signUp WHERE email = '${sessionStorage.user}'`);
+  //   console.log(userBalance)
+  // }
+  // getUserBalance()
   return (
     <>
       <PanelHeader size="sm" />
@@ -69,112 +51,79 @@ function User() {
           <Col md="8">
             <Card>
               <CardHeader>
-                <h5 className="title">Edit Profile</h5>
+                <h5 className="title">User Profile</h5>
               </CardHeader>
               <CardBody>
                 <Form>
-                  <Row>
-                    <Col className="pr-1" md="5">
+                  <Row className="profile-row">
+                    <Col xs={6}>
                       <FormGroup>
-                        <label>Company (disabled)</label>
+                        <label className="profile-label">Email</label>
                         <Input
-                          defaultValue="Creative Code Inc."
                           disabled
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-1" md="3">
-                      <FormGroup>
-                        <label>Username</label>
-                        <Input
-                          defaultValue="michael23"
-                          placeholder="Username"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <FormGroup>
-                        <label htmlFor="exampleInputEmail1">
-                          Email address
-                        </label>
-                        <Input placeholder="Email" type="email" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-1" md="6">
-                      <FormGroup>
-                        <label>First Name</label>
-                        <Input
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-1" md="6">
-                      <FormGroup>
-                        <label>Last Name</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
+                          defaultValue="Zero Sugar Company"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md="12">
+                  <Row className="profile-row">
+                    <Col xs={6}>
                       <FormGroup>
-                        <label>Address</label>
+                        <label className="profile-label">Password</label>
                         <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
+                          defaultValue="*******"
+                          placeholder="Password"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col className="pr-1" md="4">
+                  <Row className="profile-row">
+                    <Col xs={6}>
                       <FormGroup>
-                        <label>City</label>
+                        <label className="profile-label">Name</label>
                         <Input
-                          defaultValue="Mike"
+                          defaultValue="Your Name"
+                          placeholder="Name"
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row className="profile-row">
+                    <Col xs={6}>
+                      <FormGroup>
+                        <label className="profile-label">City</label>
+                        <Input
+                          defaultValue="Seoul"
                           placeholder="City"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
-                    <Col className="px-1" md="4">
+                  </Row>
+                  <Row className="profile-row">
+                    <Col xs={6}>
                       <FormGroup>
-                        <label>Country</label>
+                        <label className="profile-label">Country</label>
                         <Input
-                          defaultValue="Andrew"
+                          defaultValue="South Korea"
                           placeholder="Country"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
-                    <Col className="pl-1" md="4">
-                      <FormGroup>
-                        <label>Postal Code</label>
-                        <Input placeholder="ZIP Code" type="number" />
-                      </FormGroup>
-                    </Col>
                   </Row>
-                  <Row>
+                  <Row className="profile-row">
                     <Col md="12">
                       <FormGroup>
-                        <label>About Me</label>
+                        <label className="profile-label">About Me</label>
                         <Input
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
-                          placeholder="Here can be your description"
+                          className="profile-description"
+                          cols="40"
+                          defaultValue="안녕하세요 제로컴퍼니입니다."
+                          placeholder="Your description"
                           rows="4"
                           type="textarea"
                         />
@@ -196,7 +145,7 @@ function User() {
                     <img
                       alt="..."
                       className="avatar border-gray"
-                      src={profilePic}
+                      src="https://www.sprite.com/content/dam/nagbrands/us/sprite/en/products/thirst-for-yours/products/sprite-zero/desktop/sprite_zero_featurecan.jpg"
                     />
                     <h5 className="title">Mike Andrew</h5>
                   </a>
@@ -209,37 +158,11 @@ function User() {
                 </p>
               </CardBody>
               <hr />
-              <div className="button-container">
-                <Button
-                  className="btn-neutral btn-icon btn-round"
-                  color="default"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  size="lg"
-                >
-                  <i className="fab fa-facebook-f" />
-                </Button>
-                <Button
-                  className="btn-neutral btn-icon btn-round"
-                  color="default"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  size="lg"
-                >
-                  <i className="fab fa-twitter" />
-                </Button>
-                <Button
-                  className="btn-neutral btn-icon btn-round"
-                  color="default"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  size="lg"
-                >
-                  <i className="fab fa-google-plus-g" />
-                </Button>
-              </div>
             </Card>
           </Col>
+        </Row>
+        <Row>
+          <Button className="profile-btn">저장하기</Button>
         </Row>
       </div>
     </>
