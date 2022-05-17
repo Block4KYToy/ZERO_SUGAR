@@ -95,13 +95,13 @@ var dashRoutes = [
   //   component: Login,
   //   layout: "/admin",
   // },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "design-2_ruler-pencil",
-    component: Login,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   icon: "design-2_ruler-pencil",
+  //   component: Login,
+  //   layout: "/admin",
+  // },
   // {
   //   pro: true,
   //   path: "/upgrade",

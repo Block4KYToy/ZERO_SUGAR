@@ -57,6 +57,7 @@ function Login(props) {
       }
       else alert("로그인 정보가 일치하지 않습니다!")
     })
+    console.log(sessionStorage.email)
   }
 
   return (

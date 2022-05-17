@@ -192,7 +192,7 @@ const Dashboard = (event) => {
         // 반복문을 통해서 timestamp 을 실제 시간으로 바꿔서 출력한다.
         for(let i = 0; i < 107; i++){
           Unix_timestamp(response.data[0][i].timestamp)
-          console.log(Unix_timestamp(response.data[0][i].timestamp))
+          // console.log(Unix_timestamp(response.data[0][i].timestamp))
         }
 
         // unix timestamp -> real time
@@ -282,21 +282,7 @@ const Dashboard = (event) => {
               // // let timestampFilter = timestamp.filter((element) => element !== '35:36')
               // setTmArr(TmArr => [...TmArr, (response.data[0][0].timestamp)])
             
-        console.log(unixT)
-        console.log("timestamp[0] : ", timestamp[0][0])
-        console.log(timestamp[1])
-        console.log(timestamp[2])
-        console.log(timestamp[3])
-        console.log(timestamp[4])
-        console.log(timestamp[5])
-        console.log(timestamp[6])
-        console.log(timestamp[7])
-        console.log(timestamp[8])
-        console.log(timestamp[9])
-        console.log(timestamp[10])
-        console.log(timestamp[11])
         }
-        console.log(realTmArr[0])
         
         // console.log("realTmArr : ", realTmArr)
         
@@ -428,14 +414,13 @@ const Dashboard = (event) => {
     setFilteredData(result);
 }
 
-useEffect(() => {
-    axios.get('http://localhost:4000/admin/dashBoard')
-    .then((res) => {
-        // console.log(res.data)
-        setAllData(res.data)
-        setFilteredData(res.data)
-        // setAllData(res.data)
-
+    useEffect(() => {
+      axios.get('http://localhost:4000/admin/dashBoard')
+      .then((res) => {
+          // console.log(res.data)
+          setAllData(res.data)
+          setFilteredData(res.data)
+          // setAllData(res.data)
     })
     }, []);
 
@@ -478,6 +463,8 @@ useEffect(() => {
         <RecentBlock allData={allData} setAllData={setAllData}/>
         <RecentTransaction />
       </div>
+      <button className="login-btn">Block Mining</button>
+
     </>
   );
 }

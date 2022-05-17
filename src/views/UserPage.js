@@ -15,7 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 // image import
 import profilePic from '../assets/img/mike.jpg';
 import bg5 from '../assets/img/bg5.jpg';
@@ -36,6 +38,29 @@ import {
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function User() {
+//   let history = useHistory();
+//   const { setAuth } = props;
+//   const [user, setUser] = useState({balance})
+//   // console.log("login : ", props);
+
+//   const handleSubmit = async() => {
+//     // USER GET
+//     const result = await axios.post('http://localhost:4000/login', {
+//         data: user,
+//     })
+//     .then((res) => {
+//       let result = res.data;
+//       // 입력정보가 db정보와 일치하는가
+//       if (result === "성공") {
+//         console.log("성공!");
+//         sessionStorage.setItem(`${user.email}`, JSON.stringify({loginstatus: true}));
+//         setAuth(true);
+//         history.push('/admin');
+//       }
+//       else alert("로그인 정보가 일치하지 않습니다!")
+//     })
+//     console.log("data: ", user);
+//   }
   return (
     <>
       <PanelHeader size="sm" />

@@ -66,7 +66,7 @@ const initHttpServer = (myHttpPort) => {
         res.redirect('/blocks');
     })
 
-    app.post('/autoMineBlock', (req, res) => {
+    app.post('/autoMineBlock', async(req, res) => {
         console.log(req.body)
         autoMineBlock(req.body.data, req.body.count)
         res.redirect('/blocks')
