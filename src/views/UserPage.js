@@ -19,6 +19,7 @@ import React from "react";
 // image import
 import profilePic from '../assets/img/mike.jpg';
 import bg5 from '../assets/img/bg5.jpg';
+import axios from "axios";
 // reactstrap components
 import {
   Button,
@@ -36,6 +37,34 @@ import {
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function User() {
+  const [user, setUser] = React.useState('');
+  const [balance, setBalance] = React.useState(0);
+
+  
+  const getUserBalance = async () => {
+    if(sessionStorage.user) {
+      setUser(sessionStorage.user)
+    }
+    try {
+      await axios.post('http://localhost:4000/userData', {
+        data: user 
+      }).then((res) => {
+        // console.log(res.data[0].balance)
+        setBalance(res.data[0].balance)
+      })
+       
+    } catch (e) {
+      console.log(e)
+      alert("/userData 백서버 오류")
+    }
+    // console.log(userBalance)
+  }
+
+  React.useEffect(()=> {
+    getUserBalance();
+  }, [user]) 
+
+  console.log("user balance : ", balance)
   return (
     <>
       <PanelHeader size="sm" />
@@ -44,22 +73,11 @@ function User() {
           <Col md="8">
             <Card>
               <CardHeader>
-                <h5 className="title">Edit Profile</h5>
+                <h5 className="title">User Profile</h5>
               </CardHeader>
               <CardBody>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
-                      <FormGroup>
-                        <label>Company (disabled)</label>
-                        <Input
-                          defaultValue="Creative Code Inc."
-                          disabled
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
                     <Col className="px-1" md="3">
                       <FormGroup>
                         <label>Username</label>
@@ -76,6 +94,17 @@ function User() {
                           Email address
                         </label>
                         <Input placeholder="Email" type="email" />
+                      </FormGroup>
+                    </Col>
+                    <Col className="pr-1" md="5">
+                      <FormGroup>
+                        <label>Balance</label>
+                        <Input
+                          defaultValue="로딩중"
+                          disabled
+                          placeholder="Balance"
+                          type="number"
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
