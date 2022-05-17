@@ -209,16 +209,65 @@ const Dashboard = (event) => {
         let timestamp = [];
         let data = response.data[0];
         let unixT = [Unix_timestamp(data[0].timestamp)];
+        console.log("unixT : ", unixT)
 
         for(let i = 0; i < 107; i++) {
             // for(let j = 0; j < 25; j++){
               // let unixT = [Unix_timestamp(data[0].timestamp)];
-              if (i <= 24 && i > 0) {
-                unixT += [Unix_timestamp(data[i].timestamp)];
-                console.log(unixT)
-                // 25 0000:3538
-                // 13 00003536
-                // console.log([Unix_timestamp(data[0].timestamp)] + [Unix_timestamp(data[i].timestamp)]);
+              // 1번째 배열 24
+              if (i <= 24 && i > 0) { unixT.push(Unix_timestamp(data[i].timestamp))}
+              if (i == 24) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[25].timestamp)]}  
+              // 2번째 배열 27
+              if (i <= 51 && i > 24) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 51) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[52].timestamp)]}
+              // 3번째 배열 12
+              if (i <= 63 && i > 51) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 63) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[64].timestamp)]} 
+              // 4번째 배열 8
+              if (i <= 71 && i > 63) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 71) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[72].timestamp)]}
+              // 5번째 배열 6
+              if (i <= 77 && i > 71) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 77) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[78].timestamp)]}
+              // 6번째 배열 7
+              if (i <= 84 && i > 77) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 84) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[85].timestamp)]}
+              // 7번째 배열 8
+              if (i <= 92 && i > 84) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 92) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[93].timestamp)]}
+              // 8번째 배열 3
+              if (i <= 95 && i > 92) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 95) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[96].timestamp)]}
+              // 9번째 배열 3
+              if (i <= 98 && i > 95) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 98) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[99].timestamp)]}
+              // 10번째 배열 5
+              if (i <= 103 && i > 98) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 103) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[104].timestamp)]}
+              // 11번째 배열 1
+              if (i <= 104 && i > 103) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 104) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[105].timestamp)]}
+              // 12번째 배열 3
+              if (i <= 106 && i > 104) { unixT.push(Unix_timestamp(data[i].timestamp));}
+              if (i == 106) { timestamp.push(unixT);
+                unixT = [Unix_timestamp(data[0].timestamp)]}
+            }
+            for(let j = 0; j < 12; j++)
+            {
+              setrealTmArr(realTmArr => [...realTmArr, timestamp[0][j]])
+            }
+              //   console.log([Unix_timestamp(data[0].timestamp)] + [Unix_timestamp(data[i].timestamp)]);
               // timestamp.push([Unix_timestamp(data[0][0].timestamp)] + [Unix_timestamp(data[i].timestamp)]);
               // let times = timestamp[timestamp.length - 1]
               // console.log(times)
@@ -226,17 +275,23 @@ const Dashboard = (event) => {
               // console.log(timestampFilter)
               // // let timestampFilter = timestamp.filter((element) => element !== '35:36')
               // setTmArr(TmArr => [...TmArr, (response.data[0][0].timestamp)])
-              // setrealTmArr(realTmArr => [...realTmArr, timestamp])
-              // setidLeng(idLeng => [...idLeng, response.data[0][i].index])
-              }
-              
-            // } if(i == 27) {
-            // setTmArr(TmArr => [...TmArr, response.data[0][i].timestamp])
-            // setrealTmArr(realTmArr => [...realTmArr, Unix_timestamp(response.data[0][i].timestamp)])
-            // setidLeng(idLeng => [...idLeng, response.data[0][i].index])
-          }
-          // }
+              // setidLeng(idLeng => [...idLeng, response.data[0][i].index]) 
+            
+        console.log(unixT)
+        console.log("timestamp[0] : ", timestamp[0][0])
+        console.log(timestamp[1])
+        console.log(timestamp[2])
+        console.log(timestamp[3])
+        console.log(timestamp[4])
+        console.log(timestamp[5])
+        console.log(timestamp[6])
+        console.log(timestamp[7])
+        console.log(timestamp[8])
+        console.log(timestamp[9])
+        console.log(timestamp[10])
+        console.log(timestamp[11])
         }
+        console.log(realTmArr[0])
     const dashboardPanelChart = {
 
   
@@ -252,11 +307,11 @@ const Dashboard = (event) => {
         // console.log(realTmArr[1])
         return {
           labels: [
-            `${realTmArr[28]}`,
-            `${realTmArr[99]}`,
-            `${realTmArr[99]}`,
-            `${realTmArr[99]}`,
-            `${realTmArr[99]}`,
+            `${realTmArr[0]}`,
+            `${realTmArr[1]}`,
+            `${realTmArr[2]}`,
+            `${realTmArr[3]}`,
+            `${realTmArr[4]}`,
             `${realTmArr[99]}`,
             `${realTmArr[99]}`,
             `${realTmArr[99]}`,
