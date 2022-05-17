@@ -4,9 +4,20 @@ const pool = require('../db')
 
 router.get('/admin/dashBoard', async(req, res) => {
     const blocks = await pool.query(`SELECT * FROM blocks`)
-    res.json(blocks)
-    console.log(blocks[0])
+    res.json(blocks);
+    console.log(blocks[0]);
 })
+
+// router.get('/block', async (req, res) => {
+//     console.log("blocks");
+//     console.log(req.query);
+//     let blockIndex = parseInt(req.query.index);
+//     console.log(blockIndex);
+//     const blocks = await pool.query(`SELECT * FROM blocks WHERE index= '${blockIndex}'`)
+//     console.log("data:", blocks[0]);
+//     // res.json(blocks);
+//     // console.log(blocks[0]);
+// })
 
 
 // router.get(`/indexTime`, (req, res) => {

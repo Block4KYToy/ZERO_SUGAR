@@ -88,3 +88,30 @@
 .search-td:hover {
     transform: scale(1.07);
 }
+.block-table {
+    display: flex;
+}
+.block-table-header {
+    text-decoration: underline;
+    font-size: 1.875rem;
+    font-weight: bolder;
+}
+
+.block-content {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+    font-size: 1rem;
+    /* color: #0092ff; */
+    margin-bottom: .1875rem;
+}
+
+.block-content-header {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0092ff;
+    margin-bottom: .1875rem;
+}

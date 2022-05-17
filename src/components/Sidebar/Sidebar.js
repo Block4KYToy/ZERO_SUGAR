@@ -80,7 +80,7 @@ function Sidebar(props) {
         <Nav>
           {props.routes.map((prop, key) => {
             let authPage = ["Signup", "Login"]
-            if (prop.redirect) return null;
+            if (prop.redirect || prop.name === "Table List") return null;
             // console.log(prop.name)
             if ((authPage.includes(prop.name) && props.auth) 
               || (!props.auth && prop.name==="Logout")
