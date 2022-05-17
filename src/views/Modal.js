@@ -52,7 +52,7 @@ export default function Modal() {
             (
             <section>
                 <header>
-                    <button className="close">
+                    <button className="close" onClick={closeModal}>
                     &times;
                     </button>
                 </header>
