@@ -36,6 +36,11 @@ import {
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function User() {
+  // const getUserBalance = async () => {
+  //   const userBalance = await pool.query(`SELECT * FROM signUp WHERE email = '${sessionStorage.user}'`);
+  //   console.log(userBalance)
+  // }
+  // getUserBalance()
   return (
     <>
       <PanelHeader size="sm" />
@@ -44,28 +49,17 @@ function User() {
           <Col md="8">
             <Card>
               <CardHeader>
-                <h5 className="title">Edit Profile</h5>
+                <h5 className="title">User Profile</h5>
               </CardHeader>
               <CardBody>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
-                      <FormGroup>
-                        <label>Company (disabled)</label>
-                        <Input
-                          defaultValue="Creative Code Inc."
-                          disabled
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
                     <Col className="px-1" md="3">
                       <FormGroup>
-                        <label>Username</label>
+                        <label>Name</label>
                         <Input
-                          defaultValue="michael23"
-                          placeholder="Username"
+                          defaultValue="계정 이름"
+                          placeholder=""
                           type="text"
                         />
                       </FormGroup>
@@ -75,7 +69,18 @@ function User() {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Input placeholder="Email" type="email" />
+                        <Input defaultValue="계정 메일" placeholder="" type="email" />
+                      </FormGroup>
+                    </Col>
+                    <Col className="pr-1" md="5">
+                      <FormGroup>
+                        <label>Balance</label>
+                        <Input
+                          defaultValue="로딩중"
+                          disabled
+                          placeholder="Balance"
+                          type="number"
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
