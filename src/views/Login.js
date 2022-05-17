@@ -56,7 +56,7 @@ function Login(props) {
         console.log("성공!");
         sessionStorage.setItem('user', `${user.email}`);
         sessionStorage.setItem('loginstatus', true);
-        setAuth(true);
+        dispatch({type:'USER_LOGIN'})
         history.push('/admin');
       }
       else alert("로그인 정보가 일치하지 않습니다!")

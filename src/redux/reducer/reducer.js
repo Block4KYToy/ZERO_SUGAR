@@ -11,7 +11,8 @@ function reducer(state = initialState, action) {
         case "USER_LOGOUT" :
             return {
                 ...state, auth: false};
-        default: return { ...state }
+        default: 
+            return state
     }
 }
 
