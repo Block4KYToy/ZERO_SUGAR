@@ -19,9 +19,10 @@ const SuggestionBar = ({searchData}) => {
         eventTarget.style.fontWeight = "500";
         eventTarget.style.fontSize = "1.125rem";
     }
-    
+
     const routeBlock = (index) => {
-        window.location.href = `/admin/block/${index}`;
+        history.push(`/admin/block/${index}`)
+        // window.location.href = `/admin/block/${index}`;
     }
 
     return (

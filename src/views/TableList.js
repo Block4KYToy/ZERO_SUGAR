@@ -84,7 +84,7 @@ function TableList() {
         time: [hour, min, sec],
       })
     })
-  },[])
+  },[index])
   return (
     <>
       <PanelHeader size="sm" />
