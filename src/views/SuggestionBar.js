@@ -19,15 +19,9 @@ const SuggestionBar = ({searchData}) => {
         eventTarget.style.fontWeight = "500";
         eventTarget.style.fontSize = "1.125rem";
     }
-
+    
     const routeBlock = (index) => {
-        // console.log(e.target.innerHTML);
-        // let userRoute = e.target.innerHTML
-        // let routeBlockIndex = searchData.filter((data) => 
-            // data.index == userRoute || data.hash == userRoute
-        // )[0].index;
-        // console.log(routeBlockIndex);
-        history.push(`/admin/block/${index}`);
+        window.location.href = `/admin/block/${index}`;
     }
 
     return (
