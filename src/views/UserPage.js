@@ -44,9 +44,7 @@ function User() {
 
   
   const getUserBalance = async () => {
-    if(sessionStorage.user) {
-      setUser(sessionStorage.user)
-    }
+
     try {
       await axios.post('http://localhost:4000/userData', {
         data: user 
@@ -57,14 +55,19 @@ function User() {
        
     } catch (e) {
       console.log(e)
-      alert("/userData 백서버 오류")
+      // alert("/userData 백서버 오류")
     }
     // console.log(userBalance)
   }
 
   React.useEffect(()=> {
-    getUserBalance();
-  }, [user]) 
+    if(sessionStorage.user) {
+      setUser(sessionStorage.user)
+      getUserBalance();
+      
+    }
+
+  },) 
 
   console.log("user balance : ", balance)
 
@@ -73,12 +76,21 @@ function User() {
       await axios.post('http://localhost:4000/userData', {
         data: user 
       }).then((res) => {
+        // console.log(res.data)
         setPublicKey(res.data[0].publicKey)
+        const userMineBlocks = async() => {
+          await axios.post('http://localhost:3001/userMineBlock',{
+            address: publicKey
+          }).then((res) => {
+          // console.log(res.data)
+          console.log('채굴 완료')
+          })
+        } 
+        userMineBlocks()     
       })
-       
     } catch (e) {
       console.log(e)
-      alert("/userData 백서버 오류")
+      console.log("/userData 백서버 오류")
     }
     console.log(publicKey)
   
@@ -246,6 +258,7 @@ function User() {
           <Button className="profile-btn">저장하기</Button>
         </Row>
       </div>
+      <button onClick={mineBlock}>MineBlock</button>
     </>
   );
 }

@@ -35,7 +35,6 @@ function Login(props) {
   const auth = useSelector((state) => state.auth);
   const { setAuth } = props;
   const dispatch = useDispatch();
-  const { setAuth } = props;
   const [user, setUser] = useState({email: "", password: ""})
   // console.log("login : ", props);
 
