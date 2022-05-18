@@ -54,9 +54,11 @@ function Login(props) {
       let result = res.data;
       // 입력정보가 db정보와 일치하는가
       if (result === "성공") {
-        console.log("성공!");
+        // console.log("성공!");
         sessionStorage.setItem('user', `${user.email}`);
+        sessionStorage.setItem('password', `${user.password}`);
         sessionStorage.setItem('loginstatus', true);
+        // setAuth(true);
         dispatch({type: "USER_LOGIN"});
         history.push('/admin');
       }
@@ -83,8 +85,8 @@ function Login(props) {
                   <img className="zero-sugar" src={Zeros} alt="Zero Sugar"/>
                 </div>
                 <div className="input-box">
-                  <input name="email" type="text" placeholder="Email" value={user.email} onChange={handleChange}/><br />
-                  <input name="password" type="password" placeholder="Password" value={user.password} onChange={handleChange}/><br />
+                  <input className="sign-input" name="email" type="text" placeholder="Email" value={user.email} onChange={handleChange}/><br />
+                  <input className="sign-input" name="password" type="password" placeholder="Password" value={user.password} onChange={handleChange}/><br />
                 </div>
                 <button onClick={handleSubmit} className="login-btn">Sign in</button>
               </CardBody>

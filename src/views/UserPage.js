@@ -38,64 +38,122 @@ import {
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function User() {
-  const [user, setUser] = React.useState('');
+  const [user, setUser] = React.useState('')
+  const [userdata, setUserData] = React.useState([]);
   const [balance, setBalance] = React.useState(0);
-  const [publicKey, setPublicKey] = React.useState('');
+  const [count, setCount] = React.useState(0)
 
-  
-  const getUserBalance = async () => {
-
-    try {
-      await axios.post('http://localhost:4000/userData', {
-        data: user 
-      }).then((res) => {
-        // console.log(res.data[0].balance)
-        setBalance(res.data[0].balance)
-      })
-       
-    } catch (e) {
-      console.log(e)
-      // alert("/userData 백서버 오류")
-    }
-    // console.log(userBalance)
+  const onChange = (e) => {
+    setCount(e.target.value)
+    // console.log(count)
   }
 
-  React.useEffect(()=> {
-    if(sessionStorage.user) {
-      setUser(sessionStorage.user)
-      getUserBalance();
-      
-    }
-
-  },) 
-
-  console.log("user balance : ", balance)
-
-  const mineBlock = async() => {
+  const getUser = async () => {
     try {
       await axios.post('http://localhost:4000/userData', {
-        data: user 
+        data: user
       }).then((res) => {
-        // console.log(res.data)
-        setPublicKey(res.data[0].publicKey)
-        const userMineBlocks = async() => {
-          await axios.post('http://localhost:3001/userMineBlock',{
-            address: publicKey
-          }).then((res) => {
-          // console.log(res.data)
-          console.log('채굴 완료')
-          })
-        } 
-        userMineBlocks()     
+        // console.log(res.data[0])
+        setUserData(res.data[0])
       })
+
     } catch (e) {
       console.log(e)
       console.log("/userData 백서버 오류")
     }
-    console.log(publicKey)
-  
+    // console.log(userBalance)
   }
-  return (  
+  // console.log(userdata);
+  const mineBlock = async () => {
+    if (userdata.publicKey) {
+      try {
+        await axios.post('http://localhost:3001/userMineBlock', {
+          address: userdata.publicKey
+        }).then((res) => {
+          alert("채굴성공")
+          console.log(res.data)
+        })
+      } catch (e) {
+        console.log(e)
+        console.log("/userData 백서버 오류")
+      }
+    }
+    updateBalance();
+  }
+  const autoMine = async () => {
+    if (userdata.publicKey) {
+      try {
+        await axios.post('http://localhost:3001/autoMineBlock', {
+          address: userdata.publicKey,
+          count: count
+        }).then((res) => {
+          // alert("채굴성공")
+          console.log(res.data)
+        })
+      } catch (e) {
+        console.log(e)
+        console.log("/userData 백서버 오류")
+      }
+    }
+  }
+
+  const updateBalance = async () => {
+    if (userdata.publicKey) {
+      try {
+        await axios.post('http://localhost:3001/balanceUser', {
+          address: userdata.publicKey
+        }).then((res) => {
+          // alert("채굴성공")
+          // console.log(res.data)
+          setBalance(res.data.balance)
+        })
+      } catch (e) {
+        console.log(e)
+        console.log("/userData 백서버 오류")
+      }
+    }
+  }
+
+  const updateUserInfo = async (name, password, about) => {
+    try {
+      await axios.post('http://localhost:4000/updateUser', {
+        email: sessionStorage.getItem('user'),
+        name: name,
+        password: password,
+        about: about
+      }).then((res) => {
+        // console.log(res.data)
+        let result = res.data
+        console.log(result);
+        if (result=="성공") {
+          setUserData({...userdata, name: name, password: password});
+          sessionStorage.setItem('password', password);
+        }
+        console.log("유저정보 업데이트 성공!")
+      })
+    } catch (e) {
+      console.log(e)
+      console.log("백서버 오류")
+    }
+  }
+
+
+  React.useEffect(() => {
+    if (sessionStorage.user) {
+      setUser(sessionStorage.user)
+    }
+    getUser()
+    // updateBalance()
+
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const {name, password, about} = e.target;
+    updateUserInfo(name.value, password.value, about.value);
+  }
+
+  return (
     <>
       <PanelHeader size="sm" />
       <div className="content">
@@ -106,122 +164,101 @@ function User() {
                 <h5 className="title">User Profile</h5>
               </CardHeader>
               <CardBody>
-                <Form>
-                  <Row>
-                    <Col className="px-1" md="3">
+                <Form onSubmit={(e) => handleSubmit(e)}>
+                  <Row className="profile-row">
+                    <Col xs={8}>
                       <FormGroup>
-                        <label>Username</label>
+                        <label className="profile-label">Email address</label>
                         <Input
-                          defaultValue="michael23"
-                          placeholder="Username"
-                          type="text"
+                          placeholder={userdata? userdata.email : "email"} 
+                          type="email"
+                          disabled
                         />
                       </FormGroup>
                     </Col>
-                    <Col className="pl-1" md="4">
+                  </Row>
+                  <Row className="profile-row">
+                    <Col xs={8}>
                       <FormGroup>
-                        <label htmlFor="exampleInputEmail1">
-                          Email address
-                        </label>
-                        <Input placeholder="Email" type="email" />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pr-1" md="5">
-                      <FormGroup>
-                        <label>Balance</label>
+                        <label className="profile-label">Balance</label>
                         <Input
                           defaultValue="로딩중"
                           disabled
-                          placeholder="Balance"
+                          placeholder={balance}
                           type="number"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col className="pr-1" md="6">
+                  <Row className="profile-row">
+                    <Col xs={8}>
                       <FormGroup>
-                        <label>First Name</label>
+                        <label className="profile-label">Public Key</label>
                         <Input
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-1" md="6">
-                      <FormGroup>
-                        <label>Last Name</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
+                          defaultValue=""
+                          disabled
+                          placeholder={userdata ? userdata.publicKey : "publicKey"}
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row className="profile-row">
-                    <Col xs={6}>
+                    <Col xs={8}>
+                      <FormGroup>
+                        <label className="profile-label">Private Key</label>
+                        <Input
+                          disabled
+                          placeholder={userdata ? userdata.privateKey : "privatekey"}
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row className="profile-row">
+                    <Col xs={8}>
                       <FormGroup>
                         <label className="profile-label">Password</label>
                         <Input
-                          defaultValue="*******"
+                          defaultValue={userdata? userdata.password : "Password"}
                           placeholder="Password"
-                          type="text"
+                          type="password"
+                          name="password"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row className="profile-row">
-                    <Col xs={6}>
+                    <Col xs={8}>
                       <FormGroup>
                         <label className="profile-label">Name</label>
                         <Input
-                          defaultValue="Your Name"
-                          placeholder="Name"
+                          defaultValue={userdata? userdata.name : "Name"}
+                          placeholder="Your Name"
                           type="text"
+                          name="name"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row className="profile-row">
-                    <Col xs={6}>
-                      <FormGroup>
-                        <label className="profile-label">City</label>
-                        <Input
-                          defaultValue="Seoul"
-                          placeholder="City"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row className="profile-row">
-                    <Col xs={6}>
-                      <FormGroup>
-                        <label className="profile-label">Country</label>
-                        <Input
-                          defaultValue="South Korea"
-                          placeholder="Country"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row className="profile-row">
-                    <Col md="12">
+                    <Col xs={8}>
                       <FormGroup>
                         <label className="profile-label">About Me</label>
                         <Input
-                          className="profile-description"
-                          cols="40"
+                          // className="profile-description"
+                          // cols="40"
                           defaultValue="안녕하세요 제로컴퍼니입니다."
                           placeholder="Your description"
-                          rows="4"
-                          type="textarea"
+                          // rows="4"
+                          type="text"
+                          name="about"
                         />
                       </FormGroup>
                     </Col>
+                  </Row>
+                  <Row>
+                    <Button type="submit" className="profile-btn">저장하기</Button>
                   </Row>
                 </Form>
               </CardBody>
@@ -240,25 +277,25 @@ function User() {
                       className="avatar border-gray"
                       src="https://www.sprite.com/content/dam/nagbrands/us/sprite/en/products/thirst-for-yours/products/sprite-zero/desktop/sprite_zero_featurecan.jpg"
                     />
-                    <h5 className="title">Mike Andrew</h5>
+                    <h5 className="title">Zero Sugar</h5>
                   </a>
-                  <p className="description">michael24</p>
+                  <p className="description">Sugar Restricted.</p>
                 </div>
                 <p className="description text-center">
-                  "Lamborghini Mercy <br />
-                  Your chick she so thirsty <br />
-                  I'm in that two seat Lambo"
+                  Excessive sugar intake can lead to diabetes. <br />
                 </p>
               </CardBody>
               <hr />
             </Card>
           </Col>
         </Row>
-        <Row>
-          <Button className="profile-btn">저장하기</Button>
-        </Row>
       </div>
-      <button onClick={mineBlock}>MineBlock</button>
+      <Button className="mining-btn" onClick={() => mineBlock()}>광부 모드(mine block!!!)</Button>
+      {/* <button onClick={mineBlock}>mine block</button> */}
+      {/* <br></br> */}
+      <input name="count" type="number" onChange={onChange} />
+      <button type="button" onClick={autoMine}>auto mine block</button>
+
     </>
   );
 }

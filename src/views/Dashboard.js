@@ -187,7 +187,7 @@ const Dashboard = (event) => {
     var indexTime = async() => {
 
         const response = await axios.get(`http://localhost:4000/indexTime`)
-        console.log("index : ", response.data[0][1].index)
+        // console.log("index : ", response.data[0][1].index)
 
         // 반복문을 통해서 timestamp 을 실제 시간으로 바꿔서 출력한다.
         for(let i = 0; i < 107; i++){
@@ -214,7 +214,7 @@ const Dashboard = (event) => {
         let timestamp = [];
         let data = response.data[0];
         let unixT = [Unix_timestamp(data[1].timestamp)];
-        console.log("unixT : ", unixT)
+        // console.log("unixT : ", unixT)
 
         for(let i = 0; i < 107; i++) {
             // for(let j = 0; j < 25; j++){
@@ -273,19 +273,6 @@ const Dashboard = (event) => {
               setrealTmArr(realTmArr => [...realTmArr, timestamp[j][0]])
               setidLeng(idLeng => [...idLeng, timestamp[j].length]) 
             }
-              //   console.log([Unix_timestamp(data[0].timestamp)] + [Unix_timestamp(data[i].timestamp)]);
-              // timestamp.push([Unix_timestamp(data[0][0].timestamp)] + [Unix_timestamp(data[i].timestamp)]);
-              // let times = timestamp[timestamp.length - 1]
-              // console.log(times)
-              // let timestampFilter = [...new Set(timestamp)];
-              // console.log(timestampFilter)
-              // // let timestampFilter = timestamp.filter((element) => element !== '35:36')
-              // setTmArr(TmArr => [...TmArr, (response.data[0][0].timestamp)])
-            
-        }
-        
-        // console.log("realTmArr : ", realTmArr)
-        
     const dashboardPanelChart = {
 
   
@@ -400,7 +387,20 @@ const Dashboard = (event) => {
       }, 30);
     },[]);
   
-  const [filteredData,setFilteredData] = useState(allData);
+  const [filteredData, setFilteredData] = useState(allData);
+  const [addressArr, setAddressArr] = useState([]);
+
+  const getAllTxAddresses = (blockData) => {
+    console.log(blockData);
+    if (blockData.length === 0) return;
+    let addressArr = [];
+    blockData.forEach((block) => {
+      let address = JSON.parse(block.data)[0].txOuts[0].address;
+      if (!addressArr.includes(address)) addressArr.push(address);
+    });
+    console.log('addressArr:', addressArr)
+    return addressArr;
+  }
 
   const handleSearch = (event) => {
     let value = event.target.value.toLowerCase();
@@ -414,35 +414,12 @@ const Dashboard = (event) => {
     setFilteredData(result);
 }
 
-    useEffect(() => {
-      axios.get('http://localhost:4000/admin/dashBoard')
-      .then((res) => {
-          // console.log(res.data)
-          setAllData(res.data)
-          setFilteredData(res.data)
-          // setAllData(res.data)
-    })
-    }, []);
-
-  
-//   const [filteredData, setFilteredData] = useState(allData);
-
-//   const handleSearch = (event) => {
-//     let value = event.target.value.toLowerCase();
-//     let result = [];
-//         // console.log(value);
-//         if (value!=="") {
-//         result = allData.filter((data) => {
-//             return data.index == Number(value);
-//         });
-//     }
-//     setFilteredData(result);
-// }
-
-  useEffect(() => {
-    axios.get('http://localhost:4000/admin/dashBoard')
+  useEffect(async () => {
+    await axios.get('http://localhost:4000/admin/dashBoard')
     .then((res) => {
-        setAllData(res.data)
+        let data = getAllTxAddresses(res.data[0]);
+        setAllData(res.data);
+        setAddressArr(data);
     })
   }, []);
 
@@ -457,16 +434,15 @@ const Dashboard = (event) => {
           />
         }
       />
-      <div className="content">
-                    
+      <div className="content">                    
         <SearchBar allData={allData} />
         <RecentBlock allData={allData} setAllData={setAllData}/>
-        <RecentTransaction />
+        <RecentTransaction allData={allData} addressArr={addressArr}/>
       </div>
       <button className="login-btn">Block Mining</button>
 
     </>
   );
-}
+}}
 
 export default Dashboard;

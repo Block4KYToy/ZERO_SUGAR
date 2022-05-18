@@ -8,13 +8,14 @@ router.get(`/indexTime`, async(req, res) => {
     res.json(blocks)
 })
 router.get('/admin/dashBoard', async(req, res) => {
-    const blocks = await pool.query(`SELECT * FROM blocks`)
+    const blocks = await pool.query(`SELECT * FROM blocks_tx`)
     res.json(blocks);
 })
 
 router.get('/autoMineBlock', async(req, res) => {
     const sign = await pool.query(`SELECT * FROM signUp`)
     res.json(sign);
+    // console.log(blocks[0]);
 })
 
 // router.get('/block', async (req, res) => {

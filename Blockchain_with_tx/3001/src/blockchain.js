@@ -4,7 +4,7 @@ import { broadcastLatest, broadCastTransactionPool } from "./p2p.js";
 import { processTransactions, getCoinbaseTransaction, isValidAddress } from "./transaction.js";
 import { getTransactionPool, addToTransactionPool, updateTransactionPool } from "../../3001/src/transactionPool.js";
 import { hexToBinary } from "./util.js"
-import { findUnspentTxOuts, getPublicFromWallet, createTransaction, getPrivateFromWallet, getBalance } from "./wallet.js"
+import { findUnspentTxOuts, getPublicFromWallet, createTransaction, createTransactionFromUser, getPrivateFromWallet, getBalance } from "./wallet.js"
 import { pool } from "./db.js"
 
 
@@ -146,6 +146,20 @@ let userGenerateNextBlock = function (address) {
     return generateRawNextBlock(blockData);
 };
 
+let userAutoMineBlock = function (address, count) {
+    let mineCount = 0;
+    while (mineCount < count) {
+        let coinbaseTx = getCoinbaseTransaction(address, getLatestBlock().index + 1);
+        let blockData = [coinbaseTx].concat(getTransactionPool());
+        if (generateRawNextBlock(blockData)) {
+            mineCount++;
+        }
+        console.log(`${mineCount} of ${count} completed`)
+        console.log(blockData)
+    }
+    // return generateRawNextBlock(blockData);
+};
+
 let generatenextBlockWithTransaction = function (receiverAddress, amount) {
     if (!isValidAddress(receiverAddress)) {
         throw Error('invalid address');
@@ -182,8 +196,8 @@ let sendTransaction = function (address, amount) {
     broadCastTransactionPool();
     return tx;
 };
-let sendTransactionFromUser = function (fromAddress, toAddress, amount) {
-    let tx = createTransaction(toAddress, amount, fromAddress, getUnspentTxOuts(), getTransactionPool());
+let sendTransactionFromUser = function (fromAddress, senderPrivateKey, toAddress, amount) {
+    let tx = createTransactionFromUser(toAddress, amount, fromAddress, senderPrivateKey, getUnspentTxOuts(), getTransactionPool());
     addToTransactionPool(tx, getUnspentTxOuts());
     broadCastTransactionPool();
     return tx;
@@ -340,5 +354,5 @@ export {
     Block, updateBlocks, getBlockchain, getUnspentTxOuts, getLatestBlock, generateRawNextBlock,
     getMyUnspentTransactionOutputs, generateNextBlock, generatenextBlockWithTransaction, getAccountBalance,
     sendTransaction, isValidBlockStructure, addBlockToChain, replaceChain, handleReceivedTransaction, sendTransactionFromUser,
-    getAccountBalanceOfUser, userGenerateNextBlock
+    getAccountBalanceOfUser, userGenerateNextBlock, userAutoMineBlock
 }

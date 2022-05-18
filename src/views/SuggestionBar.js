@@ -21,7 +21,7 @@ const SuggestionBar = ({searchData}) => {
     }
 
     const routeBlock = (e) => {
-        console.log(e.target.innerHTML);
+        // console.log(e.target.innerHTML);
         let userRoute = e.target.innerHTML
         let routeBlockIndex = searchData.filter((data) => 
             data.index == userRoute || data.hash == userRoute
@@ -49,7 +49,7 @@ const SuggestionBar = ({searchData}) => {
                             onClick={routeBlock}
                         >
                             <Col lg={2} className="sug-col">{data.index}</Col>
-                            <Col lg={10} className="sug-col">{data.hash}</Col>
+                            <Col lg={10} className="sug-col">{data.hash.slice(0,20) + '.....' + data.hash.slice(data.hash.length-20)}</Col>
                         </Row>                                        
                     )}
                 </div>

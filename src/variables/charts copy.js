@@ -39,7 +39,7 @@ function Chart() {
     let i = 1;
     while(i < 110){
       const response = await axios.get(`http://localhost:4000/indexTime`)
-      console.log("response is : ",response)
+      // console.log("response is : ",response)
       // unix timestamp -> real time
       function Unix_timestamp(t){
         var date = new Date(t*1000);
