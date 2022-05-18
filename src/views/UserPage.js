@@ -95,6 +95,7 @@ function User() {
         console.log(e)
         console.log("/userData 백서버 오류")
       }
+      updateBalance();
     }
   }
 
