@@ -227,6 +227,12 @@ let isValidNewBlock = function (newBlock, previousBlock) {
         return false;
     }
     else if (previousBlock.hash !== newBlock.previousHash) {
+        console.log(previousBlock.index)
+        console.log(previousBlock.hash)
+        console.log(newBlock.index)
+        console.log(newBlock.previousHash)
+
+        
         console.log('invalid previoushash');
         return false;
     }
