@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 const SuggestionBar = ({searchData}) => {
     let history = useHistory();
+    
     const changeStyle = (e) => {
         let eventTarget = e.target.nextElementSibling != null ? e.target.nextElementSibling : e.target.previousElementSibling;
         e.target.style.fontWeight = "600";
@@ -27,7 +28,9 @@ const SuggestionBar = ({searchData}) => {
             // data.index == userRoute || data.hash == userRoute
         // )[0].index;
         // console.log(routeBlockIndex);
-        history.push(`/admin/block/${index}`);
+        // history.push(`/admin/block/${index}`);
+        // history.push(`/admin/block?q=${index}`);
+        window.location.href = `/admin/block/${index}`;
     }
 
     return (
@@ -48,8 +51,8 @@ const SuggestionBar = ({searchData}) => {
                             // onMouseOut={rewindStyle}
                             onClick={() => routeBlock(data.index)}
                         >
-                            <Col lg={2} className="sug-col">{data.index}</Col>
-                            <Col lg={10} className="sug-col">{data.hash.slice(0,20) + '.....' + data.hash.slice(data.hash.length-20)}</Col>
+                            <Col onClick={() => routeBlock(data.index)} lg={2} className="sug-col">{data.index}</Col>
+                            <Col onClick={() => routeBlock(data.index)} lg={10} className="sug-col">{data.hash.slice(0,20) + '.....' + data.hash.slice(data.hash.length-20)}</Col>
                         </Row>                                        
                     )}
                 </div>
