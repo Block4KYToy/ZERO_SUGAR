@@ -71,13 +71,15 @@ function User() {
         }).then((res) => {
           alert("채굴성공")
           console.log(res.data)
+
         })
+        updateBalance();
       } catch (e) {
         console.log(e)
         console.log("/userData 백서버 오류")
       }
     }
-    updateBalance();
+
   }
   const autoMine = async () => {
     if (userdata.publicKey) {
@@ -93,6 +95,7 @@ function User() {
         console.log(e)
         console.log("/userData 백서버 오류")
       }
+      updateBalance();
     }
   }
 
@@ -124,8 +127,8 @@ function User() {
         // console.log(res.data)
         let result = res.data
         console.log(result);
-        if (result=="성공") {
-          setUserData({...userdata, name: name, password: password});
+        if (result == "성공") {
+          setUserData({ ...userdata, name: name, password: password });
           sessionStorage.setItem('password', password);
         }
         console.log("유저정보 업데이트 성공!")
@@ -142,13 +145,14 @@ function User() {
       setUser(sessionStorage.user)
     }
     getUser()
-    // updateBalance()
+    updateBalance()
+    // console.log('bal', userdata)
 
   })
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {name, password, about} = e.target;
+    const { name, password, about } = e.target;
     updateUserInfo(name.value, password.value, about.value);
   }
 
@@ -169,7 +173,7 @@ function User() {
                       <FormGroup>
                         <label className="profile-label">Email address</label>
                         <Input
-                          placeholder={userdata? userdata.email : "email"} 
+                          placeholder={userdata ? userdata.email : "email"}
                           type="email"
                           disabled
                         />
@@ -219,7 +223,7 @@ function User() {
                       <FormGroup>
                         <label className="profile-label">Password</label>
                         <Input
-                          defaultValue={userdata? userdata.password : "Password"}
+                          defaultValue={userdata ? userdata.password : "Password"}
                           placeholder="Password"
                           type="password"
                           name="password"
@@ -232,7 +236,7 @@ function User() {
                       <FormGroup>
                         <label className="profile-label">Name</label>
                         <Input
-                          defaultValue={userdata? userdata.name : "Name"}
+                          defaultValue={userdata ? userdata.name : "Name"}
                           placeholder="Your Name"
                           type="text"
                           name="name"
@@ -247,7 +251,7 @@ function User() {
                         <Input
                           // className="profile-description"
                           // cols="40"
-                          defaultValue="안녕하세요 제로컴퍼니입니다."
+                          defaultValue="자기소개를 입력해주세요."
                           placeholder="Your description"
                           // rows="4"
                           type="text"
@@ -289,7 +293,7 @@ function User() {
           </Col>
         </Row>
       </div>
-      <Button className="mining-btn" onClick={() => mineBlock()}>광부 모드(mine block!!!)</Button>
+      <Button className="mining-btn" onClick={mineBlock}>광부 모드(mine block!!!)</Button>
       {/* <button onClick={mineBlock}>mine block</button> */}
       {/* <br></br> */}
       <input name="count" type="number" onChange={onChange} />

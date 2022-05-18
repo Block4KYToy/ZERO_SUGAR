@@ -50,6 +50,7 @@ const updateBlocks = async () => {
         // let retVal = (0, .processTransactions)(getLatestBlock().data, getUnspentTxOuts() || [], getLatestBlock().index);
         // setUnspentTxOuts(retVal);
         setUnspentTxOuts(isValidChain(blockchain) || []);
+        //여기서 이전 db상의 blockchain을 불러왔을때 vaildation과 unspentTxOuts 계산 없다면 빈배열
     }
 
     if (blockchain.length > 0 && blockchain.length > result.length) {
@@ -227,6 +228,12 @@ let isValidNewBlock = function (newBlock, previousBlock) {
         return false;
     }
     else if (previousBlock.hash !== newBlock.previousHash) {
+        console.log(previousBlock.index)
+        console.log(previousBlock.hash)
+        console.log(newBlock.index)
+        console.log(newBlock.previousHash)
+
+        
         console.log('invalid previoushash');
         return false;
     }
